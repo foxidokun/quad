@@ -4,3 +4,6 @@ BINPATH = ./main
 check: $(BINPATH)
 	g++ main.cpp -o $(BINPATH) $(CFLAGS)
 
+strict_check: $(BINPATH)
+	g++ main.cpp -o $(BINPATH) $(CFLAGS) -Werror
+

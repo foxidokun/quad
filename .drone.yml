@@ -1,0 +1,9 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: check
+    image: alpine
+    commands:
+      - make strict_check
