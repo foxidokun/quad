@@ -55,7 +55,7 @@ int solve_quad_eq(double a, double b, double c, double *x1, double *x2) {
         return solve_lin_eq(b, c, x1);
     } else {
         double disc = pow(b, 2) - 4 * a * c;
-        //Дискриминант равен нулю с учетом погрешности double арифметики
+        //Дискриминант равен нулю с учетом погрешности double арифметики (три операции при вычислении disc => 4 = 3+1)
         if (fabs(disc) < 4 * DBL_EPSILON) {
             *x1 = -b / (2 * a);
             return 1;
@@ -79,6 +79,7 @@ int solve_quad_eq(double a, double b, double c, double *x1, double *x2) {
  */
 int solve_lin_eq(double k, double b, double *x) {
     // k = 0 и решений либо нет, либо бесконечно много (при 0=0)
+    // 2 для большей уверенности
     if (fabs(k) < 2 * DBL_EPSILON) {
         if (fabs(b) < 2 * DBL_EPSILON) {
             return -1;
