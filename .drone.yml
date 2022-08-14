@@ -1,6 +1,21 @@
 kind: pipeline
 type: exec
-name: default
+name: check_compilation
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: check
+    commands:
+      - make check
+
+---
+
+kind: pipeline
+type: exec
+name: check_warnings
 
 platform:
   os: linux
