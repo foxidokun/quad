@@ -2,8 +2,8 @@ CHECK_FLAGS = -D _DEBUG -ggdb3 -std=c++20 -O0 -Wall -Wextra -Weffc++ -Waggressiv
 BINPATH = ./main
 
 check: $(BINPATH)
-	g++ main.cpp -o $(BINPATH) $(CFLAGS)
+	g++ main.cpp -o $(BINPATH) $(CHECK_FLAGS)
 
 strict_check: $(BINPATH)
-	g++ main.cpp -o $(BINPATH) $(CFLAGS) -Werror
+	g++ main.cpp -o $(BINPATH) $(CHECK_FLAGS) -Werror
 
