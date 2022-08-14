@@ -6,7 +6,8 @@ int solve_lin_eq(double k, double b, double *x);
 
 int solve_quad_eq(double a, double b, double c, double *x1, double *x2);
 
-int main() {
+int main()
+{
     double a = 0., b = 0., c = 0., x1 = 0., x2 = 0.;
     printf("Введите коэффициенты уравнения ax^2 + bx + c = 0\n");
     printf("a = ");
@@ -53,7 +54,8 @@ int main() {
  * @param x2 Указатель на переменную для второго корня (при наличии)
  * @return Количество найденных корней (0-2) или -1 если решений бесконечно много
  */
-int solve_quad_eq(double a, double b, double c, double *x1, double *x2) {
+int solve_quad_eq(double a, double b, double c, double *x1, double *x2)
+{
     // Уравнение является линейным
     if (fabs(a) < 2 * DBL_EPSILON) {
         return solve_lin_eq(b, c, x1);
@@ -81,7 +83,8 @@ int solve_quad_eq(double a, double b, double c, double *x1, double *x2) {
  * @param x Указатель на переменную для корня (при наличии)
  * @return Количество найденных корней или -1, если их бесконечно много
  */
-int solve_lin_eq(double k, double b, double *x) {
+int solve_lin_eq(double k, double b, double *x)
+{
     // k = 0 и решений либо нет, либо бесконечно много (при 0=0)
     // 2 для большей уверенности
     if (fabs(k) < 2 * DBL_EPSILON) {
