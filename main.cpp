@@ -30,6 +30,10 @@ int main() {
             break;
         case -1:
             printf("Решений бесконечно много\n");
+            break;
+        default:
+            fprintf(stderr, "Неожиданное количество корней");
+            return -1;
     }
 
     return 0;
