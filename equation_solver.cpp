@@ -26,7 +26,6 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
     } else {
         double disc = pow(b, 2) - 4 * a * c;
 
-        //Дискриминант равен нулю с учетом погрешности double арифметики (три операции при вычислении disc => 4 = 3+1)
         if (is_zero(disc)) {
             *x1 = -b / (2 * a);
             return ONE_ROOT;
@@ -52,7 +51,6 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
 enum num_roots solve_lin_eq(double k, double b, double *x)
 {
     // k = 0 и решений либо нет, либо бесконечно много (при 0=0)
-    // 2 для большей уверенности
     if (is_zero(k)) {
         if (is_zero(b)) {
             return INF_ROOTS;
@@ -65,6 +63,9 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
     }
 }
 
+/**
+ * Сравнивает переданное double число с учетом погрешности double арифметики
+ */
 static bool is_zero(double x)
 {
     return fabs(x) < 10 * DBL_EPSILON;

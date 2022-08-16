@@ -57,7 +57,7 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
             printf("Решений бесконечно много\n");
             break;
         default:
-            fprintf(stderr, "Неожиданное количество корней");
+            fprintf(stderr, "Некорректное количество корней");
             break;
     }
 }
