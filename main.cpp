@@ -24,9 +24,11 @@ int main()
             printf("Решений не найдено\n");
             break;
         case -1:
-        default:
             printf("Решений бесконечно много\n");
             break;
+        default:
+            fprintf(stderr, "Неожиданное количество корней");
+            return -1;
     }
 
     return 0;
