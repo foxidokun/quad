@@ -4,10 +4,11 @@
 #include "equation_solver.h"
 
 static bool is_zero(double x);
+static void set_if_not_null(double *ptr, double val);
 
 /**
- * Решает квадратное уравнение вида a*x^2 + b*x + c = 0, записывает решения (при наличии) в переданные переменные (x1 и x2)
- * и возвращает их количество в объекте enum num_roots \n\n
+ * Решает квадратное уравнение вида a*x^2 + b*x + c = 0, записывает решения (при наличии) в переданные переменные (x1 и x2),
+ * если они не nullptr, и возвращает их количество в объекте enum num_roots \n\n
  *
  * Если решений меньше двух, неиспользованные переменные не изменяют своего значения.
  * При наличии одного решения оно записывается в x1.
@@ -15,8 +16,8 @@ static bool is_zero(double x);
  * @param a Коэффициент при квадратичном члене
  * @param b Коэффициент при линейном члене
  * @param c Свободный коэффициент
- * @param x1 Указатель на переменную для первого корня (при наличии)
- * @param x2 Указатель на переменную для второго корня (при наличии)
+ * @param x1 Указатель на переменную для первого корня (при наличии) или nullptr
+ * @param x2 Указатель на переменную для второго корня (при наличии) или nullptr
  * @return Количество найденных корней
  */
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
@@ -28,14 +29,14 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
         double disc = pow(b, 2) - 4 * a * c;
 
         if (is_zero(disc)) {
-            *x1 = -b / (2 * a);
+            set_if_not_null(x1, -b / (2 * a));
             return ONE_ROOT;
         } else if (disc < 0) {
             return ZERO_ROOTS;
         } else {
             double sq_disc = sqrt(disc);
-            *x1 = (-b + sq_disc) / (2 * a);
-            *x2 = (-b - sq_disc) / (2 * a);
+            set_if_not_null(x1, (-b + sq_disc) / (2 * a));
+            set_if_not_null(x2, (-b - sq_disc) / (2 * a));
             return TWO_ROOTS;
         }
     }
@@ -59,7 +60,7 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
             return ZERO_ROOTS;
         }
     } else {
-        *x = -b / k;
+        set_if_not_null(x, -b / k);
         return ONE_ROOT;
     }
 }
@@ -94,4 +95,14 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
 static bool is_zero(double x)
 {
     return fabs(x) < 10 * DBL_EPSILON;
+}
+
+/**
+ * Записывает значение в данный указатель, если он не nullptr. Иначе ничего не делает
+ */
+static void set_if_not_null(double *ptr, double val)
+{
+    if (ptr != nullptr) {
+        *ptr = val;
+    }
 }
