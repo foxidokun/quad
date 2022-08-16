@@ -13,16 +13,22 @@ CFLAGS = -D _DEBUG -ggdb3 -std=c++20 -O0 -Wall -Wextra -Weffc++ -Waggressive-loo
 
 SAFETY_COMMAND = set -Eeuf -o pipefail && set -x
 
-$(BINDIR)/$(PROJ): $(OBJ)
-	g++ -o $(BINDIR)/$(PROJ) $^ $(CFLAGS)
+$(BINDIR)/$(PROJ): $(ODIR) $(BINDIR) $(OBJ)
+	g++ -o $(BINDIR)/$(PROJ) $(OBJ) $(CFLAGS)
 
 run: $(BINDIR)/$(PROJ)
 	$(BINDIR)/$(PROJ)
 
 clean:
-	$(SAFETY_COMMAND) && rm -rfv $(OBJ) $(BINDIR)/$(PROJ)
+	$(SAFETY_COMMAND) && rm -rf $(ODIR) $(BINDIR)
 
 .PHONY: clean
+
+$(ODIR):
+	mkdir $(ODIR)
+
+$(BINDIR):
+	mkdir $(BINDIR)
 
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
