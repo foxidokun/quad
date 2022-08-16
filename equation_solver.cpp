@@ -1,5 +1,6 @@
 #include <cmath>
 #include <cfloat>
+#include <cstdio>
 #include "equation_solver.h"
 
 static bool is_zero(double x);
@@ -60,6 +61,30 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
     } else {
         *x = -b / k;
         return ONE_ROOT;
+    }
+}
+
+/**
+ * Выводит количество корней и сами корни.
+ */
+void print_solution(enum num_roots n_roots, double x1, double x2)
+{
+    switch (n_roots) {
+        case TWO_ROOTS:
+            printf("Найдено 2 решения: %.3e и %.3e\n", x1, x2);
+            break;
+        case ONE_ROOT:
+            printf("Найдено одно решение: %.3e\n", x1);
+            break;
+        case ZERO_ROOTS:
+            printf("Решений не найдено\n");
+            break;
+        case INF_ROOTS:
+            printf("Решений бесконечно много\n");
+            break;
+        default:
+            fprintf(stderr, "Некорректное количество корней");
+            break;
     }
 }
 
