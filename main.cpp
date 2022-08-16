@@ -21,15 +21,13 @@ void input_coeffs(double *a, double *b, double *c)
 {
     double *coeffs[3] = {a, b, c};
     const char *prompts[3] = {"a = ", "b = ", "c = "};
-    const unsigned int buf_size = 256;
-    char input_buf[buf_size] = {}; //Буфер, куда отправляется неправильный ввод (/dev/null)
 
     printf("Введите коэффициенты уравнения ax^2 + bx + c = 0\n");
     for (int i = 0; i < 3;) {
         printf("%s", prompts[i]);
         if (scanf("%lf", coeffs[i]) != 1) {
             // Сбрасываем неправильный ввод
-            fgets(input_buf, buf_size, stdin);
+            while (getchar() != '\n');
             printf("Неправильный ввод, пожалуйста, введите число\n");
         } else {
             i++;
