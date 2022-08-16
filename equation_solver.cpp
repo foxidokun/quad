@@ -2,9 +2,11 @@
 #include <cfloat>
 #include "equation_solver.h"
 
+static bool is_zero(double x);
+
 /**
  * Решает квадратное уравнение вида a*x^2 + b*x + c = 0, записывает решения (при наличии) в переданные переменные (x1 и x2)
- * и возвращает их количество или -1, если их бесконечно много. \n\n
+ * и возвращает их количество в объекте enum num_roots \n\n
  *
  * Если решений меньше двух, неиспользованные переменные не изменяют своего значения.
  * При наличии одного решения оно записывается в x1.
@@ -14,50 +16,56 @@
  * @param c Свободный коэффициент
  * @param x1 Указатель на переменную для первого корня (при наличии)
  * @param x2 Указатель на переменную для второго корня (при наличии)
- * @return Количество найденных корней (0-2) или -1 если решений бесконечно много
+ * @return Количество найденных корней
  */
-int solve_quad_eq(double a, double b, double c, double *x1, double *x2)
+enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
 {
     // Уравнение является линейным
-    if (fabs(a) < 2 * DBL_EPSILON) {
+    if (is_zero(a)) {
         return solve_lin_eq(b, c, x1);
     } else {
         double disc = pow(b, 2) - 4 * a * c;
 
         //Дискриминант равен нулю с учетом погрешности double арифметики (три операции при вычислении disc => 4 = 3+1)
-        if (fabs(disc) < 4 * DBL_EPSILON) {
+        if (is_zero(disc)) {
             *x1 = -b / (2 * a);
-            return 1;
+            return ONE_ROOT;
         } else if (disc < 0) {
-            return 0;
+            return ZERO_ROOTS;
         } else {
-            *x1 = (-b + sqrt(disc)) / (2 * a);
-            *x2 = (-b - sqrt(disc)) / (2 * a);
-            return 2;
+            double sq_disc = sqrt(disc);
+            *x1 = (-b + sq_disc) / (2 * a);
+            *x2 = (-b - sq_disc) / (2 * a);
+            return TWO_ROOTS;
         }
     }
 }
 
 /**
  * Решает линейное уравнение вида kx + b = 0, записывает решение (при наличии) в переданную переменную (x)
- * и возвращает количество найденных решений или -1, если их бесконечно много.
+ * и возвращает количество найденных решений в объекте enum num_roots
  * @param k Коэффициент при линейном члене
  * @param b Свободный коэффициент
  * @param x Указатель на переменную для корня (при наличии)
- * @return Количество найденных корней или -1, если их бесконечно много
+ * @return Количество найденных корней
  */
-int solve_lin_eq(double k, double b, double *x)
+enum num_roots solve_lin_eq(double k, double b, double *x)
 {
     // k = 0 и решений либо нет, либо бесконечно много (при 0=0)
     // 2 для большей уверенности
-    if (fabs(k) < 2 * DBL_EPSILON) {
-        if (fabs(b) < 2 * DBL_EPSILON) {
-            return -1;
+    if (is_zero(k)) {
+        if (is_zero(b)) {
+            return INF_ROOTS;
         } else {
-            return 0;
+            return ZERO_ROOTS;
         }
     } else {
         *x = -b / k;
-        return 1;
+        return ONE_ROOT;
     }
+}
+
+static bool is_zero(double x)
+{
+    return fabs(x) < 10 * DBL_EPSILON;
 }
