@@ -7,7 +7,8 @@ enum num_roots {
     ONE_ROOT   =  1,
     ZERO_ROOTS =  0,
     INF_ROOTS  = -1,
-    CANT_SOLVE = -2
+    /// При вычислении корней произошла ошибка
+    ERR_SOLVE =  -2
 };
 
 enum num_roots solve_lin_eq(double k, double b, double *x);

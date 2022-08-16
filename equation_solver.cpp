@@ -9,7 +9,11 @@ static void set_if_not_null(double *ptr, double val);
 
 /**
  * Решает квадратное уравнение вида a*x^2 + b*x + c = 0, записывает решения (при наличии) в переданные переменные (x1 и x2),
- * если они не nullptr, и возвращает их количество в объекте enum num_roots \n\n
+ * если они не nullptr, и возвращает их количество в объекте enum num_roots. В случае ошибки вычисления возвращает ERR_SOLVE
+ * и записывает код ошибки в errno \n\n
+ *
+ * Возможное ошибки\n
+ * -> ERANGE -- при переполнении double во внутренних вычислениях\n\n
  *
  * Если решений меньше двух, неиспользованные переменные не изменяют своего значения.
  * При наличии одного решения оно записывается в x1.
@@ -34,7 +38,7 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
         pow(b, 2) > (DBL_MAX - 4 * a * c)) //1
     {
         errno = ERANGE;
-        return CANT_SOLVE;
+        return ERR_SOLVE;
     }
 
     // Уравнение является линейным
@@ -98,8 +102,8 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
         case INF_ROOTS:
             printf("Решений бесконечно много\n");
             break;
-        case CANT_SOLVE:
-            printf("Не удалось решить данное уравнение\n");
+        case ERR_SOLVE:
+            fprintf(stderr, "Произошла ошибка при решении уравнения\n");
             break;
         default:
             fprintf(stderr, "Некорректное количество корней\n");
@@ -108,7 +112,7 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
 }
 
 /**
- * Сравнивает переданное double число с учетом погрешности double арифметики
+ * Сравнивает переданное double число с нулем с учетом погрешности double арифметики
  */
 static bool is_zero(double x)
 {
