@@ -39,17 +39,24 @@ void input_coeffs(double *a, double *b, double *c)
     double *coeffs[3] = {a, b, c};
     const char *prompts[3] = {"a = ", "b = ", "c = "};
     errno = 0;
-    int scan_res = 0;
+    int scanf_res = 0;
 
     printf("Введите коэффициенты уравнения ax^2 + bx + c = 0\n");
     for (int i = 0; i < 3;) {
         printf("%s", prompts[i]);
 
-        scan_res = scanf("%lf", coeffs[i]);
+        scanf_res = scanf("%lf", coeffs[i]);
         if (errno != 0) {
-            return;
+            // Введено слишком большое/маленькое число
+            if (errno == ERANGE) {
+                scanf_res = 2; // Переспросить, не выкидывая ошибки
+                errno = 0;
+            } else {
+                return;
+            }
         }
-        switch (scan_res) {
+
+        switch (scanf_res) {
             case 1: // Считалость правильно
                 i++;
                 break;
@@ -58,7 +65,7 @@ void input_coeffs(double *a, double *b, double *c)
                 return;
             default:
                 while (getchar() != '\n');
-                printf("Неправильный ввод, пожалуйста, введите число\n");
+                printf("Неправильный ввод, пожалуйста, введите число, причем не слишком большое\n");
                 break;
         }
     }
