@@ -9,6 +9,11 @@ int main()
 
     input_coeffs(&a, &b, &c);
     enum num_roots n_roots = solve_quad_eq(a, b, c, &x1, &x2);
+    // Обрабатываем возможные ошибки
+    if (n_roots == CANT_SOLVE) {
+        perror("Не удалось решить уравнение по причине");
+    }
+    // Но все равно печатаем решения, чтобы пользователь получил два сообщения о неправильном вводе (stderr & stdout)
     print_solution(n_roots, x1, x2);
 
     return 0;

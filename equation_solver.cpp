@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cfloat>
 #include <cstdio>
+#include <cerrno>
 #include "equation_solver.h"
 
 static bool is_zero(double x);
@@ -22,6 +23,20 @@ static void set_if_not_null(double *ptr, double val);
  */
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
 {
+    // Проверка на валидность коэффициентов для дальнейших вычислений
+    // Требования:
+    // 1. b^2 - 4*a*c < DOUBLE_MAX для дискриминанта
+    // 1.1 b^2 < DOUBLE_MAX
+    // 1.2 4*a*c < DOUBLE_MAX
+    // 2. b + abs(sq_disc) < DOUBLE_MAX -- всегда следует из предыдущих
+    if (fabs(b) > sqrt(DBL_MAX)  || //1.1
+        fabs(a) > (DBL_MAX / c / 4) || //1.2
+        pow(b, 2) > (DBL_MAX - 4 * a * c)) //1
+    {
+        errno = ERANGE;
+        return CANT_SOLVE;
+    }
+
     // Уравнение является линейным
     if (is_zero(a)) {
         return solve_lin_eq(b, c, x1);
@@ -29,14 +44,14 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
         double disc = pow(b, 2) - 4 * a * c;
 
         if (is_zero(disc)) {
-            set_if_not_null(x1, -b / (2 * a));
+            set_if_not_null(x1, -b / a / 2);
             return ONE_ROOT;
         } else if (disc < 0) {
             return ZERO_ROOTS;
         } else {
             double sq_disc = sqrt(disc);
-            set_if_not_null(x1, (-b + sq_disc) / (2 * a));
-            set_if_not_null(x2, (-b - sq_disc) / (2 * a));
+            set_if_not_null(x1, (-b + sq_disc) / a / 2);
+            set_if_not_null(x2, (-b - sq_disc) / a / 2);
             return TWO_ROOTS;
         }
     }
@@ -83,8 +98,11 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
         case INF_ROOTS:
             printf("Решений бесконечно много\n");
             break;
+        case CANT_SOLVE:
+            printf("Не удалось решить данное уравнение\n");
+            break;
         default:
-            fprintf(stderr, "Некорректное количество корней");
+            fprintf(stderr, "Некорректное количество корней\n");
             break;
     }
 }
