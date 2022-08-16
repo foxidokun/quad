@@ -34,7 +34,7 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
     // 1.2 4*a*c < DOUBLE_MAX
     // 2. b + abs(sq_disc) < DOUBLE_MAX -- всегда следует из предыдущих
     if (fabs(b) > sqrt(DBL_MAX)  || //1.1
-        fabs(a) > (DBL_MAX / c / 4) || //1.2
+        (!is_zero(c) && fabs(a) > (DBL_MAX / c / 4)) || //1.2
         pow(b, 2) > (DBL_MAX - 4 * a * c)) //1
     {
         errno = ERANGE;
