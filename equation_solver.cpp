@@ -132,32 +132,31 @@ static int read_double(double *x, const char *prompt)
     errno = 0;
     int scanf_res = 0;
 
-    // Цикл не завершается только при ошибочном вводе, чтобы переспросить
     while (true) {
-        // Выводим prompt и пытаемся считать x
         printf("%s", prompt);
         scanf_res = scanf("%lf", x);
 
-        //Обрабатываем ошибки scanf
-        if (errno != 0) {
-            // Введено слишком большое/маленькое число
-            if (errno == ERANGE) {
-                scanf_res = 2; // Переспросить, не выкидывая ошибки (см switch)
-                errno = 0;
-            } else { // Различные ошибки ввода вывода
-                return errno;
-            }
+        // При слишком больших числах или при нечисловом вводе переспрашиваем
+        if (errno == ERANGE || (errno == 0 && scanf_res == 0)) {
+            while (getchar() != '\n'); //Сбрасываем неправильный ввод
+            errno = 0; // Обнуляем возможную ошибку ERANGE
+            printf("Неправильный ввод, пожалуйста, введите число, причем не слишком большое\n");
+        } else {
+            break;
         }
+    }
 
-        switch (scanf_res) {
-            case 1: // Считалость правильно
-                return 0;
-            case EOF: // Пользователь оборвал ввод и работа программы нарушена
-                return EIO;
-            default:
-                while (getchar() != '\n'); //Сбрасываем неправильный ввод
-                printf("Неправильный ввод, пожалуйста, введите число, причем не слишком большое\n");
-        }
+    // scanf таки завершился с ошибкой, но ввода/вывода, а не преобразования
+    if (errno != 0) {
+        return errno;
+    }
+
+    assert(scanf_res == 1 || scanf_res == EOF && "Ошибочные вводы были переспрошены, тут либо успех либо EOF");
+
+    if (scanf_res == 1) {
+        return 0;
+    } else {
+        return EIO;
     }
 }
 
