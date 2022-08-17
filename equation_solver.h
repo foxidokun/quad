@@ -8,11 +8,12 @@ enum num_roots {
     ZERO_ROOTS =  0,
     INF_ROOTS  = -1,
     /// При вычислении корней произошла ошибка
-    ERR_SOLVE =  -2
+    ERANGE_SOLVE =  -2
 };
 
 enum num_roots solve_lin_eq(double k, double b, double *x);
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2);
 void print_solution(enum num_roots n_roots, double x1, double x2);
+int input_coeffs(double *a, double *b, double *c);
 
 #endif //QUAD_EQUATION_SOLVER_H
