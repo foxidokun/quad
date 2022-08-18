@@ -293,8 +293,26 @@ void auto_test_solve_lin_eq()
         k = rand_range(-100, 100);
         b = rand_range(-100, +100);
 
-        if (solve_lin_eq(k, b, &x) == ONE_ROOT) {
-            assert(is_zero(k * x + b));
+        switch(solve_lin_eq(k, b, &x)) {
+            case ONE_ROOT:
+                assert(is_zero(k * x + b));
+                break;
+            case ZERO_ROOTS: // Никакой не подойдет
+                x = rand_range(-100, +100);
+                assert(!is_zero(k * x + b));
+                break;
+            case INF_ROOTS: // Подойдет любой
+                x = rand_range(-100, +100);
+                assert(is_zero(k * x + b));
+                break;
+            case ERANGE_SOLVE:
+                break;
+            case TWO_ROOTS:
+                assert(0 && "impossible number of roots");
+                break;
+            default:
+                assert(0 && "Not a enum member");
+                break;
         }
     }
 }
