@@ -22,6 +22,9 @@ run: $(BINDIR)/$(PROJ)
 clean:
 	$(SAFETY_COMMAND) && rm -rf $(ODIR) $(BINDIR)
 
+test:
+	g++ -o $(BINDIR)/$(PROJ)_test main.cpp equation_solver.cpp $(CFLAGS) -D TEST && $(BINDIR)/$(PROJ)_test > /dev/null && rm output_test.txt
+
 .PHONY: clean
 
 $(ODIR):

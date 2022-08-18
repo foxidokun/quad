@@ -1,6 +1,19 @@
 #ifndef QUAD_EQUATION_SOLVER_H
 #define QUAD_EQUATION_SOLVER_H
 
+#ifdef TEST
+/// Запескает все доступные юнит тесты
+void run_test();
+int is_equal(double x, double y);
+int is_equal_set(double x1, double x2, double y1, double y2);
+void test_solve_lin_eq();
+void test_solve_quad_eq();
+void test_input_coeffs();
+void test_is_zero();
+void test_set_if_not_null();
+void test_output_format();
+#endif
+
 /// Количество корней у уравнения
 enum num_roots {
     TWO_ROOTS    =  2,

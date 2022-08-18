@@ -164,3 +164,7 @@ static void set_if_not_null(double *ptr, double val)
         *ptr = val;
     }
 }
+
+#ifdef TEST
+#include "test_equation_solver.cpp"
+#endif

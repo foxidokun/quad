@@ -4,6 +4,11 @@
 
 int main()
 {
+#ifdef TEST
+    run_test();
+    return 0;
+#endif
+
     double a = 0, b = 0, c = 0, x1 = 0, x2 = 0;
     int input_res = 0;
 
