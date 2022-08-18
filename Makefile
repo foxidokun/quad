@@ -23,7 +23,7 @@ clean:
 	$(SAFETY_COMMAND) && rm -rf $(ODIR) $(BINDIR)
 
 test: #TODO генерелизовать с обычными запусками
-	g++ -o $(BINDIR)/$(PROJ)_test main.cpp equation_solver.cpp $(CFLAGS) -D TEST && $(BINDIR)/$(PROJ)_test > /dev/null #&& rm output_test.txt
+	g++ -o $(BINDIR)/$(PROJ)_test main.cpp equation_solver.cpp $(CFLAGS) -D TEST && $(BINDIR)/$(PROJ)_test > /dev/null && rm tmp.txt
 
 .PHONY: clean
 

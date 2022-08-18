@@ -59,12 +59,33 @@ void print_solution(enum num_roots n_roots, double x1, double x2);
  */
 int input_coeffs(double *a, double *b, double *c);
 
-/// Запускает все доступные юнит тесты
-void run_test();
+/**
+ * Прогоняет все доступные тесты
+ * @param tmp_file Имя временного файла для тестирования
+ * @param input_file Имя файла с тестовым вводом
+ * @param output_ref_file Имя файла с референсным выводом
+ */
+void run_test(char *tmp_file, char *input_file, char *output_ref_file);
+
 void test_solve_lin_eq();
 void test_solve_quad_eq();
-void test_input_coeffs();
-void test_is_zero();
-void test_output_format();
-void test_read_double();
+
+///@param input_file Имя файла с проверяемым вводом
+void test_input_coeffs(char *input_file);
+
+/** @param tmp_file Имя временного файла для тестирования
+ * @param output_ref_file Имя файла с референсным выводом
+ */
+void test_output_format(char *tmp_file, char *output_ref_file);
+
+///@param input_file Имя файла с проверяемым вводом
+void test_read_double(char *input_file);
+
+void auto_test_solve_lin_eq();
+void auto_test_solve_quad_eq();
+
+///@param tmp_file Имя для временного файла, требуемого для теста.
+void auto_test_input_coeffs(char *tmp_file);
+
+
 #endif //QUAD_EQUATION_SOLVER_H

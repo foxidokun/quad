@@ -6,7 +6,7 @@
 int main()
 {
 #ifdef TEST
-    run_test();
+    run_test("tmp.txt", "input.txt", "output.txt");
     return 0;
 #endif
 
