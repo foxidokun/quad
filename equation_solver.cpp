@@ -9,7 +9,7 @@
 
 /// Такое значение, что 0+DBL_ERROR все еще 0
 /// Не стандартный DBL_EPSILON, так как он слишком маленький
-const double DBL_ERROR = 1e-5;
+const double DBL_ERROR = 1e-11  ;
 
 static bool is_zero(double x);
 static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream);
@@ -81,14 +81,17 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
 void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream)
 {
     assert(stream != NULL && "pointer can't be null");
-    assert(isfinite(x1) && "parameter must be finite");
-    assert(isfinite(x2) && "parameter must be finite");
 
     switch (n_roots) {
         case TWO_ROOTS:
+            assert(isfinite(x1) && "parameter must be finite");
+            assert(isfinite(x2) && "parameter must be finite");
+
             fprintf(stream, "Найдено 2 решения: %.3e и %.3e\n", x1, x2);
             break;
         case ONE_ROOT:
+            assert(isfinite(x1) && "parameter must be finite");
+
             fprintf(stream, "Найдено одно решение: %.3e\n", x1);
             break;
         case ZERO_ROOTS:
@@ -101,7 +104,7 @@ void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream)
             fprintf(stream, "Не удалось решить уравнение: слишком большие коэффициенты\n");
             break;
         default:
-            fprintf(stderr, "Некорректное количество корней\n");
+            assert(0 && "Invalid enum member");
             break;
     }
 }
@@ -124,10 +127,10 @@ static void flush_input(FILE *stream)
  */
 static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream)
 {
-    assert(in_stream != NULL && "pointer can't be null");
-    assert(out_stream != NULL && "pointer can't be null");
     assert(x != NULL && "pointer can't be null");
     assert(prompt != NULL && "pointer can't be null");
+    assert(in_stream != NULL && "pointer can't be null");
+    assert(out_stream != NULL && "pointer can't be null");
 
     errno = 0;
     int scanf_res = 0;
@@ -188,8 +191,6 @@ int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_str
 
 /**
  * Сравнивает переданное double число с нулем с учетом погрешности double арифметики
- *
- * abs(x) < DBL_EPSILON
  */
 static bool is_zero(double x)
 {
@@ -311,26 +312,26 @@ void auto_test_solve_quad_eq()
 
         switch (solve_quad_eq(a, b, c, &x1, &x2)) {
             case TWO_ROOTS:
-                assert(is_zero(a * x2 * x2 + b * x2 + c));
+                assert(is_zero(a*x2*x2 + b*x2 + c));
                 // И далее проверяем x1 вместе с ONE_ROOT веткой
             case ONE_ROOT:
-                assert(is_zero(a * x1 * x1 + b * x1 + c));
+                assert(is_zero(a*x1*x1 + b*x1 + c));
                 break;
                 // В данном случае бесконечность корней == подходит любой
             case INF_ROOTS:
                 x1 = rand_range(-100, +100);
-                assert(is_zero(a * x1 * x1 + b * x1 + c));
+                assert(is_zero(a*x1*x1 + b*x1 + c));
                 break;
                 // Если корней нет, значит никакой не подходит
             case ZERO_ROOTS:
                 x1 = rand_range(-100, +100);
-                assert(!is_zero(a * x1 * x1 + b * x1 + c));
+                assert(!is_zero(a*x1*x1 + b*x1 + c));
                 break;
             case ERANGE_SOLVE:
                 assert(0 && "Test parameters can't be out of range");
                 break;
             default:
-                assert(0 && "Not enum member");
+                assert(0 && "Invalid enum member");
         }
     }
 }
