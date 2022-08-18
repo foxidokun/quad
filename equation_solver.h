@@ -30,7 +30,7 @@ enum num_roots solve_lin_eq(double k, double b, double *x);
  * Возможное ошибки
  * 1. ERANGE_SOLVE -- при переполнении double во внутренних вычислениях
  *
- * Критерии переполнения:
+ * Критерии проверки на переполнение:
  * 1. b^2 < DOUBLE_MAX
  * 2. abs(4*a*c) < DOUBLE_MAX
  * 3. abs(b^2 - 4*a*c) < DOUBLE_MAX
@@ -61,13 +61,10 @@ int input_coeffs(double *a, double *b, double *c);
 
 /// Запускает все доступные юнит тесты
 void run_test();
-int is_equal(double x, double y);
-int is_equal_set(double x1, double x2, double y1, double y2);
 void test_solve_lin_eq();
 void test_solve_quad_eq();
 void test_input_coeffs();
 void test_is_zero();
-void test_set_if_not_null();
 void test_output_format();
 void test_read_double();
 #endif //QUAD_EQUATION_SOLVER_H

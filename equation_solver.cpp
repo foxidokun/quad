@@ -6,15 +6,17 @@
 #include "equation_solver.h"
 
 static bool is_zero(double x);
-static void set_if_not_null(double *ptr, double val);
 static int read_double(double *x, const char *prompt);
+static void flush();
 
 
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
 {
-    assert(!isnan(a));
-    assert(!isnan(b));
-    assert(!isnan(c));
+    assert(isfinite(a) && "parameter must be finite");
+    assert(isfinite(b) && "parameter must be finite");
+    assert(isfinite(c) && "parameter must be finite");
+    assert(x1 != NULL && "pointer can't be null");
+    assert(x2 != NULL && "pointer can't be null");
 
     // Проверка на валидность коэффициентов для дальнейших вычислений
     // Требования:
@@ -36,14 +38,14 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
         double disc = pow(b, 2) - 4 * a * c;
 
         if (is_zero(disc)) {
-            set_if_not_null(x1, -b / a / 2);
+            *x1 = -b / a / 2;
             return ONE_ROOT;
         } else if (disc < 0) {
             return ZERO_ROOTS;
         } else {
             double sq_disc = sqrt(disc);
-            set_if_not_null(x1, (-b + sq_disc) / a / 2);
-            set_if_not_null(x2, (-b - sq_disc) / a / 2);
+            *x1 = (-b + sq_disc) / a / 2;
+            *x2 = (-b - sq_disc) / a / 2;
             return TWO_ROOTS;
         }
     }
@@ -51,8 +53,9 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
 
 enum num_roots solve_lin_eq(double k, double b, double *x)
 {
-    assert(!isnan(k));
-    assert(!isnan(b));
+    assert(isfinite(k) && "parameter must be finite");
+    assert(isfinite(b) && "parameter must be finite");
+    assert(x != NULL && "pointer can't be null");
 
     // k = 0 и решений либо нет, либо бесконечно много (при 0=0)
     if (is_zero(k)) {
@@ -62,16 +65,15 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
             return ZERO_ROOTS;
         }
     } else {
-        set_if_not_null(x, -b / k);
+        *x = -b / k;
         return ONE_ROOT;
     }
 }
 
 void print_solution(enum num_roots n_roots, double x1, double x2)
 {
-    assert(n_roots < 3 && n_roots > -3);
-    assert(!isnan(x1));
-    assert(!isnan(x2));
+    assert(isfinite(x1) && "parameter must be finite");
+    assert(isfinite(x2) && "parameter must be finite");
 
     switch (n_roots) {
         case TWO_ROOTS:
@@ -96,6 +98,13 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
 }
 
 /**
+ * Сбрасывает ввод до символа \n
+ */
+static void flush() {
+    while (getchar() != '\n') {}
+}
+
+/**
  * Считывает аргумент из stdin, предварительно выводя prompt, и записывает в x. В случае некорректного ввода переспрашивает.
  * В случае ошибки возвращает ненулевое значение, соответствующее errno значению этой ошибки
  * @param x Куда записывается считанный double
@@ -104,8 +113,8 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
  */
 static int read_double(double *x, const char *prompt)
 {
-    assert(x != NULL);
-    assert(prompt != NULL);
+    assert(x != NULL && "pointer can't be null");
+    assert(prompt != NULL && "pointer can't be null");
 
     errno = 0;
     int scanf_res = 0;
@@ -116,7 +125,7 @@ static int read_double(double *x, const char *prompt)
 
         // При слишком больших числах или при нечисловом вводе переспрашиваем
         if (errno == ERANGE || (errno == 0 && scanf_res == 0)) {
-            while (getchar() != '\n'); //Сбрасываем неправильный ввод
+            flush(); //Сбрасываем неправильный ввод
             errno = 0; // Обнуляем возможную ошибку ERANGE
             printf("Неправильный ввод, пожалуйста, введите число, причем не слишком большое\n");
         } else {
@@ -141,9 +150,9 @@ static int read_double(double *x, const char *prompt)
 
 int input_coeffs(double *a, double *b, double *c)
 {
-    assert(a != NULL);
-    assert(b != NULL);
-    assert(c != NULL);
+    assert(a != NULL && "pointer can't be null");
+    assert(b != NULL && "pointer can't be null");
+    assert(c != NULL && "pointer can't be null");
 
     double *coeffs[3] = {a, b, c};
     const char *prompts[3] = {"a = ", "b = ", "c = "};
@@ -165,26 +174,15 @@ int input_coeffs(double *a, double *b, double *c)
 /**
  * Сравнивает переданное double число с нулем с учетом погрешности double арифметики
  *
- * abs(x) < 10 * DBL_EPSILON
+ * abs(x) < DBL_EPSILON
  */
 static bool is_zero(double x)
 {
-    assert(!isnan(x));
+    assert(isfinite(x) && "parameter must be finite");
 
-    return fabs(x) < 10 * DBL_EPSILON;
+    return fabs(x) < DBL_EPSILON;
 }
 
-/**
- * Записывает значение в данный указатель, если он не NULL. Иначе ничего не делает
- */
-static void set_if_not_null(double *ptr, double val)
-{
-    assert(!isnan(val));
-
-    if (ptr != NULL) {
-        *ptr = val;
-    }
-}
 
 //******************
 // Тесты
@@ -294,24 +292,12 @@ void test_is_zero()
     assert(!is_zero(0.02));
 }
 
-void test_set_if_not_null()
-{
-    double val = 0;
-
-    set_if_not_null(&val, 7);
-    assert(is_equal(val, 7));
-
-    set_if_not_null(NULL, 14);
-    assert(is_equal(val, 7));
-}
-
 void run_test()
 {
     test_solve_lin_eq();
     test_solve_quad_eq();
     test_input_coeffs();
     test_is_zero();
-    test_set_if_not_null();
     test_input_coeffs();
     test_read_double();
     test_output_format();
