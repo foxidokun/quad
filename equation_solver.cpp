@@ -9,30 +9,7 @@ static bool is_zero(double x);
 static void set_if_not_null(double *ptr, double val);
 static int read_double(double *x, const char *prompt);
 
-/**
- * Решает квадратное уравнение вида a*x^2 + b*x + c = 0, записывает решения (при наличии) в переданные переменные (x1 и x2),
- * если они не NULL, и возвращает их количество или произошедшую ошибку в объекте enum num_roots
- *
- *
- * Возможное ошибки
- * 1. ERANGE_SOLVE -- при переполнении double во внутренних вычислениях
- *
- * Критерии переполнения:
- * 1. b^2 < DOUBLE_MAX
- * 2. 4*a*c < DOUBLE_MAX
- * 3. b^2 - 4*a*c < DOUBLE_MAX
- *
- *
- * Если решений меньше двух, неиспользованные переменные не изменяют своего значения.
- * При наличии одного решения оно записывается в x1.
- * При наличии двух решений порядок x1 и x2 не гарантируется.
- * @param a Коэффициент при квадратичном члене
- * @param b Коэффициент при линейном члене
- * @param c Свободный коэффициент
- * @param x1 Указатель на переменную для первого корня (при наличии) или NULL
- * @param x2 Указатель на переменную для второго корня (при наличии) или NULL
- * @return Количество найденных корней
- */
+
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
 {
     // Проверка на валидность коэффициентов для дальнейших вычислений
@@ -68,14 +45,6 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
     }
 }
 
-/**
- * Решает линейное уравнение вида kx + b = 0, записывает решение (при наличии) в переданную переменную (x)
- * и возвращает количество найденных решений в объекте enum num_roots
- * @param k Коэффициент при линейном члене
- * @param b Свободный коэффициент
- * @param x Указатель на переменную для корня (при наличии)
- * @return Количество найденных корней
- */
 enum num_roots solve_lin_eq(double k, double b, double *x)
 {
     // k = 0 и решений либо нет, либо бесконечно много (при 0=0)
@@ -91,9 +60,6 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
     }
 }
 
-/**
- * Выводит количество корней и сами корни.
- */
 void print_solution(enum num_roots n_roots, double x1, double x2)
 {
     switch (n_roots) {
@@ -160,10 +126,6 @@ static int read_double(double *x, const char *prompt)
     }
 }
 
-/**
- * Считывает коэффициенты из stdin и записывает в переданные переменные. При неудаче переспрашивает
- * В случае ошибки считывания устанавливает возвращает ненулевое значение, соответствующее errno значению ошибки
- */
 int input_coeffs(double *a, double *b, double *c)
 {
     assert(a != NULL && b != NULL && c != NULL && "Коэффициенты не должны быть null");
