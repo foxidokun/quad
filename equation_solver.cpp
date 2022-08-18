@@ -372,6 +372,7 @@ void run_test(char *tmp_file, char *input_file, char *output_ref_file)
     test_solve_lin_eq();
     test_solve_quad_eq();
     test_read_double(in_stream, dev_null);
+    fseek(in_stream, 0, SEEK_SET);
     test_input_coeffs(in_stream, dev_null);
     test_output_format(tmp_file, ref_stream);
 
