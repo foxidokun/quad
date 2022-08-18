@@ -4,6 +4,7 @@
 #include <cerrno>
 #include <cassert>
 #include <time.h>
+#include <unistd.h>
 #include "equation_solver.h"
 
 /// Такое значение, что 0+DBL_ERROR все еще 0
@@ -11,8 +12,8 @@
 const double DBL_ERROR = 1e-5;
 
 static bool is_zero(double x);
-static int read_double(double *x, const char *prompt);
-static void flush_stdin();
+static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream);
+static void flush_input(FILE *stream);
 static int is_equal(double x, double y);
 static double rand_range(double min, double max);
 
@@ -77,26 +78,27 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
     }
 }
 
-void print_solution(enum num_roots n_roots, double x1, double x2)
+void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream)
 {
+    assert(stream != NULL && "pointer can't be null");
     assert(isfinite(x1) && "parameter must be finite");
     assert(isfinite(x2) && "parameter must be finite");
 
     switch (n_roots) {
         case TWO_ROOTS:
-            printf("Найдено 2 решения: %.3e и %.3e\n", x1, x2);
+            fprintf(stream, "Найдено 2 решения: %.3e и %.3e\n", x1, x2);
             break;
         case ONE_ROOT:
-            printf("Найдено одно решение: %.3e\n", x1);
+            fprintf(stream, "Найдено одно решение: %.3e\n", x1);
             break;
         case ZERO_ROOTS:
-            printf("Решений не найдено\n");
+            fprintf(stream, "Решений не найдено\n");
             break;
         case INF_ROOTS:
-            printf("Решений бесконечно много\n");
+            fprintf(stream, "Решений бесконечно много\n");
             break;
         case ERANGE_SOLVE:
-            printf("Не удалось решить уравнение: слишком большие коэффициенты\n");
+            fprintf(stream, "Не удалось решить уравнение: слишком большие коэффициенты\n");
             break;
         default:
             fprintf(stderr, "Некорректное количество корней\n");
@@ -105,22 +107,25 @@ void print_solution(enum num_roots n_roots, double x1, double x2)
 }
 
 /**
- * Сбрасывает ввод до символа \n
+ * Сбрасывает ввод из stream до символа \n
  */
-static void flush_stdin()
+static void flush_input(FILE *stream)
 {
-    while (getchar() != '\n') {}
+    assert(stream != NULL && "pointer can't be null");
+    while (getc(stream) != '\n') {}
 }
 
 /**
- * Считывает аргумент из stdin, предварительно выводя prompt, и записывает в x. В случае некорректного ввода переспрашивает.
+ * Считывает аргумент из in_stream, предварительно выводя prompt в out_stream, и записывает в x. В случае некорректного ввода переспрашивает.
  * В случае ошибки возвращает ненулевое значение, соответствующее errno значению этой ошибки
  * @param x Куда записывается считанный double
  * @param prompt Приглашающая строка перед вводом
  * @return 0 или errno в случае ошибки
  */
-static int read_double(double *x, const char *prompt)
+static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream)
 {
+    assert(in_stream != NULL && "pointer can't be null");
+    assert(out_stream != NULL && "pointer can't be null");
     assert(x != NULL && "pointer can't be null");
     assert(prompt != NULL && "pointer can't be null");
 
@@ -128,14 +133,14 @@ static int read_double(double *x, const char *prompt)
     int scanf_res = 0;
 
     while (true) {
-        printf("%s", prompt);
-        scanf_res = scanf("%lf", x);
+        fprintf(out_stream, "%s", prompt);
+        scanf_res = fscanf(in_stream, "%lf", x);
 
         // При слишком больших числах или при нечисловом вводе переспрашиваем
         if (errno == ERANGE || (errno == 0 && scanf_res == 0)) {
-            flush_stdin(); //Сбрасываем неправильный ввод
+            flush_input(in_stream); //Сбрасываем неправильный ввод
             errno = 0; // Обнуляем возможную ошибку ERANGE
-            printf("Неправильный ввод, пожалуйста, введите число, причем не слишком большое\n");
+            fprintf(out_stream, "Неправильный ввод, пожалуйста, введите число, причем не слишком большое\n");
         } else {
             break;
         }
@@ -156,8 +161,10 @@ static int read_double(double *x, const char *prompt)
     }
 }
 
-int input_coeffs(double *a, double *b, double *c)
+int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_stream)
 {
+    assert(in_stream != NULL && "pointer can't be null");
+    assert(out_stream != NULL && "pointer can't be null");
     assert(a != NULL && "pointer can't be null");
     assert(b != NULL && "pointer can't be null");
     assert(c != NULL && "pointer can't be null");
@@ -166,10 +173,10 @@ int input_coeffs(double *a, double *b, double *c)
     const char *prompts[3] = {"a = ", "b = ", "c = "};
     int read_res = 0;
 
-    printf("Введите коэффициенты уравнения ax^2 + bx + c = 0\n");
+    fprintf(out_stream, "Введите коэффициенты уравнения ax^2 + bx + c = 0\n");
 
     for (int i = 0; i < 3; i++) {
-        read_res = read_double(coeffs[i], prompts[i]);
+        read_res = read_double(coeffs[i], prompts[i], in_stream, out_stream);
 
         // Если произошла ошибка, пробрасываем ее дальше
         if (read_res != 0) {
@@ -233,47 +240,46 @@ void test_solve_quad_eq()
     assert(solve_quad_eq(-DBL_MAX / 15.5, sqrt(DBL_MAX / 2), DBL_MAX / 15.5, &x1, &x2) == ERANGE_SOLVE);
 }
 
-void test_input_coeffs(char *input_file)
+void test_input_coeffs(FILE *in_stream, FILE *dev_null)
 {
     double a = NAN, b = NAN, c = NAN;
 
-    freopen(input_file, "r", stdin);
-
-    while (input_coeffs(&a, &b, &c) != EIO) {
-        assert(is_equal(a, 5) && is_equal(b, 5) && is_equal(c, 5));
+    while (input_coeffs(&a, &b, &c, in_stream, dev_null) != EIO) {
+        assert(is_equal(a, 5));
+        assert(is_equal(b, 5));
+        assert(is_equal(c, 5));
     }
 }
 
-void test_read_double(char *input_file)
+void test_read_double(FILE *in_stream, FILE *dev_null)
 {
     double x = NAN;
-    freopen(input_file, "r", stdin);
 
-    while (read_double(&x, "") != EIO) {
+    while (read_double(&x, "", in_stream, dev_null) != EIO) {
         assert(is_equal(x, 5));
     }
 }
 
-void test_output_format(char *tmp_file, char *output_ref_file)
+void test_output_format(char *tmp_file, FILE *ref_stream)
 {
-    freopen(tmp_file, "w", stdout);
+    FILE *write_stream = fopen(tmp_file, "w");
 
-    print_solution(ERANGE_SOLVE, 228, 282);
-    print_solution(INF_ROOTS, 228, 282);
-    print_solution(ZERO_ROOTS, 228, 282);
-    print_solution(ONE_ROOT, 228, 282);
-    print_solution(TWO_ROOTS, 228, 282);
-
-    fflush(stdout);
+    print_solution(ERANGE_SOLVE, 228, 282, write_stream);
+    print_solution(INF_ROOTS, 228, 282, write_stream);
+    print_solution(ZERO_ROOTS, 228, 282, write_stream);
+    print_solution(ONE_ROOT, 228, 282, write_stream);
+    print_solution(TWO_ROOTS, 228, 282, write_stream);
+    fclose(write_stream);
 
     //Сравниваем с эталоном
-    FILE *test_output = fopen(tmp_file, "r");
-    FILE *ref_output = fopen(output_ref_file, "r");
     int c = 0;
+    FILE *read_stream = fopen(tmp_file, "r");
 
-    while ((c = getc(test_output)) != EOF) {
-        assert(c == getc(ref_output));
+    while ((c = getc(read_stream)) != EOF) {
+        assert(c == getc(ref_stream));
     }
+
+    fclose(read_stream);
 }
 
 void auto_test_solve_lin_eq()
@@ -329,41 +335,46 @@ void auto_test_solve_quad_eq()
     }
 }
 
-void auto_test_input_coeffs(char *tmp_file)
+void auto_test_input_coeffs(char *tmp_file, FILE *dev_null)
 {
-    assert(tmp_file != NULL && "pointer can't be null");
-
-    FILE *pipe = fopen(tmp_file, "w");
+    FILE *read_s = fopen(tmp_file, "r");
+    FILE *write_s = fopen(tmp_file, "w");
     double a_inp = NAN, b_inp = NAN, c_inp = NAN; // Значения, которые считает программа
     double a_ref = NAN, b_ref = NAN, c_ref = NAN; // Значения, которые она должна принять
     const int num_test = 100;
     srand(time(NULL));
-    freopen(tmp_file, "r", stdin);
 
     for (int i = 0; i < num_test; ++i) {
         a_ref = rand_range(-100, 100);
         b_ref = rand_range(-100, 100);
         c_ref = rand_range(-100, 100);
 
-        fprintf(pipe, "%.18lf\n9e999\n%.18lf\nasd\ndadsfa\n%.18lf\n", a_ref, b_ref, c_ref);
-        fflush(pipe);
+        fprintf(write_s, "%.18lf\n9e999\n%.18lf\nasd\ndadsfa\n%.18lf\n", a_ref, b_ref, c_ref);
+        fflush(write_s);
 
-        assert(input_coeffs(&a_inp, &b_inp, &c_inp) == 0);
+        assert(input_coeffs(&a_inp, &b_inp, &c_inp, read_s, dev_null) == 0);
         assert(is_equal(a_inp, a_ref));
         assert(is_equal(b_inp, b_ref));
         assert(is_equal(c_inp, c_ref));
     }
+
+    fclose(read_s);
+    fclose(write_s);
 }
 
 void run_test(char *tmp_file, char *input_file, char *output_ref_file)
 {
+    FILE *in_stream = fopen(input_file, "r");
+    FILE *ref_stream = fopen(output_ref_file, "r");
+    FILE *dev_null = fopen("/dev/null", "w");
+
     test_solve_lin_eq();
     test_solve_quad_eq();
-    test_read_double(input_file);
-    test_input_coeffs(input_file);
-    test_output_format(tmp_file, output_ref_file);
+    test_read_double(in_stream, dev_null);
+    test_input_coeffs(in_stream, dev_null);
+    test_output_format(tmp_file, ref_stream);
 
     auto_test_solve_lin_eq();
     auto_test_solve_quad_eq();
-    auto_test_input_coeffs(tmp_file);
+    auto_test_input_coeffs(tmp_file, dev_null);
 }

@@ -4,4 +4,4 @@ cmake-build-debug
 obj
 bin
 Doxyfile
-output_test.txt
+tmp.txt

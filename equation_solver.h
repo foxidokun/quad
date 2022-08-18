@@ -49,15 +49,15 @@ enum num_roots solve_lin_eq(double k, double b, double *x);
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2);
 
 /**
- * Выводит количество корней и сами корни.
+ * Выводит количество корней и сами корни в output_stream
  */
-void print_solution(enum num_roots n_roots, double x1, double x2);
+void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream);
 
 /**
- * Считывает коэффициенты из stdin и записывает в переданные переменные. При неудаче переспрашивает
+ * Считывает коэффициенты из in_stream, выводя вопросы в out_stream и записывает в переданные переменные. При неудаче переспрашивает
  * В случае ошибки считывания устанавливает возвращает ненулевое значение, соответствующее errno значению ошибки
  */
-int input_coeffs(double *a, double *b, double *c);
+int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_stream);
 
 /**
  * Прогоняет все доступные тесты
@@ -71,21 +71,24 @@ void test_solve_lin_eq();
 void test_solve_quad_eq();
 
 ///@param input_file Имя файла с проверяемым вводом
-void test_input_coeffs(char *input_file);
+///@param dev_null Поток для записи, которая никак не используется
+void test_input_coeffs(FILE *in_stream, FILE *dev_null);
 
 /** @param tmp_file Имя временного файла для тестирования
  * @param output_ref_file Имя файла с референсным выводом
  */
-void test_output_format(char *tmp_file, char *output_ref_file);
+void test_output_format(char *tmp_file, FILE *ref_stream);
 
-///@param input_file Имя файла с проверяемым вводом
-void test_read_double(char *input_file);
+///@param in_stream Поток с проверяемым вводом
+///@param dev_null Поток для записи, которая никак не используется
+void test_read_double(FILE *in_stream, FILE *dev_null);
 
 void auto_test_solve_lin_eq();
 void auto_test_solve_quad_eq();
 
 ///@param tmp_file Имя для временного файла, требуемого для теста.
-void auto_test_input_coeffs(char *tmp_file);
+///@param dev_null Поток для записи, которая никак не используется
+void auto_test_input_coeffs(char *tmp_file, FILE *dev_null);
 
 
 #endif //QUAD_EQUATION_SOLVER_H

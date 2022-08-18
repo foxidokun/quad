@@ -13,7 +13,7 @@ int main()
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
     int input_res = 0;
 
-    input_res = input_coeffs(&a, &b, &c);
+    input_res = input_coeffs(&a, &b, &c, stdin, stdout);
     if (input_res != 0) {
         printf("Не удалось считать коэффициенты: %s", strerror(input_res));
         return -1;
@@ -27,7 +27,7 @@ int main()
         return -1;
     } else {
         // В противном случае используем стандартный вывод решений
-        print_solution(n_roots, x1, x2);
+        print_solution(n_roots, x1, x2, stdout);
     }
     return 0;
 }
