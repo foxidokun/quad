@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstring>
+#include <cmath>
 #include "equation_solver.h"
 
 int main()
@@ -9,7 +10,7 @@ int main()
     return 0;
 #endif
 
-    double a = 0, b = 0, c = 0, x1 = 0, x2 = 0;
+    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
     int input_res = 0;
 
     input_res = input_coeffs(&a, &b, &c);
