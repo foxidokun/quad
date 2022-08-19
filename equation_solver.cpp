@@ -7,10 +7,6 @@
 #include <unistd.h>
 #include "equation_solver.h"
 
-/// Такое значение, что 0+DBL_ERROR все еще 0
-/// Не стандартный DBL_EPSILON, так как он слишком маленький
-const double DBL_ERROR = 1e-11  ;
-
 static bool is_zero(double x);
 static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream);
 static void flush_input(FILE *stream);

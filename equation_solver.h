@@ -1,6 +1,9 @@
 #ifndef QUAD_EQUATION_SOLVER_H
 #define QUAD_EQUATION_SOLVER_H
 
+/// Такое значение, что 0+DBL_ERROR все еще 0
+/// Не стандартный DBL_EPSILON, так как он слишком маленький
+const double DBL_ERROR = 1e-11;
 
 /// Количество корней у уравнения
 enum num_roots {
