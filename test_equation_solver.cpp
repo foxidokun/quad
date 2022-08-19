@@ -16,7 +16,7 @@ void test_solve_lin_eq()
 
     assert(solve_lin_eq(0, 0, &x) == INF_ROOTS);
 
-    // Верно сравнивает с нулем
+    // Correctly compares with zero
     assert(solve_lin_eq(2e-16, 0, &x) == INF_ROOTS);
     assert(solve_lin_eq(2e-16, 2e-16, &x) == INF_ROOTS);
 }
@@ -25,7 +25,7 @@ void test_solve_quad_eq()
 {
     double x1 = 0, x2 = 0;
 
-    // Верно выставлены ограничения на параметры
+    // Parameter limits set correctly
     assert(solve_quad_eq(0, sqrt(DBL_MAX) * 1.01, 0, &x1, &x2) == ERANGE_SOLVE);
     assert(solve_quad_eq(DBL_MAX / 7.5, 0, DBL_MAX / 7.5, &x1, &x2) == ERANGE_SOLVE);
     assert(solve_quad_eq(-DBL_MAX / 15.5, sqrt(DBL_MAX / 2), DBL_MAX / 15.5, &x1, &x2) == ERANGE_SOLVE);
@@ -53,7 +53,7 @@ void test_output_format(const char *tmp_file, FILE *ref_stream)
     print_solution(TWO_ROOTS, 228, 282, write_stream);
     fclose(write_stream);
 
-    //Сравниваем с эталоном
+    //Compare with sample
     int c = 0;
     FILE *read_stream = fopen(tmp_file, "r");
 
@@ -67,7 +67,7 @@ void test_output_format(const char *tmp_file, FILE *ref_stream)
 void auto_test_solve_lin_eq()
 {
     double k = NAN, b = NAN, x = NAN;
-    const int num_test = 100; // Количество прогоняемых тестов
+    const int num_test = 100; // Number of test to run
     srand(time(NULL));
 
     for (int i = 0; i < num_test; ++i) {
@@ -78,11 +78,11 @@ void auto_test_solve_lin_eq()
             case ONE_ROOT:
                 assert(is_zero(k * x + b));
                 break;
-            case ZERO_ROOTS: // Никакой не подойдет
+            case ZERO_ROOTS:
                 x = rand_range(-100, +100);
                 assert(!is_zero(k * x + b));
                 break;
-            case INF_ROOTS: // Подойдет любой
+            case INF_ROOTS:
                 x = rand_range(-100, +100);
                 assert(is_zero(k * x + b));
                 break;
@@ -112,16 +112,14 @@ void auto_test_solve_quad_eq()
         switch (solve_quad_eq(a, b, c, &x1, &x2)) {
             case TWO_ROOTS:
                 assert(is_zero(a*x2*x2 + b*x2 + c));
-                // И далее проверяем x1 вместе с ONE_ROOT веткой
+                // And then we check x1 along with the ONE_ROOT branch
             case ONE_ROOT:
                 assert(is_zero(a*x1*x1 + b*x1 + c));
                 break;
-                // В данном случае бесконечность корней == подходит любой
             case INF_ROOTS:
                 x1 = rand_range(-100, +100);
                 assert(is_zero(a*x1*x1 + b*x1 + c));
                 break;
-                // Если корней нет, значит никакой не подходит
             case ZERO_ROOTS:
                 x1 = rand_range(-100, +100);
                 assert(!is_zero(a*x1*x1 + b*x1 + c));
@@ -139,8 +137,8 @@ void auto_test_input_coeffs(const char *tmp_file, FILE *dev_null)
 {
     FILE *read_s = fopen(tmp_file, "r");
     FILE *write_s = fopen(tmp_file, "w");
-    double a_inp = NAN, b_inp = NAN, c_inp = NAN; // Значения, которые считает программа
-    double a_ref = NAN, b_ref = NAN, c_ref = NAN; // Значения, которые она должна принять
+    double a_inp = NAN, b_inp = NAN, c_inp = NAN; // Values from input_coeffs
+    double a_ref = NAN, b_ref = NAN, c_ref = NAN; // Reference values
     const int num_test = 100;
     srand(time(NULL));
 
