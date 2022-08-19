@@ -42,7 +42,7 @@ void test_input_coeffs(FILE *in_stream, FILE *dev_null)
     }
 }
 
-void test_output_format(char *tmp_file, FILE *ref_stream)
+void test_output_format(const char *tmp_file, FILE *ref_stream)
 {
     FILE *write_stream = fopen(tmp_file, "w");
 
@@ -135,7 +135,7 @@ void auto_test_solve_quad_eq()
     }
 }
 
-void auto_test_input_coeffs(char *tmp_file, FILE *dev_null)
+void auto_test_input_coeffs(const char *tmp_file, FILE *dev_null)
 {
     FILE *read_s = fopen(tmp_file, "r");
     FILE *write_s = fopen(tmp_file, "w");
@@ -162,7 +162,7 @@ void auto_test_input_coeffs(char *tmp_file, FILE *dev_null)
     fclose(write_s);
 }
 
-void run_test(char *tmp_file, char *input_file, char *output_ref_file)
+void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file)
 {
     FILE *in_stream = fopen(input_file, "r");
     FILE *ref_stream = fopen(output_ref_file, "r");

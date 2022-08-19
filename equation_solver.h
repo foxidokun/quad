@@ -76,7 +76,7 @@ int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_str
  * @param input_file Имя файла с тестовым вводом
  * @param output_ref_file Имя файла с референсным выводом
  */
-void run_test(char *tmp_file, char *input_file, char *output_ref_file);
+void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file);
 
 void test_solve_lin_eq();
 void test_solve_quad_eq();
@@ -88,14 +88,14 @@ void test_input_coeffs(FILE *in_stream, FILE *dev_null);
 /** @param tmp_file Имя временного файла для тестирования
  * @param output_ref_file Имя файла с референсным выводом
  */
-void test_output_format(char *tmp_file, FILE *ref_stream);
+void test_output_format(const char *tmp_file, FILE *ref_stream);
 
 void auto_test_solve_lin_eq();
 void auto_test_solve_quad_eq();
 
 ///@param tmp_file Имя для временного файла, требуемого для теста.
 ///@param dev_null Поток для записи, которая никак не используется
-void auto_test_input_coeffs(char *tmp_file, FILE *dev_null);
+void auto_test_input_coeffs(const char *tmp_file, FILE *dev_null);
 
 
 #endif //QUAD_EQUATION_SOLVER_H

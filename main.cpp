@@ -3,10 +3,15 @@
 #include <cmath>
 #include "equation_solver.h"
 
-int main()
+int main(int argc, const char *argv[])
 {
 #ifdef TEST
-    run_test("tmp.txt", "input.txt", "output.txt");
+    if (argc == 4) {
+        run_test(argv[1], argv[2], argv[3]);
+    } else {
+        run_test("tmp.txt", "input.txt", "output.txt");
+    }
+
     return 0;
 #endif
 
