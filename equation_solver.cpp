@@ -17,12 +17,10 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
     assert(x1 != NULL && "pointer can't be null");
     assert(x2 != NULL && "pointer can't be null");
 
-    // Проверка на валидность коэффициентов для дальнейших вычислений
-    // Требования:
-    // 1. b^2 - 4*a*c < DOUBLE_MAX для дискриминанта
+    // Overflow checks:
+    // 1. b^2 - 4*a*c < DOUBLE_MAX
     // 1.1 b^2 < DOUBLE_MAX
     // 1.2 4*a*c < DOUBLE_MAX
-    // 2. b + abs(sq_disc) < DOUBLE_MAX -- всегда следует из предыдущих
     if (fabs(b) > sqrt(DBL_MAX) || //1.1
         (!is_zero(c) && fabs(a) > (DBL_MAX / fabs(c) / 4)) || //1.2
         pow(b, 2) > (DBL_MAX - 4 * a * c)) //1
@@ -30,7 +28,7 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
         return ERANGE_SOLVE;
     }
 
-    // Уравнение является линейным
+    // The equation is linear
     if (is_zero(a)) {
         return solve_lin_eq(b, c, x1);
     } else {
@@ -56,7 +54,7 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
     assert(isfinite(b) && "parameter must be finite");
     assert(x != NULL && "pointer can't be null");
 
-    // k = 0 и решений либо нет, либо бесконечно много (при 0=0)
+    // k = 0 and there are either no solutions or infinitely many (when b=0)
     if (is_zero(k)) {
         if (is_zero(b)) {
             return INF_ROOTS;
@@ -78,21 +76,21 @@ void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream)
             assert(isfinite(x1) && "parameter must be finite");
             assert(isfinite(x2) && "parameter must be finite");
 
-            fprintf(stream, "Найдено 2 решения: %.3e и %.3e\n", x1, x2);
+            fprintf(stream, "2 solutions: %.3e и %.3e\n", x1, x2);
             break;
         case ONE_ROOT:
             assert(isfinite(x1) && "parameter must be finite");
 
-            fprintf(stream, "Найдено одно решение: %.3e\n", x1);
+            fprintf(stream, "1 solution: %.3e\n", x1);
             break;
         case ZERO_ROOTS:
-            fprintf(stream, "Решений не найдено\n");
+            fprintf(stream, "No solutions\n");
             break;
         case INF_ROOTS:
-            fprintf(stream, "Решений бесконечно много\n");
+            fprintf(stream, "Infinitive number of roots\n");
             break;
         case ERANGE_SOLVE:
-            fprintf(stream, "Не удалось решить уравнение: слишком большие коэффициенты\n");
+            fprintf(stream, "Failed to solve equation: Coefficients out of range\n");
             break;
         default:
             assert(0 && "Invalid enum member");
@@ -100,9 +98,7 @@ void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream)
     }
 }
 
-/**
- * Сбрасывает ввод из stream до символа \n
- */
+///@brief Flush input stream to '\\n' symbol
 static void flush_input(FILE *stream)
 {
     assert(stream != NULL && "pointer can't be null");
@@ -110,11 +106,9 @@ static void flush_input(FILE *stream)
 }
 
 /**
- * Считывает аргумент из in_stream, предварительно выводя prompt в out_stream, и записывает в x. В случае некорректного ввода переспрашивает.
- * В случае ошибки возвращает ненулевое значение, соответствующее errno значению этой ошибки
- * @param x Куда записывается считанный double
- * @param prompt Приглашающая строка перед вводом
- * @return 0 или errno в случае ошибки
+ * @brief Read coefficients from in_stream and write them to given variables using out_stream for asking question with given prompt.
+ *
+ * In case of a read error, returns a non-zero value corresponding to the errno value of the error
  */
 static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream)
 {
@@ -130,22 +124,20 @@ static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out
         fprintf(out_stream, "%s", prompt);
         scanf_res = fscanf(in_stream, "%lf", x);
 
-        // При слишком больших числах или при нечисловом вводе переспрашиваем
+        // For too large numbers or for non-numeric input, ask again
         if (errno == ERANGE || (errno == 0 && scanf_res == 0)) {
-            flush_input(in_stream); //Сбрасываем неправильный ввод
-            errno = 0; // Обнуляем возможную ошибку ERANGE
-            fprintf(out_stream, "Неправильный ввод, пожалуйста, введите число, причем не слишком большое\n");
+            flush_input(in_stream); //Flush bad input
+            errno = 0;
+            fprintf(out_stream, "Bad input, please enter not very big number\n");
         } else {
             break;
         }
     }
 
-    // scanf таки завершился с ошибкой, но ввода/вывода, а не преобразования
     if (errno != 0) {
         return errno;
     }
 
-    // Ошибочные вводы были переспрошены, тут либо успех, либо EOF
     assert(scanf_res == 1 || scanf_res == EOF);
 
     if (scanf_res == 1) {
@@ -167,12 +159,12 @@ int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_str
     const char *prompts[3] = {"a = ", "b = ", "c = "};
     int read_res = 0;
 
-    fprintf(out_stream, "Введите коэффициенты уравнения ax^2 + bx + c = 0\n");
+    fprintf(out_stream, "Enter equation (ax^2 + bx + c = 0) coefficients\n");
 
     for (int i = 0; i < 3; i++) {
         read_res = read_double(coeffs[i], prompts[i], in_stream, out_stream);
 
-        // Если произошла ошибка, пробрасываем ее дальше
+        // If error happened, return it
         if (read_res != 0) {
             return read_res;
         }

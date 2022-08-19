@@ -1,100 +1,95 @@
 #ifndef QUAD_EQUATION_SOLVER_H
 #define QUAD_EQUATION_SOLVER_H
 
-/// Такое значение, что 0+DBL_ERROR все еще 0
-/// Не стандартный DBL_EPSILON, так как он слишком маленький
+///@brief Floating point calculations accuracy
 const double DBL_ERROR = 1e-11;
 
-/// Количество корней у уравнения
+///@brief Number of equation roots
 enum num_roots {
     TWO_ROOTS    =  2,
     ONE_ROOT     =  1,
     ZERO_ROOTS   =  0,
     INF_ROOTS    = -1,
-    /// При вычислении корней произошла ошибка переполнения
+    /// Coefficient out of range
     ERANGE_SOLVE = -2
 };
 
 /**
- * Сравнивает переданное double число с нулем с учетом погрешности double арифметики
+ * @brief Compare double to zero, taking into account floating point calculation error
  */
 static bool is_zero(double x)
 {
     return fabs(x) < DBL_ERROR;
 }
 
-/**
- * Решает линейное уравнение вида kx + b = 0, записывает решение (при наличии) в переданную переменную (x)
- * и возвращает количество найденных решений в объекте enum num_roots
- * @param k Коэффициент при линейном члене
- * @param b Свободный коэффициент
- * @param x Указатель на переменную для корня (при наличии)
- * @return Количество найденных корней
+/**@brief Solve linear equation, write root into given variable (x) and return number of solutions found
+ *
+ * @param k Linear coefficient
+ * @param b Free coefficient
+ * @param x Variable to store equation root
+ * @return Number of equation roots
  */
 enum num_roots solve_lin_eq(double k, double b, double *x);
 
-/**
- * Решает квадратное уравнение вида a*x^2 + b*x + c = 0, записывает решения (при наличии) в переданные переменные (x1 и x2),
- * и возвращает их количество или произошедшую ошибку в объекте enum num_roots
+/**@brief Solve quadratic equation, write root into given variables (x1&x2) and return number of solutions found or error
  *
+ * Possible errors
+ * 1. ERANGE_SOLVE -- overflow in internal calculations
  *
- * Возможное ошибки
- * 1. ERANGE_SOLVE -- при переполнении double во внутренних вычислениях
- *
- * Критерии проверки на переполнение:
+ * Overflow checks:
  * 1. b^2 < DOUBLE_MAX
  * 2. abs(4*a*c) < DOUBLE_MAX
  * 3. abs(b^2 - 4*a*c) < DOUBLE_MAX
  *
+ * If there are less than two solutions, unused variables do not change their value.
+ * If there is one solution, it is written in x1.
+ * If there are two solutions, the order of x1 and x2 is not guaranteed.
  *
- * Если решений меньше двух, неиспользованные переменные не изменяют своего значения.
- * При наличии одного решения оно записывается в x1.
- * При наличии двух решений порядок x1 и x2 не гарантируется.
- * @param a Коэффициент при квадратичном члене
- * @param b Коэффициент при линейном члене
- * @param c Свободный коэффициент
- * @param x1 Указатель на переменную для первого корня (при наличии)
- * @param x2 Указатель на переменную для второго корня (при наличии)
- * @return Количество найденных корней
+ * @param a Quadratic coefficient
+ * @param b Linear coefficient
+ * @param c Free coefficient
+ * @param x1 Pointer to store equation root
+ * @param x2 Pointer to store equation root
+ * @return Number of equation roots
  */
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2);
 
-/**
- * Выводит количество корней и сами корни в stream
- */
+///@brief Print solution to stream
 void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream);
 
 /**
- * Считывает коэффициенты из in_stream, выводя вопросы в out_stream, и записывает коэфы в переданные переменные. При неудаче переспрашивает
- * В случае ошибки считывания возвращает ненулевое значение, соответствующее errno значению ошибки
+ * @brief Read coefficients from in_stream and write them to given variables using out_stream for asking question.
+ *
+ * In case of a read error, returns a non-zero value corresponding to the errno value of the error
  */
 int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_stream);
 
 /**
- * Прогоняет все доступные тесты
- * @param tmp_file Имя временного файла для тестирования
- * @param input_file Имя файла с тестовым вводом
- * @param output_ref_file Имя файла с референсным выводом
+ * @brief Run all tests
+ * @param tmp_file Temporary file
+ * @param input_file File with sample input
+ * @param output_ref_file File with sample output
+ * @param dev_null /dev/null or analog
  */
-void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file);
+void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file, const char *dev_null);
 
 void test_solve_lin_eq();
 void test_solve_quad_eq();
 
-///@param input_file Имя файла с проверяемым вводом
-///@param dev_null Поток для записи, которая никак не используется
+///@param input_file File with sample input
+///@param dev_null /dev/null stream
 void test_input_coeffs(FILE *in_stream, FILE *dev_null);
 
-/** @param tmp_file Имя временного файла для тестирования
- * @param output_ref_file Имя файла с референсным выводом
+/** @param tmp_file Temporary file
+ * @param output_ref_file File with sample output
  */
 void test_output_format(const char *tmp_file, FILE *ref_stream);
 
 void auto_test_solve_lin_eq();
 void auto_test_solve_quad_eq();
 
-///@param tmp_file Имя для временного файла, требуемого для теста.
-///@param dev_null Поток для записи, которая никак не используется
+///@param tmp_file Temporary file
+///@param dev_null /dev/null stream
 void auto_test_input_coeffs(const char *tmp_file, FILE *dev_null);
 
 

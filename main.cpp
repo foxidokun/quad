@@ -7,9 +7,11 @@ int main(int argc, const char *argv[])
 {
 #ifdef TEST
     if (argc == 4) {
-        run_test(argv[1], argv[2], argv[3]);
+        run_test(argv[1], argv[2], argv[3], "/dev/null");
+    } else if (argc == 5) {
+        run_test(argv[1], argv[2], argv[3], argv[4]);
     } else {
-        run_test("tmp.txt", "input.txt", "output.txt");
+        run_test("tmp.txt", "input.txt", "output.txt", "/dev/null");
     }
 
     return 0;
@@ -20,18 +22,16 @@ int main(int argc, const char *argv[])
 
     input_res = input_coeffs(&a, &b, &c, stdin, stdout);
     if (input_res != 0) {
-        printf("Не удалось считать коэффициенты: %s", strerror(input_res));
+        printf("Failed to read coefficients: %s", strerror(input_res));
         return -1;
     }
 
     enum num_roots n_roots = solve_quad_eq(a, b, c, &x1, &x2);
 
-    // Обрабатываем возможные ошибки
     if (n_roots == ERANGE_SOLVE) {
-        printf("Не удалось решить уравнение: Слишком большие коэффициенты");
+        printf("Failed to solve equation: Coefficients out of range");
         return -1;
     } else {
-        // В противном случае используем стандартный вывод решений
         print_solution(n_roots, x1, x2, stdout);
     }
     return 0;

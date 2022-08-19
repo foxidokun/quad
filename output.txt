@@ -1,5 +1,6 @@
-Не удалось решить уравнение: слишком большие коэффициенты
-Решений бесконечно много
-Решений не найдено
-Найдено одно решение: 2.280e+02
-Найдено 2 решения: 2.280e+02 и 2.820e+02
+Failed to solve equation: Coefficients out of range
+Infinitive number of roots
+No solutions
+1 solution: 2.280e+02
+2 solutions: 2.280e+02 и 2.820e+02
+

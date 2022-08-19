@@ -162,25 +162,25 @@ void auto_test_input_coeffs(const char *tmp_file, FILE *dev_null)
     fclose(write_s);
 }
 
-void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file)
+void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file, const char *dev_null)
 {
     FILE *in_stream = fopen(input_file, "r");
     FILE *ref_stream = fopen(output_ref_file, "r");
-    FILE *dev_null = fopen("/dev/null", "w");
+    FILE *dev_null_stream = fopen(dev_null, "w");
 
     test_solve_lin_eq();
     test_solve_quad_eq();
     fseek(in_stream, 0, SEEK_SET);
-    test_input_coeffs(in_stream, dev_null);
+    test_input_coeffs(in_stream, dev_null_stream);
     test_output_format(tmp_file, ref_stream);
 
     auto_test_solve_lin_eq();
     auto_test_solve_quad_eq();
-    auto_test_input_coeffs(tmp_file, dev_null);
+    auto_test_input_coeffs(tmp_file, dev_null_stream);
 }
 
 /**
- * Генерирует псевдослучайное число в диапазоне [min, max]
+ * Generate random value in [min, max] range
  */
 static double rand_range(double min, double max)
 {
@@ -189,7 +189,7 @@ static double rand_range(double min, double max)
 }
 
 /**
- * Сравнивает x == y с учетом double погрешности
+ * Compare x with y, taking into account floating point error
  */
 static int is_equal(double x, double y)
 {
