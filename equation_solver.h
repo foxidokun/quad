@@ -16,6 +16,14 @@ enum num_roots {
 };
 
 /**
+ * Сравнивает переданное double число с нулем с учетом погрешности double арифметики
+ */
+static bool is_zero(double x)
+{
+    return fabs(x) < DBL_ERROR;
+}
+
+/**
  * Решает линейное уравнение вида kx + b = 0, записывает решение (при наличии) в переданную переменную (x)
  * и возвращает количество найденных решений в объекте enum num_roots
  * @param k Коэффициент при линейном члене
@@ -81,10 +89,6 @@ void test_input_coeffs(FILE *in_stream, FILE *dev_null);
  * @param output_ref_file Имя файла с референсным выводом
  */
 void test_output_format(char *tmp_file, FILE *ref_stream);
-
-///@param in_stream Поток с проверяемым вводом
-///@param dev_null Поток для записи, которая никак не используется
-void test_read_double(FILE *in_stream, FILE *dev_null);
 
 void auto_test_solve_lin_eq();
 void auto_test_solve_quad_eq();
