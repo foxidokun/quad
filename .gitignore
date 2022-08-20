@@ -3,5 +3,4 @@ CMakeLists.txt
 cmake-build-debug
 obj
 bin
-Doxyfile
 tmp.txt

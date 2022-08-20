@@ -1,6 +1,6 @@
 #ifndef QUAD_EQUATION_SOLVER_H
 #define QUAD_EQUATION_SOLVER_H
-
+#include<math.h>
 ///@brief Floating point calculations accuracy
 const double DBL_ERROR = 1e-11;
 
@@ -31,7 +31,7 @@ static bool is_zero(double x)
  */
 enum num_roots solve_lin_eq(double k, double b, double *x);
 
-/**@brief Solve quadratic equation, write root into given variables (x1&x2) and return number of solutions found or error
+/**@brief Solve quadratic equation, write roots into given variables (x1&x2) and return number of solutions found or error
  *
  * Possible errors
  * 1. ERANGE_SOLVE -- overflow in internal calculations
