@@ -56,42 +56,13 @@ enum num_roots solve_lin_eq(double k, double b, double *x);
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2);
 
 ///@brief Print solution to stream
-void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream);
+void print_solution(enum num_roots n_roots, double roots[], FILE *stream);
 
 /**
  * @brief Read coefficients from in_stream and write them to given variables using out_stream for asking question.
  *
  * In case of a read error, returns a non-zero value (errno value of the error)
  */
-int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_stream);
-
-/**
- * @brief Run all tests
- * @param tmp_file Temporary file (rw)
- * @param input_file File with sample input (w)
- * @param output_ref_file File with sample output (r)
- * @param dev_null /dev/null or analog
- */
-void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file, const char *dev_null);
-
-void test_solve_lin_eq();
-void test_solve_quad_eq();
-
-///@param input_file File with sample input
-///@param dev_null /dev/null stream
-void test_input_coeffs(FILE *in_stream, FILE *dev_null);
-
-/** @param tmp_file Temporary file
- * @param output_ref_file File with sample output
- */
-void test_output_format(const char *tmp_file, FILE *ref_stream);
-
-void auto_test_solve_lin_eq();
-void auto_test_solve_quad_eq();
-
-///@param tmp_file Temporary file
-///@param dev_null /dev/null stream
-void auto_test_input_coeffs(const char *tmp_file, FILE *dev_null);
-
+int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream);
 
 #endif //QUAD_EQUATION_SOLVER_H
