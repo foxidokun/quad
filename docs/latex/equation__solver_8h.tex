@@ -19,7 +19,7 @@ enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num
 enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} \mbox{\hyperlink{equation__solver_8h_aad343530371f3ffab6d12d35c316ea63}{solve\+\_\+lin\+\_\+eq}} (double k, double b, double $\ast$x)
 \begin{DoxyCompactList}\small\item\em Solve linear equation, write root into given variable (x) and return number of solutions found. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} \mbox{\hyperlink{equation__solver_8h_a9056807006f06bbbcde400af41f26947}{solve\+\_\+quad\+\_\+eq}} (double a, double b, double c, double $\ast$x1, double $\ast$x2)
-\begin{DoxyCompactList}\small\item\em Solve quadratic equation, write root into given variables (x1\&x2) and return number of solutions found or error. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Solve quadratic equation, write roots into given variables (x1\&x2) and return number of solutions found or error. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}{print\+\_\+solution}} (enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} n\+\_\+roots, double x1, double x2, FILE $\ast$stream)
 \begin{DoxyCompactList}\small\item\em Print solution to stream. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{equation__solver_8h_a1c3c6a2678d7efcc980184ea1ac9424e}{input\+\_\+coeffs}} (double $\ast$a, double $\ast$b, double $\ast$c, FILE $\ast$in\+\_\+stream, FILE $\ast$out\+\_\+stream)
@@ -118,7 +118,7 @@ ERANGE\+\_\+\+SOLVE&Coefficient out of range. \\
 
 Read coefficients from in\+\_\+stream and write them to given variables using out\+\_\+stream for asking question. 
 
-In case of a read error, returns a non-\/zero value corresponding to the errno value of the error \mbox{\Hypertarget{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}\label{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}} 
+In case of a read error, returns a non-\/zero value (errno value of the error) \mbox{\Hypertarget{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}\label{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}} 
 \index{equation\_solver.h@{equation\_solver.h}!print\_solution@{print\_solution}}
 \index{print\_solution@{print\_solution}!equation\_solver.h@{equation\_solver.h}}
 \doxysubsubsection{\texorpdfstring{print\_solution()}{print\_solution()}}
@@ -140,11 +140,11 @@ Run all tests.
 
 
 \begin{DoxyParams}{Parameters}
-{\em tmp\+\_\+file} & Temporary file \\
+{\em tmp\+\_\+file} & Temporary file (rw) \\
 \hline
-{\em input\+\_\+file} & File with sample input \\
+{\em input\+\_\+file} & File with sample input (w) \\
 \hline
-{\em output\+\_\+ref\+\_\+file} & File with sample output \\
+{\em output\+\_\+ref\+\_\+file} & File with sample output (r) \\
 \hline
 {\em dev\+\_\+null} & /dev/null or analog \\
 \hline
@@ -160,12 +160,12 @@ Run all tests.
 Solve linear equation, write root into given variable (x) and return number of solutions found. 
 
 
-\begin{DoxyParams}{Parameters}
-{\em k} & Linear coefficient \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em k} & Linear coefficient \\
 \hline
-{\em b} & Free coefficient \\
+\mbox{\texttt{ in}}  & {\em b} & Free coefficient \\
 \hline
-{\em x} & Variable to store equation root \\
+\mbox{\texttt{ out}}  & {\em x} & Variable to store equation root \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -179,33 +179,34 @@ Number of equation roots
 
 
 
-Solve quadratic equation, write root into given variables (x1\&x2) and return number of solutions found or error. 
+Solve quadratic equation, write roots into given variables (x1\&x2) and return number of solutions found or error. 
 
 Possible errors
 \begin{DoxyEnumerate}
 \item ERANGE\+\_\+\+SOLVE -- overflow in internal calculations
 \end{DoxyEnumerate}
 
+\begin{DoxyNote}{Note}
 Overflow checks\+:
 \begin{DoxyEnumerate}
 \item b$^\wedge$2 \texorpdfstring{$<$}{<} DOUBLE\+\_\+\+MAX
 \item abs(4$\ast$a$\ast$c) \texorpdfstring{$<$}{<} DOUBLE\+\_\+\+MAX
 \item abs(b$^\wedge$2 -\/ 4$\ast$a$\ast$c) \texorpdfstring{$<$}{<} DOUBLE\+\_\+\+MAX
 \end{DoxyEnumerate}
-
+\end{DoxyNote}
 If there are less than two solutions, unused variables do not change their value. If there is one solution, it is written in x1. If there are two solutions, the order of x1 and x2 is not guaranteed.
 
 
-\begin{DoxyParams}{Parameters}
-{\em a} & Quadratic coefficient \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em a} & Quadratic coefficient \\
 \hline
-{\em b} & Linear coefficient \\
+\mbox{\texttt{ in}}  & {\em b} & Linear coefficient \\
 \hline
-{\em c} & Free coefficient \\
+\mbox{\texttt{ in}}  & {\em c} & Free coefficient \\
 \hline
-{\em x1} & Pointer to store equation root \\
+\mbox{\texttt{ out}}  & {\em x1} & Pointer to store equation root \\
 \hline
-{\em x2} & Pointer to store equation root \\
+\mbox{\texttt{ out}}  & {\em x2} & Pointer to store equation root \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}

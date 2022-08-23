@@ -25,9 +25,9 @@ static bool is_zero(double x)
 
 /**@brief Solve linear equation, write root into given variable (x) and return number of solutions found
  *
- * @param k Linear coefficient
- * @param b Free coefficient
- * @param x Variable to store equation root
+ * @param [in] k Linear coefficient
+ * @param [in] b Free coefficient
+ * @param [out] x Variable to store equation root
  * @return Number of equation roots
  */
 enum num_roots solve_lin_eq(double k, double b, double *x);
@@ -37,7 +37,7 @@ enum num_roots solve_lin_eq(double k, double b, double *x);
  * Possible errors
  * 1. ERANGE_SOLVE -- overflow in internal calculations
  *
- * Overflow checks:
+ * @note Overflow checks:
  * 1. b^2 < DOUBLE_MAX
  * 2. abs(4*a*c) < DOUBLE_MAX
  * 3. abs(b^2 - 4*a*c) < DOUBLE_MAX
@@ -46,11 +46,11 @@ enum num_roots solve_lin_eq(double k, double b, double *x);
  * If there is one solution, it is written in x1.
  * If there are two solutions, the order of x1 and x2 is not guaranteed.
  *
- * @param a Quadratic coefficient
- * @param b Linear coefficient
- * @param c Free coefficient
- * @param x1 Pointer to store equation root
- * @param x2 Pointer to store equation root
+ * @param [in] a Quadratic coefficient
+ * @param [in] b Linear coefficient
+ * @param [in] c Free coefficient
+ * @param [out] x1 Pointer to store equation root
+ * @param [out] x2 Pointer to store equation root
  * @return Number of equation roots
  */
 enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2);

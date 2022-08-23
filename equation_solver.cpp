@@ -16,6 +16,7 @@ enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x
     assert(isfinite(c) && "parameter must be finite");
     assert(x1 != NULL && "pointer can't be null");
     assert(x2 != NULL && "pointer can't be null");
+    assert(x1 != x2 && "pointers can't be same");
 
     // Overflow checks:
     // 1. b^2 - 4*a*c < DOUBLE_MAX

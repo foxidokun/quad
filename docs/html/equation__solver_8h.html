@@ -93,7 +93,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:aad343530371f3ffab6d12d35c316ea63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve linear equation, write root into given variable (x) and return number of solutions found.  <a href="equation__solver_8h.html#aad343530371f3ffab6d12d35c316ea63">More...</a><br /></td></tr>
 <tr class="separator:aad343530371f3ffab6d12d35c316ea63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9056807006f06bbbcde400af41f26947"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8h.html#a9056807006f06bbbcde400af41f26947">solve_quad_eq</a> (double a, double b, double c, double *x1, double *x2)</td></tr>
-<tr class="memdesc:a9056807006f06bbbcde400af41f26947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve quadratic equation, write root into given variables (x1&amp;x2) and return number of solutions found or error.  <a href="equation__solver_8h.html#a9056807006f06bbbcde400af41f26947">More...</a><br /></td></tr>
+<tr class="memdesc:a9056807006f06bbbcde400af41f26947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve quadratic equation, write roots into given variables (x1&amp;x2) and return number of solutions found or error.  <a href="equation__solver_8h.html#a9056807006f06bbbcde400af41f26947">More...</a><br /></td></tr>
 <tr class="separator:a9056807006f06bbbcde400af41f26947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07c90fbe0dcd8aeb998cb37f1b04147d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8h.html#a07c90fbe0dcd8aeb998cb37f1b04147d">print_solution</a> (enum <a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> n_roots, double x1, double x2, FILE *stream)</td></tr>
 <tr class="memdesc:a07c90fbe0dcd8aeb998cb37f1b04147d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print solution to stream.  <a href="equation__solver_8h.html#a07c90fbe0dcd8aeb998cb37f1b04147d">More...</a><br /></td></tr>
@@ -265,7 +265,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read coefficients from in_stream and write them to given variables using out_stream for asking question. </p>
-<p >In case of a read error, returns a non-zero value corresponding to the errno value of the error </p>
+<p >In case of a read error, returns a non-zero value (errno value of the error) </p>
 
 </div>
 </div>
@@ -352,9 +352,9 @@ Variables</h2></td></tr>
 <p>Run all tests. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tmp_file</td><td>Temporary file </td></tr>
-    <tr><td class="paramname">input_file</td><td>File with sample input </td></tr>
-    <tr><td class="paramname">output_ref_file</td><td>File with sample output </td></tr>
+    <tr><td class="paramname">tmp_file</td><td>Temporary file (rw) </td></tr>
+    <tr><td class="paramname">input_file</td><td>File with sample input (w) </td></tr>
+    <tr><td class="paramname">output_ref_file</td><td>File with sample output (r) </td></tr>
     <tr><td class="paramname">dev_null</td><td>/dev/null or analog </td></tr>
   </table>
   </dd>
@@ -397,9 +397,9 @@ Variables</h2></td></tr>
 <p>Solve linear equation, write root into given variable (x) and return number of solutions found. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">k</td><td>Linear coefficient </td></tr>
-    <tr><td class="paramname">b</td><td>Free coefficient </td></tr>
-    <tr><td class="paramname">x</td><td>Variable to store equation root </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">k</td><td>Linear coefficient </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>Free coefficient </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">x</td><td>Variable to store equation root </td></tr>
   </table>
   </dd>
 </dl>
@@ -451,23 +451,24 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Solve quadratic equation, write root into given variables (x1&amp;x2) and return number of solutions found or error. </p>
+<p>Solve quadratic equation, write roots into given variables (x1&amp;x2) and return number of solutions found or error. </p>
 <p >Possible errors</p><ol type="1">
 <li>ERANGE_SOLVE &ndash; overflow in internal calculations</li>
 </ol>
-<p >Overflow checks:</p><ol type="1">
+<dl class="section note"><dt>Note</dt><dd>Overflow checks:<ol type="1">
 <li>b^2 &lt; DOUBLE_MAX</li>
 <li>abs(4*a*c) &lt; DOUBLE_MAX</li>
 <li>abs(b^2 - 4*a*c) &lt; DOUBLE_MAX</li>
 </ol>
-<p >If there are less than two solutions, unused variables do not change their value. If there is one solution, it is written in x1. If there are two solutions, the order of x1 and x2 is not guaranteed.</p>
+</dd></dl>
+<p>If there are less than two solutions, unused variables do not change their value. If there is one solution, it is written in x1. If there are two solutions, the order of x1 and x2 is not guaranteed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>Quadratic coefficient </td></tr>
-    <tr><td class="paramname">b</td><td>Linear coefficient </td></tr>
-    <tr><td class="paramname">c</td><td>Free coefficient </td></tr>
-    <tr><td class="paramname">x1</td><td>Pointer to store equation root </td></tr>
-    <tr><td class="paramname">x2</td><td>Pointer to store equation root </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>Quadratic coefficient </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>Linear coefficient </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">c</td><td>Free coefficient </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">x1</td><td>Pointer to store equation root </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">x2</td><td>Pointer to store equation root </td></tr>
   </table>
   </dd>
 </dl>
