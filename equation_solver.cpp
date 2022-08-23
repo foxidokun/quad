@@ -203,11 +203,34 @@ int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_strea
 
     for (int i = 0; i < n_coeffs; ++i)
     {
-        sprintf(print_buf, "Coefficient at x^%d: ", i);
+        sprintf(print_buf, "Coefficient at x^%d: ", n_coeffs - 1 - i);
         err = read_double (&coeffs[i], print_buf, in_stream, out_stream);
 
         if (err) return err;
     }
 
     return 0;
+}
+
+int parse_coeffs(int n_coeffs, double coeffs[], const char **strings)
+{
+    assert (strings != NULL && "pointer can't be null");
+    assert (coeffs  != NULL && "pointer can't be null");
+
+    for (int i = n_coeffs - 1; i >= 0; --i)
+    {
+        assert (strings[i] != NULL && "pointer can't be null");
+
+        const char *start = strings[i];
+        char **end = (char **) &strings[i];
+
+        coeffs[i] = strtod(start, end);
+
+        if ((char **) start == end) //Nothing converted
+        {
+            return -1;
+        }
+   }
+
+   return 0;
 }

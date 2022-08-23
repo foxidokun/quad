@@ -17,7 +17,7 @@ $(BINDIR)/$(PROJ): $(ODIR) $(BINDIR) $(OBJ)
 	g++ -o $(BINDIR)/$(PROJ) $(OBJ) $(CFLAGS)
 
 run: $(BINDIR)/$(PROJ)
-	$(BINDIR)/$(PROJ)
+	$(BINDIR)/$(PROJ) -i
 
 clean:
 	$(SAFETY_COMMAND) && rm -rf $(ODIR) $(BINDIR)

@@ -3,6 +3,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <assert.h>
 #include "equation_solver.h"
 
 #ifdef TEST
@@ -27,14 +28,39 @@ int main(int argc, const char *argv[])
     double roots[] = {NAN, NAN};
     int input_res = 0;
 
-    input_res = input_coeffs(3, coeffs, stdin, stdout);
+    if ((argc == 2 && strcmp(argv[1],"-h") == 0) || (argc != 2 && argc != 4))
+    {
+        printf(
+            "Quadratic equation solver\n"                                       \
+            "Usage:\n"                                                          \
+            "    * `quad -i` for interactive mode\n"                            \
+            "    * `quad a b c` for normal mode (solve ax^2 + bx + c = 0)\n");
+        return 0;
+    }
+    else if (argc == 2 && strcmp(argv[1], "-i") == 0)
+    {
+        input_res = input_coeffs(3, coeffs, stdin, stdout);
     
-    if (input_res != 0) {
-        printf("Failed to read coefficients: %s", strerror(input_res));
-        return -1;
+        if (input_res != 0)
+        {
+            printf("Failed to read coefficients: %s", strerror(input_res));
+            return -1;
+        }
+    }
+    else // argc == 4
+    {
+        assert(argc == 4 && "Error in logic: unexpected argc value");
+
+        input_res = parse_coeffs(3, coeffs, &argv[1]);
+
+        if (input_res != 0)
+        {
+            printf("Failed to parse coefficients");
+            return -1;
+        }
     }
 
-    num_roots n_roots = solve_quad_eq(coeffs[2], coeffs[1], coeffs[0], &roots[0], &roots[1]);
+    num_roots n_roots = solve_quad_eq(coeffs[0], coeffs[1], coeffs[2], &roots[0], &roots[1]);
 
     if (n_roots == ERANGE_SOLVE)
     {

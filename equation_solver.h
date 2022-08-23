@@ -60,9 +60,22 @@ void print_solution(enum num_roots n_roots, double roots[], FILE *stream);
 
 /**
  * @brief Read coefficients from in_stream and write them to given variables using out_stream for asking question.
+ * 
+ * @note Order in coeffs: from biggest exponent (zero index) to lowest exponent (n_coeffs-1 index)
  *
  * In case of a read error, returns a non-zero value (errno value of the error)
  */
 int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream);
+
+/**
+ * @brief     Parse given strings into coefficients
+ *
+ * @param[in]  n_coeffs  Number of parsing coefficients
+ * @param[out] coeffs    Array of coefficients: from biggest exponent (zero index) to lowest exponent (n_coeffs-1 index)
+ * @param[in]  strings   n_coeffs strings to parse
+ *
+ * @return     Non zero value on parsing error
+ */
+int parse_coeffs(int n_coeffs, double coeffs[], const char **strings);
 
 #endif //QUAD_EQUATION_SOLVER_H
