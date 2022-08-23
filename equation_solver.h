@@ -1,6 +1,7 @@
 #ifndef QUAD_EQUATION_SOLVER_H
 #define QUAD_EQUATION_SOLVER_H
 #include<math.h>
+
 ///@brief Floating point calculations accuracy
 const double DBL_ERROR = 1e-11;
 
@@ -60,15 +61,15 @@ void print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream);
 /**
  * @brief Read coefficients from in_stream and write them to given variables using out_stream for asking question.
  *
- * In case of a read error, returns a non-zero value corresponding to the errno value of the error
+ * In case of a read error, returns a non-zero value (errno value of the error)
  */
 int input_coeffs(double *a, double *b, double *c, FILE *in_stream, FILE *out_stream);
 
 /**
  * @brief Run all tests
- * @param tmp_file Temporary file
- * @param input_file File with sample input
- * @param output_ref_file File with sample output
+ * @param tmp_file Temporary file (rw)
+ * @param input_file File with sample input (w)
+ * @param output_ref_file File with sample output (r)
  * @param dev_null /dev/null or analog
  */
 void run_test(const char *tmp_file, const char *input_file, const char *output_ref_file, const char *dev_null);
