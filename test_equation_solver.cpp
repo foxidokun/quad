@@ -246,7 +246,6 @@ void auto_test_solve_quad_eq()
             case TWO_ROOTS:
                 check_solve_quad_eq(a, b, c, x2);
                 // And then we check x1 along with the ONE_ROOT branch
-                [[fallthrough]]
        
             case ONE_ROOT:
                 check_solve_quad_eq(a, b, c, x1);

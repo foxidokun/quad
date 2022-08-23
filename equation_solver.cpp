@@ -58,7 +58,7 @@ num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
         {
             return ZERO_ROOTS;
         }
-        else
+        else // disc > 0
         {
             if (is_zero(b))
             {
@@ -146,7 +146,7 @@ void print_solution(enum num_roots n_roots, double roots[], FILE *stream)
 ///@brief Flush input stream to '\\n' symbol
 static void flush_input(FILE *stream)
 {
-    assert(stream != NULL && "pointer can't be null, or I'll kill you. Now killing...");
+    assert(stream != NULL && "pointer can't be null");
     while (getc(stream) != '\n') {}
 }
 
@@ -197,7 +197,7 @@ int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_strea
     assert(coeffs     != NULL && "pointer can't be null");
 
     int err = 0;
-    char print_buf[30] = "";
+    char print_buf[32] = "";
 
     fprintf(out_stream, "Enter equation (ax^n + ... + bx^2 + cx + d = 0) coefficients\n");
 
