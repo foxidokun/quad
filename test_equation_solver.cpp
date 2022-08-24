@@ -138,6 +138,7 @@ void manual_test_input_coeffs (FILE *in_stream, FILE *dev_null)
                     "Expected %lg, got %lg\n\n",
                     5.0, coeffs[i]
                     );
+
                 return;
             }
         }
@@ -156,7 +157,7 @@ void manual_test_output_format (const char *tmp_file, FILE *ref_stream)
     print_solution (TWO_ROOTS,    ref_roots, write_stream);
     fclose (write_stream);
 
-    //Compare with sample
+    // Compare with sample
     int c = 0, c_ref = 0;
     unsigned long int pos = 0;
     FILE *read_stream = fopen (tmp_file, "r");
@@ -183,7 +184,7 @@ void manual_test_output_format (const char *tmp_file, FILE *ref_stream)
 
 void check_solve_lin_eq (double k, double b, double x)
 {
-    if (!is_zero (k*x+b))
+    if (!is_zero (k*x + b))
     {
         fprintf (stderr, "## Test Error: Wrong answer##\n");
         fprintf
@@ -260,28 +261,28 @@ void auto_test_solve_quad_eq ()
         switch (solve_quad_eq (a, b, c, &x1, &x2))
         {
             case TWO_ROOTS:
-                check_solve_quad_eq(a, b, c, x2);
+                check_solve_quad_eq (a, b, c, x2);
                 [[fallthrough]];
                 // And then we check x1 along with the ONE_ROOT branch
 
             case ONE_ROOT:
-                check_solve_quad_eq(a, b, c, x1);
+                check_solve_quad_eq (a, b, c, x1);
                 break;
        
             case INF_ROOTS:
-                x1 = rand_range(-100, +100);
-                check_solve_quad_eq(a, b, c, x1);
+                x1 = rand_range (-100, +100);
+                check_solve_quad_eq (a, b, c, x1);
                 break;
        
             case ZERO_ROOTS:
                 break;
        
             case ERANGE_SOLVE:
-                assert(0 && "Test parameters can't be out of range");
+                assert (0 && "Test parameters can't be out of range");
                 break;
        
             default:
-                assert(0 && "Invalid enum member");
+                assert (0 && "Invalid enum member");
         }
     }
 }
