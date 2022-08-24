@@ -26,7 +26,7 @@ $ ./bin/quad 1 0 -4
 2 solutions: -2.000e+00 и 2.000e+00
 ```
 
-3. *Help**
+3. *Help*
 ```
 $ ./bin/quad -h
 Quadratic equation solver
