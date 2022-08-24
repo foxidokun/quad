@@ -3,15 +3,32 @@
 
 /**
  * @brief Run all tests
- * @param tmp_file Temporary file (rw)
- * @param input_file File with sample input (w)
- * @param output_ref_file File with sample output (r)
- * @param dev_null /dev/null or analog
+ * @param tmp_file          Temporary file (rw)
+ * @param input_file        File with sample input (w)
+ * @param lin_file          File with tests for solve_lin_eq
+ * @param quad_file         File with test for solve_quad_eq
+ * @param output_ref_file   File with sample output (r)
+ * @param dev_null          /dev/null or analog
  */
-void run_test (const char *tmp_file, const char *input_file, const char *output_ref_file, const char *dev_null);
+void run_test (const char *tmp_file, const char *lin_file, const char *quad_file, const char *input_file, const char *output_ref_file, const char *dev_null);
 
-void manual_test_solve_lin_eq  ();
-void manual_test_solve_quad_eq ();
+/**
+ * @brief      Test solve_lin_eq
+ *
+ * @param      in_stream  The stream to read data from
+ * 
+ * @note Stream format: k b num_roots(int) x. Strings begins with '#' or empty lines are ignored
+ */
+void manual_test_solve_lin_eq  (FILE *in_stream);
+
+/**
+ * @brief      Test solve_quad_eq
+ *
+ * @param      in_stream  The stream to read data from
+ * 
+ * @note Stream format: a b c num_roots(int) x1 x2. Strings begins with '#' or empty lines are ignored
+ */
+void manual_test_solve_quad_eq (FILE *in_stream);
 
 ///@param input_file File with sample input
 ///@param dev_null /dev/null stream
