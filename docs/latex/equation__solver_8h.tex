@@ -20,26 +20,12 @@ enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num
 \begin{DoxyCompactList}\small\item\em Solve linear equation, write root into given variable (x) and return number of solutions found. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} \mbox{\hyperlink{equation__solver_8h_a9056807006f06bbbcde400af41f26947}{solve\+\_\+quad\+\_\+eq}} (double a, double b, double c, double $\ast$x1, double $\ast$x2)
 \begin{DoxyCompactList}\small\item\em Solve quadratic equation, write roots into given variables (x1\&x2) and return number of solutions found or error. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}{print\+\_\+solution}} (enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} n\+\_\+roots, double x1, double x2, FILE $\ast$stream)
+void \mbox{\hyperlink{equation__solver_8h_a593715e1f1551317c03daf9016a0d55a}{print\+\_\+solution}} (enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} n\+\_\+roots, double roots\mbox{[}$\,$\mbox{]}, FILE $\ast$stream)
 \begin{DoxyCompactList}\small\item\em Print solution to stream. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{equation__solver_8h_a1c3c6a2678d7efcc980184ea1ac9424e}{input\+\_\+coeffs}} (double $\ast$a, double $\ast$b, double $\ast$c, FILE $\ast$in\+\_\+stream, FILE $\ast$out\+\_\+stream)
+int \mbox{\hyperlink{equation__solver_8h_acd12defef219182feed1c230aa9b1e67}{input\+\_\+coeffs}} (int n\+\_\+coeffs, double coeffs\mbox{[}$\,$\mbox{]}, FILE $\ast$in\+\_\+stream, FILE $\ast$out\+\_\+stream)
 \begin{DoxyCompactList}\small\item\em Read coefficients from in\+\_\+stream and write them to given variables using out\+\_\+stream for asking question. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{equation__solver_8h_afe19d3b26b8bf0c20743fabfa5f5cbc3}{run\+\_\+test}} (const char $\ast$tmp\+\_\+file, const char $\ast$input\+\_\+file, const char $\ast$output\+\_\+ref\+\_\+file, const char $\ast$dev\+\_\+null)
-\begin{DoxyCompactList}\small\item\em Run all tests. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{equation__solver_8h_a5d75be4f5c22583f2cc28227e9cc6b26}{test\+\_\+solve\+\_\+lin\+\_\+eq}} ()
-\item 
-void \mbox{\hyperlink{equation__solver_8h_a2de7bcdf32551572907a81243d2516d5}{test\+\_\+solve\+\_\+quad\+\_\+eq}} ()
-\item 
-void \mbox{\hyperlink{equation__solver_8h_ac001a0906c383b7665c614eb2a805920}{test\+\_\+input\+\_\+coeffs}} (FILE $\ast$in\+\_\+stream, FILE $\ast$dev\+\_\+null)
-\item 
-void \mbox{\hyperlink{equation__solver_8h_a25714cd32eea3e4672a9b47ad6c553cc}{test\+\_\+output\+\_\+format}} (const char $\ast$tmp\+\_\+file, FILE $\ast$ref\+\_\+stream)
-\item 
-void \mbox{\hyperlink{equation__solver_8h_a4c39ad3f056d3c502e0c90732a3a5bcf}{auto\+\_\+test\+\_\+solve\+\_\+lin\+\_\+eq}} ()
-\item 
-void \mbox{\hyperlink{equation__solver_8h_a650648de16b2ae095aef5adc096d8514}{auto\+\_\+test\+\_\+solve\+\_\+quad\+\_\+eq}} ()
-\item 
-void \mbox{\hyperlink{equation__solver_8h_ac15f4a4fb1e14fb5b5f3676c5fb83c86}{auto\+\_\+test\+\_\+input\+\_\+coeffs}} (const char $\ast$tmp\+\_\+file, FILE $\ast$dev\+\_\+null)
-\end{DoxyCompactItemize}
+int \mbox{\hyperlink{equation__solver_8h_a5d7f022302f05a31f7a6939afa8a0db8}{parse\+\_\+coeffs}} (int n\+\_\+coeffs, double coeffs\mbox{[}$\,$\mbox{]}, const char $\ast$$\ast$strings)
+\begin{DoxyCompactList}\small\item\em Parse given strings into coefficients. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -83,72 +69,51 @@ ERANGE\+\_\+\+SOLVE&Coefficient out of range. \\
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{equation__solver_8h_ac15f4a4fb1e14fb5b5f3676c5fb83c86}\label{equation__solver_8h_ac15f4a4fb1e14fb5b5f3676c5fb83c86}} 
-\index{equation\_solver.h@{equation\_solver.h}!auto\_test\_input\_coeffs@{auto\_test\_input\_coeffs}}
-\index{auto\_test\_input\_coeffs@{auto\_test\_input\_coeffs}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{auto\_test\_input\_coeffs()}{auto\_test\_input\_coeffs()}}
-{\footnotesize\ttfamily void auto\+\_\+test\+\_\+input\+\_\+coeffs (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tmp\+\_\+file,  }\item[{FILE $\ast$}]{dev\+\_\+null }\end{DoxyParamCaption})}
-
-
-\begin{DoxyParams}{Parameters}
-{\em tmp\+\_\+file} & Temporary file \\
-\hline
-{\em dev\+\_\+null} & /dev/null stream \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{equation__solver_8h_a4c39ad3f056d3c502e0c90732a3a5bcf}\label{equation__solver_8h_a4c39ad3f056d3c502e0c90732a3a5bcf}} 
-\index{equation\_solver.h@{equation\_solver.h}!auto\_test\_solve\_lin\_eq@{auto\_test\_solve\_lin\_eq}}
-\index{auto\_test\_solve\_lin\_eq@{auto\_test\_solve\_lin\_eq}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{auto\_test\_solve\_lin\_eq()}{auto\_test\_solve\_lin\_eq()}}
-{\footnotesize\ttfamily void auto\+\_\+test\+\_\+solve\+\_\+lin\+\_\+eq (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{equation__solver_8h_a650648de16b2ae095aef5adc096d8514}\label{equation__solver_8h_a650648de16b2ae095aef5adc096d8514}} 
-\index{equation\_solver.h@{equation\_solver.h}!auto\_test\_solve\_quad\_eq@{auto\_test\_solve\_quad\_eq}}
-\index{auto\_test\_solve\_quad\_eq@{auto\_test\_solve\_quad\_eq}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{auto\_test\_solve\_quad\_eq()}{auto\_test\_solve\_quad\_eq()}}
-{\footnotesize\ttfamily void auto\+\_\+test\+\_\+solve\+\_\+quad\+\_\+eq (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{equation__solver_8h_a1c3c6a2678d7efcc980184ea1ac9424e}\label{equation__solver_8h_a1c3c6a2678d7efcc980184ea1ac9424e}} 
+\mbox{\Hypertarget{equation__solver_8h_acd12defef219182feed1c230aa9b1e67}\label{equation__solver_8h_acd12defef219182feed1c230aa9b1e67}} 
 \index{equation\_solver.h@{equation\_solver.h}!input\_coeffs@{input\_coeffs}}
 \index{input\_coeffs@{input\_coeffs}!equation\_solver.h@{equation\_solver.h}}
 \doxysubsubsection{\texorpdfstring{input\_coeffs()}{input\_coeffs()}}
-{\footnotesize\ttfamily int input\+\_\+coeffs (\begin{DoxyParamCaption}\item[{double $\ast$}]{a,  }\item[{double $\ast$}]{b,  }\item[{double $\ast$}]{c,  }\item[{FILE $\ast$}]{in\+\_\+stream,  }\item[{FILE $\ast$}]{out\+\_\+stream }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int input\+\_\+coeffs (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+coeffs,  }\item[{double}]{coeffs\mbox{[}$\,$\mbox{]},  }\item[{FILE $\ast$}]{in\+\_\+stream,  }\item[{FILE $\ast$}]{out\+\_\+stream }\end{DoxyParamCaption})}
 
 
 
 Read coefficients from in\+\_\+stream and write them to given variables using out\+\_\+stream for asking question. 
 
-In case of a read error, returns a non-\/zero value (errno value of the error) \mbox{\Hypertarget{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}\label{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}} 
+\begin{DoxyNote}{Note}
+Order in coeffs\+: from biggest exponent (zero index) to lowest exponent (n\+\_\+coeffs-\/1 index)
+\end{DoxyNote}
+In case of a read error, returns a non-\/zero value (errno value of the error) \mbox{\Hypertarget{equation__solver_8h_a5d7f022302f05a31f7a6939afa8a0db8}\label{equation__solver_8h_a5d7f022302f05a31f7a6939afa8a0db8}} 
+\index{equation\_solver.h@{equation\_solver.h}!parse\_coeffs@{parse\_coeffs}}
+\index{parse\_coeffs@{parse\_coeffs}!equation\_solver.h@{equation\_solver.h}}
+\doxysubsubsection{\texorpdfstring{parse\_coeffs()}{parse\_coeffs()}}
+{\footnotesize\ttfamily int parse\+\_\+coeffs (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+coeffs,  }\item[{double}]{coeffs\mbox{[}$\,$\mbox{]},  }\item[{const char $\ast$$\ast$}]{strings }\end{DoxyParamCaption})}
+
+
+
+Parse given strings into coefficients. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em n\+\_\+coeffs} & Number of parsing coefficients \\
+\hline
+\mbox{\texttt{ out}}  & {\em coeffs} & Array of coefficients\+: from biggest exponent (zero index) to lowest exponent (n\+\_\+coeffs-\/1 index) \\
+\hline
+\mbox{\texttt{ in}}  & {\em strings} & n\+\_\+coeffs strings to parse\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non zero value on parsing error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{equation__solver_8h_a593715e1f1551317c03daf9016a0d55a}\label{equation__solver_8h_a593715e1f1551317c03daf9016a0d55a}} 
 \index{equation\_solver.h@{equation\_solver.h}!print\_solution@{print\_solution}}
 \index{print\_solution@{print\_solution}!equation\_solver.h@{equation\_solver.h}}
 \doxysubsubsection{\texorpdfstring{print\_solution()}{print\_solution()}}
-{\footnotesize\ttfamily void print\+\_\+solution (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}}}]{n\+\_\+roots,  }\item[{double}]{x1,  }\item[{double}]{x2,  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void print\+\_\+solution (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}}}]{n\+\_\+roots,  }\item[{double}]{roots\mbox{[}$\,$\mbox{]},  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
 
 
 
 Print solution to stream. 
 
-\mbox{\Hypertarget{equation__solver_8h_afe19d3b26b8bf0c20743fabfa5f5cbc3}\label{equation__solver_8h_afe19d3b26b8bf0c20743fabfa5f5cbc3}} 
-\index{equation\_solver.h@{equation\_solver.h}!run\_test@{run\_test}}
-\index{run\_test@{run\_test}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{run\_test()}{run\_test()}}
-{\footnotesize\ttfamily void run\+\_\+test (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tmp\+\_\+file,  }\item[{const char $\ast$}]{input\+\_\+file,  }\item[{const char $\ast$}]{output\+\_\+ref\+\_\+file,  }\item[{const char $\ast$}]{dev\+\_\+null }\end{DoxyParamCaption})}
-
-
-
-Run all tests. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em tmp\+\_\+file} & Temporary file (rw) \\
-\hline
-{\em input\+\_\+file} & File with sample input (w) \\
-\hline
-{\em output\+\_\+ref\+\_\+file} & File with sample output (r) \\
-\hline
-{\em dev\+\_\+null} & /dev/null or analog \\
-\hline
-\end{DoxyParams}
 \mbox{\Hypertarget{equation__solver_8h_aad343530371f3ffab6d12d35c316ea63}\label{equation__solver_8h_aad343530371f3ffab6d12d35c316ea63}} 
 \index{equation\_solver.h@{equation\_solver.h}!solve\_lin\_eq@{solve\_lin\_eq}}
 \index{solve\_lin\_eq@{solve\_lin\_eq}!equation\_solver.h@{equation\_solver.h}}
@@ -212,44 +177,6 @@ If there are less than two solutions, unused variables do not change their value
 \begin{DoxyReturn}{Returns}
 Number of equation roots 
 \end{DoxyReturn}
-\mbox{\Hypertarget{equation__solver_8h_ac001a0906c383b7665c614eb2a805920}\label{equation__solver_8h_ac001a0906c383b7665c614eb2a805920}} 
-\index{equation\_solver.h@{equation\_solver.h}!test\_input\_coeffs@{test\_input\_coeffs}}
-\index{test\_input\_coeffs@{test\_input\_coeffs}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{test\_input\_coeffs()}{test\_input\_coeffs()}}
-{\footnotesize\ttfamily void test\+\_\+input\+\_\+coeffs (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{in\+\_\+stream,  }\item[{FILE $\ast$}]{dev\+\_\+null }\end{DoxyParamCaption})}
-
-
-\begin{DoxyParams}{Parameters}
-{\em input\+\_\+file} & File with sample input \\
-\hline
-{\em dev\+\_\+null} & /dev/null stream \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{equation__solver_8h_a25714cd32eea3e4672a9b47ad6c553cc}\label{equation__solver_8h_a25714cd32eea3e4672a9b47ad6c553cc}} 
-\index{equation\_solver.h@{equation\_solver.h}!test\_output\_format@{test\_output\_format}}
-\index{test\_output\_format@{test\_output\_format}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{test\_output\_format()}{test\_output\_format()}}
-{\footnotesize\ttfamily void test\+\_\+output\+\_\+format (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tmp\+\_\+file,  }\item[{FILE $\ast$}]{ref\+\_\+stream }\end{DoxyParamCaption})}
-
-
-\begin{DoxyParams}{Parameters}
-{\em tmp\+\_\+file} & Temporary file \\
-\hline
-{\em output\+\_\+ref\+\_\+file} & File with sample output \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{equation__solver_8h_a5d75be4f5c22583f2cc28227e9cc6b26}\label{equation__solver_8h_a5d75be4f5c22583f2cc28227e9cc6b26}} 
-\index{equation\_solver.h@{equation\_solver.h}!test\_solve\_lin\_eq@{test\_solve\_lin\_eq}}
-\index{test\_solve\_lin\_eq@{test\_solve\_lin\_eq}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{test\_solve\_lin\_eq()}{test\_solve\_lin\_eq()}}
-{\footnotesize\ttfamily void test\+\_\+solve\+\_\+lin\+\_\+eq (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-\mbox{\Hypertarget{equation__solver_8h_a2de7bcdf32551572907a81243d2516d5}\label{equation__solver_8h_a2de7bcdf32551572907a81243d2516d5}} 
-\index{equation\_solver.h@{equation\_solver.h}!test\_solve\_quad\_eq@{test\_solve\_quad\_eq}}
-\index{test\_solve\_quad\_eq@{test\_solve\_quad\_eq}!equation\_solver.h@{equation\_solver.h}}
-\doxysubsubsection{\texorpdfstring{test\_solve\_quad\_eq()}{test\_solve\_quad\_eq()}}
-{\footnotesize\ttfamily void test\+\_\+solve\+\_\+quad\+\_\+eq (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
 
 
 \doxysubsection{Variable Documentation}

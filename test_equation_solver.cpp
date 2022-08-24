@@ -106,8 +106,10 @@ void manual_test_solve_quad_eq()
     test_solve_quad_eq(   INF_ROOTS,                0,                    0,              0,          0,  0);
 
     test_solve_quad_eq(  ZERO_ROOTS,                0,                    0,            282,          0,  0);
+    test_solve_quad_eq(  ZERO_ROOTS,                1,                    1,              1,          0,  0);
 
     test_solve_quad_eq(    ONE_ROOT,                0,                  228,            282, -282./228.,  0);
+    test_solve_quad_eq(    ONE_ROOT,                1,                    2,              1,         -1,  0);
 
     test_solve_quad_eq(   TWO_ROOTS,                1,                    0,             -4,         -2,  2);
     test_solve_quad_eq(   TWO_ROOTS,                2,                    4,              0,          0, -2);

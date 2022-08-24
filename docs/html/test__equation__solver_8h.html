@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Quadric Equation Solver: test_equation_solver.cpp File Reference</title>
+<title>Quadric Equation Solver: test_equation_solver.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,49 +64,43 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">test_equation_solver.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">test_equation_solver.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;time.h&gt;</code><br />
-<code>#include &lt;cassert&gt;</code><br />
-<code>#include &lt;cfloat&gt;</code><br />
-<code>#include &lt;math.h&gt;</code><br />
-<code>#include &lt;stdio.h&gt;</code><br />
-<code>#include &lt;errno.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="equation__solver_8h_source.html">equation_solver.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="test__equation__solver_8h_source.html">test_equation_solver.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+
+<p><a href="test__equation__solver_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a003a6ace87e31fc6539bf6df98e86b68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a003a6ace87e31fc6539bf6df98e86b68">test_solve_quad_eq</a> (<a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> n_roots_ref, double a, double b, double c, double x1_ref, double x2_ref)</td></tr>
-<tr class="memdesc:a003a6ace87e31fc6539bf6df98e86b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run solve_quad_eq with given a, b, c and compare result with given n_roots, x1_ref (if &gt;= ONE_ROOT) and x2_ref (if TWO_ROOTS)  <a href="test__equation__solver_8cpp.html#a003a6ace87e31fc6539bf6df98e86b68">More...</a><br /></td></tr>
-<tr class="separator:a003a6ace87e31fc6539bf6df98e86b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1192a6e71a59fcf1bad0943ffc5682f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#aa1192a6e71a59fcf1bad0943ffc5682f">test_solve_lin_eq</a> (<a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> n_roots_ref, double k, double b, double x_ref)</td></tr>
-<tr class="memdesc:aa1192a6e71a59fcf1bad0943ffc5682f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run solve_lin_eq with given k, b and compare result with given n_roots and x_ref (if ONE_ROOT)  <a href="test__equation__solver_8cpp.html#aa1192a6e71a59fcf1bad0943ffc5682f">More...</a><br /></td></tr>
-<tr class="separator:aa1192a6e71a59fcf1bad0943ffc5682f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3917f9112b43c2409fe833ee5af644e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a3917f9112b43c2409fe833ee5af644e0">manual_test_solve_lin_eq</a> ()</td></tr>
-<tr class="separator:a3917f9112b43c2409fe833ee5af644e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34dc0a611b965f941806e3fbd5ce7db3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a34dc0a611b965f941806e3fbd5ce7db3">manual_test_solve_quad_eq</a> ()</td></tr>
-<tr class="separator:a34dc0a611b965f941806e3fbd5ce7db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3503aa5952f9d1677a88b2c34fa95e69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a3503aa5952f9d1677a88b2c34fa95e69">manual_test_input_coeffs</a> (FILE *in_stream, FILE *dev_null)</td></tr>
-<tr class="separator:a3503aa5952f9d1677a88b2c34fa95e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2450a2840a8556211832c7ad67fdc9c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a2450a2840a8556211832c7ad67fdc9c3">manual_test_output_format</a> (const char *tmp_file, FILE *ref_stream)</td></tr>
-<tr class="separator:a2450a2840a8556211832c7ad67fdc9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f67c3540ca715e0d4138985c5a68bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#ad7f67c3540ca715e0d4138985c5a68bc">check_solve_lin_eq</a> (double k, double b, double x)</td></tr>
-<tr class="memdesc:ad7f67c3540ca715e0d4138985c5a68bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if x is the solution of kx + b = 0.  <a href="test__equation__solver_8cpp.html#ad7f67c3540ca715e0d4138985c5a68bc">More...</a><br /></td></tr>
-<tr class="separator:ad7f67c3540ca715e0d4138985c5a68bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c39ad3f056d3c502e0c90732a3a5bcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a4c39ad3f056d3c502e0c90732a3a5bcf">auto_test_solve_lin_eq</a> ()</td></tr>
-<tr class="separator:a4c39ad3f056d3c502e0c90732a3a5bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92e9c4ab6eb4a345c7e33da39754bd0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a92e9c4ab6eb4a345c7e33da39754bd0a">check_solve_quad_eq</a> (double a, double b, double c, double x)</td></tr>
-<tr class="memdesc:a92e9c4ab6eb4a345c7e33da39754bd0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if x is the solution of ax^2 + bx + c = 0.  <a href="test__equation__solver_8cpp.html#a92e9c4ab6eb4a345c7e33da39754bd0a">More...</a><br /></td></tr>
-<tr class="separator:a92e9c4ab6eb4a345c7e33da39754bd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a650648de16b2ae095aef5adc096d8514"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#a650648de16b2ae095aef5adc096d8514">auto_test_solve_quad_eq</a> ()</td></tr>
-<tr class="separator:a650648de16b2ae095aef5adc096d8514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac15f4a4fb1e14fb5b5f3676c5fb83c86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#ac15f4a4fb1e14fb5b5f3676c5fb83c86">auto_test_input_coeffs</a> (const char *tmp_file, FILE *dev_null)</td></tr>
-<tr class="separator:ac15f4a4fb1e14fb5b5f3676c5fb83c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe19d3b26b8bf0c20743fabfa5f5cbc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8cpp.html#afe19d3b26b8bf0c20743fabfa5f5cbc3">run_test</a> (const char *tmp_file, const char *input_file, const char *output_ref_file, const char *dev_null)</td></tr>
-<tr class="memdesc:afe19d3b26b8bf0c20743fabfa5f5cbc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run all tests.  <a href="test__equation__solver_8cpp.html#afe19d3b26b8bf0c20743fabfa5f5cbc3">More...</a><br /></td></tr>
+<tr class="memitem:afe19d3b26b8bf0c20743fabfa5f5cbc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#afe19d3b26b8bf0c20743fabfa5f5cbc3">run_test</a> (const char *tmp_file, const char *input_file, const char *output_ref_file, const char *dev_null)</td></tr>
+<tr class="memdesc:afe19d3b26b8bf0c20743fabfa5f5cbc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run all tests.  <a href="test__equation__solver_8h.html#afe19d3b26b8bf0c20743fabfa5f5cbc3">More...</a><br /></td></tr>
 <tr class="separator:afe19d3b26b8bf0c20743fabfa5f5cbc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3917f9112b43c2409fe833ee5af644e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a3917f9112b43c2409fe833ee5af644e0">manual_test_solve_lin_eq</a> ()</td></tr>
+<tr class="separator:a3917f9112b43c2409fe833ee5af644e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34dc0a611b965f941806e3fbd5ce7db3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a34dc0a611b965f941806e3fbd5ce7db3">manual_test_solve_quad_eq</a> ()</td></tr>
+<tr class="separator:a34dc0a611b965f941806e3fbd5ce7db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3503aa5952f9d1677a88b2c34fa95e69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a3503aa5952f9d1677a88b2c34fa95e69">manual_test_input_coeffs</a> (FILE *in_stream, FILE *dev_null)</td></tr>
+<tr class="separator:a3503aa5952f9d1677a88b2c34fa95e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2450a2840a8556211832c7ad67fdc9c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a2450a2840a8556211832c7ad67fdc9c3">manual_test_output_format</a> (const char *tmp_file, FILE *ref_stream)</td></tr>
+<tr class="separator:a2450a2840a8556211832c7ad67fdc9c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c39ad3f056d3c502e0c90732a3a5bcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a4c39ad3f056d3c502e0c90732a3a5bcf">auto_test_solve_lin_eq</a> ()</td></tr>
+<tr class="separator:a4c39ad3f056d3c502e0c90732a3a5bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a650648de16b2ae095aef5adc096d8514"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a650648de16b2ae095aef5adc096d8514">auto_test_solve_quad_eq</a> ()</td></tr>
+<tr class="separator:a650648de16b2ae095aef5adc096d8514"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac15f4a4fb1e14fb5b5f3676c5fb83c86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#ac15f4a4fb1e14fb5b5f3676c5fb83c86">auto_test_input_coeffs</a> (const char *tmp_file, FILE *dev_null)</td></tr>
+<tr class="separator:ac15f4a4fb1e14fb5b5f3676c5fb83c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a003a6ace87e31fc6539bf6df98e86b68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a003a6ace87e31fc6539bf6df98e86b68">test_solve_quad_eq</a> (<a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> n_roots_ref, double a, double b, double c, double x1_ref, double x2_ref)</td></tr>
+<tr class="memdesc:a003a6ace87e31fc6539bf6df98e86b68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run solve_quad_eq with given a, b, c and compare result with given n_roots, x1_ref (if &gt;= ONE_ROOT) and x2_ref (if TWO_ROOTS)  <a href="test__equation__solver_8h.html#a003a6ace87e31fc6539bf6df98e86b68">More...</a><br /></td></tr>
+<tr class="separator:a003a6ace87e31fc6539bf6df98e86b68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1192a6e71a59fcf1bad0943ffc5682f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#aa1192a6e71a59fcf1bad0943ffc5682f">test_solve_lin_eq</a> (<a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> n_roots_ref, double k, double b, double x_ref)</td></tr>
+<tr class="memdesc:aa1192a6e71a59fcf1bad0943ffc5682f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run solve_lin_eq with given k, b and compare result with given n_roots and x_ref (if ONE_ROOT)  <a href="test__equation__solver_8h.html#aa1192a6e71a59fcf1bad0943ffc5682f">More...</a><br /></td></tr>
+<tr class="separator:aa1192a6e71a59fcf1bad0943ffc5682f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f67c3540ca715e0d4138985c5a68bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#ad7f67c3540ca715e0d4138985c5a68bc">check_solve_lin_eq</a> (double k, double b, double x)</td></tr>
+<tr class="memdesc:ad7f67c3540ca715e0d4138985c5a68bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if x is the solution of kx + b = 0.  <a href="test__equation__solver_8h.html#ad7f67c3540ca715e0d4138985c5a68bc">More...</a><br /></td></tr>
+<tr class="separator:ad7f67c3540ca715e0d4138985c5a68bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92e9c4ab6eb4a345c7e33da39754bd0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="test__equation__solver_8h.html#a92e9c4ab6eb4a345c7e33da39754bd0a">check_solve_quad_eq</a> (double a, double b, double c, double x)</td></tr>
+<tr class="memdesc:a92e9c4ab6eb4a345c7e33da39754bd0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if x is the solution of ax^2 + bx + c = 0.  <a href="test__equation__solver_8h.html#a92e9c4ab6eb4a345c7e33da39754bd0a">More...</a><br /></td></tr>
+<tr class="separator:a92e9c4ab6eb4a345c7e33da39754bd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ac15f4a4fb1e14fb5b5f3676c5fb83c86" name="ac15f4a4fb1e14fb5b5f3676c5fb83c86"></a>

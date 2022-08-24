@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#ac0f2228420376f4db7e1274f2b41667c',1,'main.cpp']]]
+  ['input_5fcoeffs_0',['input_coeffs',['../equation__solver_8cpp.html#acd12defef219182feed1c230aa9b1e67',1,'input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream):&#160;equation_solver.cpp'],['../equation__solver_8h.html#acd12defef219182feed1c230aa9b1e67',1,'input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream):&#160;equation_solver.cpp']]]
 ];

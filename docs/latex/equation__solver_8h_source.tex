@@ -24,25 +24,12 @@
 \DoxyCodeLine{34 }
 \DoxyCodeLine{56 \textcolor{keyword}{enum} \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\_roots}} \mbox{\hyperlink{equation__solver_8h_a9056807006f06bbbcde400af41f26947}{solve\_quad\_eq}}(\textcolor{keywordtype}{double} a, \textcolor{keywordtype}{double} b, \textcolor{keywordtype}{double} c, \textcolor{keywordtype}{double} *x1, \textcolor{keywordtype}{double} *x2);}
 \DoxyCodeLine{57 }
-\DoxyCodeLine{59 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_a07c90fbe0dcd8aeb998cb37f1b04147d}{print\_solution}}(\textcolor{keyword}{enum} \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\_roots}} n\_roots, \textcolor{keywordtype}{double} x1, \textcolor{keywordtype}{double} x2, FILE *stream);}
+\DoxyCodeLine{59 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_a593715e1f1551317c03daf9016a0d55a}{print\_solution}}(\textcolor{keyword}{enum} \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\_roots}} n\_roots, \textcolor{keywordtype}{double} roots[], FILE *stream);}
 \DoxyCodeLine{60 }
-\DoxyCodeLine{66 \textcolor{keywordtype}{int} \mbox{\hyperlink{equation__solver_8h_a1c3c6a2678d7efcc980184ea1ac9424e}{input\_coeffs}}(\textcolor{keywordtype}{double} *a, \textcolor{keywordtype}{double} *b, \textcolor{keywordtype}{double} *c, FILE *in\_stream, FILE *out\_stream);}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{75 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_afe19d3b26b8bf0c20743fabfa5f5cbc3}{run\_test}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *tmp\_file, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *input\_file, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *output\_ref\_file, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *dev\_null);}
-\DoxyCodeLine{76 }
-\DoxyCodeLine{77 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_a5d75be4f5c22583f2cc28227e9cc6b26}{test\_solve\_lin\_eq}}();}
-\DoxyCodeLine{78 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_a2de7bcdf32551572907a81243d2516d5}{test\_solve\_quad\_eq}}();}
-\DoxyCodeLine{79 }
-\DoxyCodeLine{82 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_ac001a0906c383b7665c614eb2a805920}{test\_input\_coeffs}}(FILE *in\_stream, FILE *dev\_null);}
-\DoxyCodeLine{83 }
-\DoxyCodeLine{87 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_a25714cd32eea3e4672a9b47ad6c553cc}{test\_output\_format}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *tmp\_file, FILE *ref\_stream);}
-\DoxyCodeLine{88 }
-\DoxyCodeLine{89 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_a4c39ad3f056d3c502e0c90732a3a5bcf}{auto\_test\_solve\_lin\_eq}}();}
-\DoxyCodeLine{90 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_a650648de16b2ae095aef5adc096d8514}{auto\_test\_solve\_quad\_eq}}();}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{94 \textcolor{keywordtype}{void} \mbox{\hyperlink{equation__solver_8h_ac15f4a4fb1e14fb5b5f3676c5fb83c86}{auto\_test\_input\_coeffs}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *tmp\_file, FILE *dev\_null);}
-\DoxyCodeLine{95 }
-\DoxyCodeLine{96 }
-\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//QUAD\_EQUATION\_SOLVER\_H}}
+\DoxyCodeLine{68 \textcolor{keywordtype}{int} \mbox{\hyperlink{equation__solver_8h_acd12defef219182feed1c230aa9b1e67}{input\_coeffs}}(\textcolor{keywordtype}{int} n\_coeffs, \textcolor{keywordtype}{double} coeffs[], FILE *in\_stream, FILE *out\_stream);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{79 \textcolor{keywordtype}{int} \mbox{\hyperlink{equation__solver_8h_a5d7f022302f05a31f7a6939afa8a0db8}{parse\_coeffs}}(\textcolor{keywordtype}{int} n\_coeffs, \textcolor{keywordtype}{double} coeffs[], \textcolor{keyword}{const} \textcolor{keywordtype}{char} **strings);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//QUAD\_EQUATION\_SOLVER\_H}}
 
 \end{DoxyCode}

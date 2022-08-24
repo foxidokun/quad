@@ -6,35 +6,90 @@
 {\ttfamily \#include $<$cerrno$>$}\newline
 {\ttfamily \#include $<$cassert$>$}\newline
 {\ttfamily \#include \char`\"{}equation\+\_\+solver.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{equation__solver_8cpp_a28b0e158993481f4010905e4d66ac570}{CHECK\+\_\+\+RANGE}}(cond)
+\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} \mbox{\hyperlink{equation__solver_8cpp_a9056807006f06bbbcde400af41f26947}{solve\+\_\+quad\+\_\+eq}} (double a, double b, double c, double $\ast$x1, double $\ast$x2)
+\mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} \mbox{\hyperlink{equation__solver_8cpp_a71168b1b3d7c3913a6d7a93cda14c04c}{solve\+\_\+quad\+\_\+eq}} (double a, double b, double c, double $\ast$x1, double $\ast$x2)
 \begin{DoxyCompactList}\small\item\em Solve quadratic equation, write roots into given variables (x1\&x2) and return number of solutions found or error. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} \mbox{\hyperlink{equation__solver_8cpp_aad343530371f3ffab6d12d35c316ea63}{solve\+\_\+lin\+\_\+eq}} (double k, double b, double $\ast$x)
 \begin{DoxyCompactList}\small\item\em Solve linear equation, write root into given variable (x) and return number of solutions found. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{equation__solver_8cpp_a07c90fbe0dcd8aeb998cb37f1b04147d}{print\+\_\+solution}} (enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} n\+\_\+roots, double x1, double x2, FILE $\ast$stream)
+void \mbox{\hyperlink{equation__solver_8cpp_a593715e1f1551317c03daf9016a0d55a}{print\+\_\+solution}} (enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} n\+\_\+roots, double roots\mbox{[}$\,$\mbox{]}, FILE $\ast$stream)
 \begin{DoxyCompactList}\small\item\em Print solution to stream. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{equation__solver_8cpp_a1c3c6a2678d7efcc980184ea1ac9424e}{input\+\_\+coeffs}} (double $\ast$a, double $\ast$b, double $\ast$c, FILE $\ast$in\+\_\+stream, FILE $\ast$out\+\_\+stream)
-\begin{DoxyCompactList}\small\item\em Read coefficients from in\+\_\+stream and write them to given variables using out\+\_\+stream for asking question. \end{DoxyCompactList}\end{DoxyCompactItemize}
+int \mbox{\hyperlink{equation__solver_8cpp_acd12defef219182feed1c230aa9b1e67}{input\+\_\+coeffs}} (int n\+\_\+coeffs, double coeffs\mbox{[}$\,$\mbox{]}, FILE $\ast$in\+\_\+stream, FILE $\ast$out\+\_\+stream)
+\begin{DoxyCompactList}\small\item\em Read coefficients from in\+\_\+stream and write them to given variables using out\+\_\+stream for asking question. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{equation__solver_8cpp_a5d7f022302f05a31f7a6939afa8a0db8}{parse\+\_\+coeffs}} (int n\+\_\+coeffs, double coeffs\mbox{[}$\,$\mbox{]}, const char $\ast$$\ast$strings)
+\begin{DoxyCompactList}\small\item\em Parse given strings into coefficients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{equation__solver_8cpp_a28b0e158993481f4010905e4d66ac570}\label{equation__solver_8cpp_a28b0e158993481f4010905e4d66ac570}} 
+\index{equation\_solver.cpp@{equation\_solver.cpp}!CHECK\_RANGE@{CHECK\_RANGE}}
+\index{CHECK\_RANGE@{CHECK\_RANGE}!equation\_solver.cpp@{equation\_solver.cpp}}
+\doxysubsubsection{\texorpdfstring{CHECK\_RANGE}{CHECK\_RANGE}}
+{\footnotesize\ttfamily \#define CHECK\+\_\+\+RANGE(\begin{DoxyParamCaption}\item[{}]{cond }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \{                                                                               \(\backslash\)}
+\DoxyCodeLine{        if (!(cond))                                                                \(\backslash\)}
+\DoxyCodeLine{        \{                                                                           \(\backslash\)}
+\DoxyCodeLine{            fprintf(stderr, \textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/ Warning: Overflow in internal calculation -\/-\/ \(\backslash\)n"{}});\(\backslash\)}
+\DoxyCodeLine{            fprintf(stderr, \textcolor{stringliteral}{"{}Condition: \%s\(\backslash\)n"{}}, \#cond);                              \(\backslash\)}
+\DoxyCodeLine{            fprintf(stderr, \textcolor{stringliteral}{"{}Line: \%d, File: \%s, Func: \%s\(\backslash\)n\(\backslash\)n"{}},                     \(\backslash\)}
+\DoxyCodeLine{                    \_\_LINE\_\_, \_\_FILE\_\_, \_\_PRETTY\_FUNCTION\_\_);                       \(\backslash\)}
+\DoxyCodeLine{            return \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5faebaf9ae27b8b131fa9ef7a00fbb7097d}{ERANGE\_SOLVE}};                                                    \(\backslash\)}
+\DoxyCodeLine{        \}                                                                           \(\backslash\)}
+\DoxyCodeLine{    \}                                                                               \(\backslash\)}
+
+\end{DoxyCode}
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{equation__solver_8cpp_a1c3c6a2678d7efcc980184ea1ac9424e}\label{equation__solver_8cpp_a1c3c6a2678d7efcc980184ea1ac9424e}} 
+\mbox{\Hypertarget{equation__solver_8cpp_acd12defef219182feed1c230aa9b1e67}\label{equation__solver_8cpp_acd12defef219182feed1c230aa9b1e67}} 
 \index{equation\_solver.cpp@{equation\_solver.cpp}!input\_coeffs@{input\_coeffs}}
 \index{input\_coeffs@{input\_coeffs}!equation\_solver.cpp@{equation\_solver.cpp}}
 \doxysubsubsection{\texorpdfstring{input\_coeffs()}{input\_coeffs()}}
-{\footnotesize\ttfamily int input\+\_\+coeffs (\begin{DoxyParamCaption}\item[{double $\ast$}]{a,  }\item[{double $\ast$}]{b,  }\item[{double $\ast$}]{c,  }\item[{FILE $\ast$}]{in\+\_\+stream,  }\item[{FILE $\ast$}]{out\+\_\+stream }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int input\+\_\+coeffs (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+coeffs,  }\item[{double}]{coeffs\mbox{[}$\,$\mbox{]},  }\item[{FILE $\ast$}]{in\+\_\+stream,  }\item[{FILE $\ast$}]{out\+\_\+stream }\end{DoxyParamCaption})}
 
 
 
 Read coefficients from in\+\_\+stream and write them to given variables using out\+\_\+stream for asking question. 
 
-In case of a read error, returns a non-\/zero value (errno value of the error) \mbox{\Hypertarget{equation__solver_8cpp_a07c90fbe0dcd8aeb998cb37f1b04147d}\label{equation__solver_8cpp_a07c90fbe0dcd8aeb998cb37f1b04147d}} 
+\begin{DoxyNote}{Note}
+Order in coeffs\+: from biggest exponent (zero index) to lowest exponent (n\+\_\+coeffs-\/1 index)
+\end{DoxyNote}
+In case of a read error, returns a non-\/zero value (errno value of the error) \mbox{\Hypertarget{equation__solver_8cpp_a5d7f022302f05a31f7a6939afa8a0db8}\label{equation__solver_8cpp_a5d7f022302f05a31f7a6939afa8a0db8}} 
+\index{equation\_solver.cpp@{equation\_solver.cpp}!parse\_coeffs@{parse\_coeffs}}
+\index{parse\_coeffs@{parse\_coeffs}!equation\_solver.cpp@{equation\_solver.cpp}}
+\doxysubsubsection{\texorpdfstring{parse\_coeffs()}{parse\_coeffs()}}
+{\footnotesize\ttfamily int parse\+\_\+coeffs (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+coeffs,  }\item[{double}]{coeffs\mbox{[}$\,$\mbox{]},  }\item[{const char $\ast$$\ast$}]{strings }\end{DoxyParamCaption})}
+
+
+
+Parse given strings into coefficients. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em n\+\_\+coeffs} & Number of parsing coefficients \\
+\hline
+\mbox{\texttt{ out}}  & {\em coeffs} & Array of coefficients\+: from biggest exponent (zero index) to lowest exponent (n\+\_\+coeffs-\/1 index) \\
+\hline
+\mbox{\texttt{ in}}  & {\em strings} & n\+\_\+coeffs strings to parse\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Non zero value on parsing error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{equation__solver_8cpp_a593715e1f1551317c03daf9016a0d55a}\label{equation__solver_8cpp_a593715e1f1551317c03daf9016a0d55a}} 
 \index{equation\_solver.cpp@{equation\_solver.cpp}!print\_solution@{print\_solution}}
 \index{print\_solution@{print\_solution}!equation\_solver.cpp@{equation\_solver.cpp}}
 \doxysubsubsection{\texorpdfstring{print\_solution()}{print\_solution()}}
-{\footnotesize\ttfamily void print\+\_\+solution (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}}}]{n\+\_\+roots,  }\item[{double}]{x1,  }\item[{double}]{x2,  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void print\+\_\+solution (\begin{DoxyParamCaption}\item[{enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}}}]{n\+\_\+roots,  }\item[{double}]{roots\mbox{[}$\,$\mbox{]},  }\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
 
 
 
@@ -62,11 +117,11 @@ Solve linear equation, write root into given variable (x) and return number of s
 \begin{DoxyReturn}{Returns}
 Number of equation roots 
 \end{DoxyReturn}
-\mbox{\Hypertarget{equation__solver_8cpp_a9056807006f06bbbcde400af41f26947}\label{equation__solver_8cpp_a9056807006f06bbbcde400af41f26947}} 
+\mbox{\Hypertarget{equation__solver_8cpp_a71168b1b3d7c3913a6d7a93cda14c04c}\label{equation__solver_8cpp_a71168b1b3d7c3913a6d7a93cda14c04c}} 
 \index{equation\_solver.cpp@{equation\_solver.cpp}!solve\_quad\_eq@{solve\_quad\_eq}}
 \index{solve\_quad\_eq@{solve\_quad\_eq}!equation\_solver.cpp@{equation\_solver.cpp}}
 \doxysubsubsection{\texorpdfstring{solve\_quad\_eq()}{solve\_quad\_eq()}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} solve\+\_\+quad\+\_\+eq (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{c,  }\item[{double $\ast$}]{x1,  }\item[{double $\ast$}]{x2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{equation__solver_8h_a1359bce33fdf5369c25fb7314fe88c5f}{num\+\_\+roots}} solve\+\_\+quad\+\_\+eq (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{c,  }\item[{double $\ast$}]{x1,  }\item[{double $\ast$}]{x2 }\end{DoxyParamCaption})}
 
 
 

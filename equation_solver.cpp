@@ -10,15 +10,18 @@ static void flush_input(FILE *stream);
 
 #ifdef NDEBUG
 
-    #define CHECK_RANGE(x) {if (!(x)) return ERANGE_SOLVE; }
+    #define CHECK_RANGE(cond) {if (!(cond)) return ERANGE_SOLVE; }
 
 #else
     
-    #define CHECK_RANGE(x)                                                          \
+    #define CHECK_RANGE(cond)                                                       \
     {                                                                               \
-        if (!(x))                                                                   \
+        if (!(cond))                                                                \
         {                                                                           \
-            fprintf(stderr, "-- Warning: Overflow in internal calculation -- \n");  \
+            fprintf(stderr, "\n-- Warning: Overflow in internal calculation -- \n");\
+            fprintf(stderr, "Condition: %s\n", #cond);                              \
+            fprintf(stderr, "Line: %d, File: %s, Func: %s\n\n",                     \
+                    __LINE__, __FILE__, __PRETTY_FUNCTION__);                       \
             return ERANGE_SOLVE;                                                    \
         }                                                                           \
     }                                                                               \
@@ -85,9 +88,9 @@ num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
 
 enum num_roots solve_lin_eq(double k, double b, double *x)
 {
-    assert(isfinite(k) && "parameter must be finite");
-    assert(isfinite(b) && "parameter must be finite");
-    assert(x != NULL   && "pointer can't be null");
+    assert (isfinite(k) && "parameter must be finite");
+    assert (isfinite(b) && "parameter must be finite");
+    assert (x != NULL   && "pointer can't be null");
 
     // k = 0 and there are either no solutions or infinitely many (when b=0)
     if (is_zero(k)) 
@@ -97,7 +100,7 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
     }
     else 
     {
-        CHECK_RANGE(fabs(b) < DBL_MAX*fabs(k));
+        CHECK_RANGE (fabs(b) < DBL_MAX*fabs(k));
 
         *x = -b / k;
         return ONE_ROOT;
@@ -106,35 +109,35 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
 
 void print_solution(enum num_roots n_roots, double roots[], FILE *stream)
 {
-    assert(stream != NULL && "pointer can't be null");
-    assert(roots  != NULL && "pointer can't be null");
+    assert (stream != NULL && "pointer can't be null");
+    assert (roots  != NULL && "pointer can't be null");
 
     for (int i = n_roots-1; i >= 0; --i)
     {
-        assert(isfinite(roots[i]) && "parameter must be finite");
+        assert (isfinite(roots[i]) && "parameter must be finite");
 
         if (is_zero(roots[i])) roots[i] = 0;
     }
 
     switch (n_roots) {
         case TWO_ROOTS:
-            fprintf (stream, "2 solutions: %.3e и %.3e\n", roots[0], roots[1]);
+            fprintf(stream, "2 solutions: %.3e и %.3e\n", roots[0], roots[1]);
             break;
 
         case ONE_ROOT:
-            fprintf (stream, "1 solution: %.3e\n", roots[0]);
+            fprintf(stream, "1 solution: %.3e\n", roots[0]);
             break;
 
         case ZERO_ROOTS:
-            fprintf (stream, "No solutions\n");
+            fprintf(stream, "No solutions\n");
             break;
 
         case INF_ROOTS:
-            fprintf (stream, "Infinitive number of roots\n");
+            fprintf(stream, "Infinitive number of roots\n");
             break;
 
         case ERANGE_SOLVE:
-            fprintf (stream, "Failed to solve equation: Coefficients out of range\n");
+            fprintf(stream, "Failed to solve equation: Coefficients out of range\n");
             break;
 
         default:
@@ -146,7 +149,7 @@ void print_solution(enum num_roots n_roots, double roots[], FILE *stream)
 ///@brief Flush input stream to '\\n' symbol
 static void flush_input(FILE *stream)
 {
-    assert(stream != NULL && "pointer can't be null");
+    assert (stream != NULL && "pointer can't be null");
     while (getc(stream) != '\n') {}
 }
 
@@ -157,10 +160,10 @@ static void flush_input(FILE *stream)
  */
 static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream)
 {
-    assert(x            != NULL && "pointer can't be null");
-    assert(prompt       != NULL && "pointer can't be null");
-    assert(in_stream    != NULL && "pointer can't be null");
-    assert(out_stream   != NULL && "pointer can't be null");
+    assert (x            != NULL && "pointer can't be null");
+    assert (prompt       != NULL && "pointer can't be null");
+    assert (in_stream    != NULL && "pointer can't be null");
+    assert (out_stream   != NULL && "pointer can't be null");
 
     errno = 0;
     int scanf_res = 0;
@@ -184,7 +187,7 @@ static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out
         return errno;
     }
 
-    assert(scanf_res == 1 || scanf_res == EOF);
+    assert (scanf_res == 1 || scanf_res == EOF);
 
     if (scanf_res == 1)  return 0;
     else                 return EIO;
@@ -192,9 +195,9 @@ static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out
 
 int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream)
 {
-    assert(in_stream  != NULL && "pointer can't be null");
-    assert(out_stream != NULL && "pointer can't be null");
-    assert(coeffs     != NULL && "pointer can't be null");
+    assert (in_stream  != NULL && "pointer can't be null");
+    assert (out_stream != NULL && "pointer can't be null");
+    assert (coeffs     != NULL && "pointer can't be null");
 
     int err = 0;
     char print_buf[32] = "";
@@ -226,10 +229,13 @@ int parse_coeffs(int n_coeffs, double coeffs[], const char **strings)
 
         coeffs[i] = strtod(start, end);
 
-        if ((char **) start == end) //Nothing converted
+        //Nothing converted or bad input
+        if (start == *end || !isfinite(coeffs[i]) || coeffs[i] == HUGE_VAL) 
         {
             return -1;
         }
+
+
    }
 
    return 0;

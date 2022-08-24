@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['print_5fsolution_0',['print_solution',['../equation__solver_8cpp.html#a07c90fbe0dcd8aeb998cb37f1b04147d',1,'print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream):&#160;equation_solver.cpp'],['../equation__solver_8h.html#a07c90fbe0dcd8aeb998cb37f1b04147d',1,'print_solution(enum num_roots n_roots, double x1, double x2, FILE *stream):&#160;equation_solver.cpp']]]
+  ['one_5froot_0',['ONE_ROOT',['../equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5fa6700c0f6efd23571cb22aefd2510b1cf',1,'equation_solver.h']]]
 ];

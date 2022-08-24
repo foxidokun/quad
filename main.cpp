@@ -55,7 +55,7 @@ int main(int argc, const char *argv[])
 
         if (input_res != 0)
         {
-            printf("Failed to parse coefficients");
+            printf("Failed to parse coefficients, please use not very bin numbers\n");
             return -1;
         }
     }

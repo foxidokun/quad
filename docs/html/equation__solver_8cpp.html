@@ -63,6 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">equation_solver.cpp File Reference</div></div>
 </div><!--header-->
@@ -74,24 +75,62 @@ $(function() {
 <code>#include &lt;cassert&gt;</code><br />
 <code>#include &quot;<a class="el" href="equation__solver_8h_source.html">equation_solver.h</a>&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a28b0e158993481f4010905e4d66ac570"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#a28b0e158993481f4010905e4d66ac570">CHECK_RANGE</a>(cond)</td></tr>
+<tr class="separator:a28b0e158993481f4010905e4d66ac570"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9056807006f06bbbcde400af41f26947"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#a9056807006f06bbbcde400af41f26947">solve_quad_eq</a> (double a, double b, double c, double *x1, double *x2)</td></tr>
-<tr class="memdesc:a9056807006f06bbbcde400af41f26947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve quadratic equation, write roots into given variables (x1&amp;x2) and return number of solutions found or error.  <a href="equation__solver_8cpp.html#a9056807006f06bbbcde400af41f26947">More...</a><br /></td></tr>
-<tr class="separator:a9056807006f06bbbcde400af41f26947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71168b1b3d7c3913a6d7a93cda14c04c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#a71168b1b3d7c3913a6d7a93cda14c04c">solve_quad_eq</a> (double a, double b, double c, double *x1, double *x2)</td></tr>
+<tr class="memdesc:a71168b1b3d7c3913a6d7a93cda14c04c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve quadratic equation, write roots into given variables (x1&amp;x2) and return number of solutions found or error.  <a href="equation__solver_8cpp.html#a71168b1b3d7c3913a6d7a93cda14c04c">More...</a><br /></td></tr>
+<tr class="separator:a71168b1b3d7c3913a6d7a93cda14c04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad343530371f3ffab6d12d35c316ea63"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#aad343530371f3ffab6d12d35c316ea63">solve_lin_eq</a> (double k, double b, double *x)</td></tr>
 <tr class="memdesc:aad343530371f3ffab6d12d35c316ea63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solve linear equation, write root into given variable (x) and return number of solutions found.  <a href="equation__solver_8cpp.html#aad343530371f3ffab6d12d35c316ea63">More...</a><br /></td></tr>
 <tr class="separator:aad343530371f3ffab6d12d35c316ea63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07c90fbe0dcd8aeb998cb37f1b04147d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#a07c90fbe0dcd8aeb998cb37f1b04147d">print_solution</a> (enum <a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> n_roots, double x1, double x2, FILE *stream)</td></tr>
-<tr class="memdesc:a07c90fbe0dcd8aeb998cb37f1b04147d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print solution to stream.  <a href="equation__solver_8cpp.html#a07c90fbe0dcd8aeb998cb37f1b04147d">More...</a><br /></td></tr>
-<tr class="separator:a07c90fbe0dcd8aeb998cb37f1b04147d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c3c6a2678d7efcc980184ea1ac9424e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#a1c3c6a2678d7efcc980184ea1ac9424e">input_coeffs</a> (double *a, double *b, double *c, FILE *in_stream, FILE *out_stream)</td></tr>
-<tr class="memdesc:a1c3c6a2678d7efcc980184ea1ac9424e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read coefficients from in_stream and write them to given variables using out_stream for asking question.  <a href="equation__solver_8cpp.html#a1c3c6a2678d7efcc980184ea1ac9424e">More...</a><br /></td></tr>
-<tr class="separator:a1c3c6a2678d7efcc980184ea1ac9424e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a593715e1f1551317c03daf9016a0d55a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#a593715e1f1551317c03daf9016a0d55a">print_solution</a> (enum <a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> n_roots, double roots[], FILE *stream)</td></tr>
+<tr class="memdesc:a593715e1f1551317c03daf9016a0d55a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print solution to stream.  <a href="equation__solver_8cpp.html#a593715e1f1551317c03daf9016a0d55a">More...</a><br /></td></tr>
+<tr class="separator:a593715e1f1551317c03daf9016a0d55a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd12defef219182feed1c230aa9b1e67"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#acd12defef219182feed1c230aa9b1e67">input_coeffs</a> (int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream)</td></tr>
+<tr class="memdesc:acd12defef219182feed1c230aa9b1e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read coefficients from in_stream and write them to given variables using out_stream for asking question.  <a href="equation__solver_8cpp.html#acd12defef219182feed1c230aa9b1e67">More...</a><br /></td></tr>
+<tr class="separator:acd12defef219182feed1c230aa9b1e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d7f022302f05a31f7a6939afa8a0db8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="equation__solver_8cpp.html#a5d7f022302f05a31f7a6939afa8a0db8">parse_coeffs</a> (int n_coeffs, double coeffs[], const char **strings)</td></tr>
+<tr class="memdesc:a5d7f022302f05a31f7a6939afa8a0db8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse given strings into coefficients.  <a href="equation__solver_8cpp.html#a5d7f022302f05a31f7a6939afa8a0db8">More...</a><br /></td></tr>
+<tr class="separator:a5d7f022302f05a31f7a6939afa8a0db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a28b0e158993481f4010905e4d66ac570" name="a28b0e158993481f4010905e4d66ac570"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28b0e158993481f4010905e4d66ac570">&#9670;&nbsp;</a></span>CHECK_RANGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CHECK_RANGE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cond</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    {                                                                               \</div>
+<div class="line">        if (!(cond))                                                                \</div>
+<div class="line">        {                                                                           \</div>
+<div class="line">            fprintf(stderr, <span class="stringliteral">&quot;\n-- Warning: Overflow in internal calculation -- \n&quot;</span>);\</div>
+<div class="line">            fprintf(stderr, <span class="stringliteral">&quot;Condition: %s\n&quot;</span>, #cond);                              \</div>
+<div class="line">            fprintf(stderr, <span class="stringliteral">&quot;Line: %d, File: %s, Func: %s\n\n&quot;</span>,                     \</div>
+<div class="line">                    __LINE__, __FILE__, __PRETTY_FUNCTION__);                       \</div>
+<div class="line">            return <a class="code hl_enumvalue" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5faebaf9ae27b8b131fa9ef7a00fbb7097d">ERANGE_SOLVE</a>;                                                    \</div>
+<div class="line">        }                                                                           \</div>
+<div class="line">    }                                                                               \</div>
+<div class="ttc" id="aequation__solver_8h_html_a1359bce33fdf5369c25fb7314fe88c5faebaf9ae27b8b131fa9ef7a00fbb7097d"><div class="ttname"><a href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5faebaf9ae27b8b131fa9ef7a00fbb7097d">ERANGE_SOLVE</a></div><div class="ttdeci">@ ERANGE_SOLVE</div><div class="ttdoc">Coefficient out of range.</div><div class="ttdef"><b>Definition:</b> equation_solver.h:15</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a1c3c6a2678d7efcc980184ea1ac9424e" name="a1c3c6a2678d7efcc980184ea1ac9424e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c3c6a2678d7efcc980184ea1ac9424e">&#9670;&nbsp;</a></span>input_coeffs()</h2>
+<a id="acd12defef219182feed1c230aa9b1e67" name="acd12defef219182feed1c230aa9b1e67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd12defef219182feed1c230aa9b1e67">&#9670;&nbsp;</a></span>input_coeffs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -99,20 +138,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int input_coeffs </td>
           <td>(</td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_coeffs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>b</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double *&#160;</td>
-          <td class="paramname"><em>c</em>, </td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>coeffs</em>[], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -135,12 +168,58 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read coefficients from in_stream and write them to given variables using out_stream for asking question. </p>
-<p >In case of a read error, returns a non-zero value (errno value of the error) </p>
+<dl class="section note"><dt>Note</dt><dd>Order in coeffs: from biggest exponent (zero index) to lowest exponent (n_coeffs-1 index)</dd></dl>
+<p>In case of a read error, returns a non-zero value (errno value of the error) </p>
 
 </div>
 </div>
-<a id="a07c90fbe0dcd8aeb998cb37f1b04147d" name="a07c90fbe0dcd8aeb998cb37f1b04147d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07c90fbe0dcd8aeb998cb37f1b04147d">&#9670;&nbsp;</a></span>print_solution()</h2>
+<a id="a5d7f022302f05a31f7a6939afa8a0db8" name="a5d7f022302f05a31f7a6939afa8a0db8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d7f022302f05a31f7a6939afa8a0db8">&#9670;&nbsp;</a></span>parse_coeffs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int parse_coeffs </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n_coeffs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>coeffs</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>strings</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parse given strings into coefficients. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">n_coeffs</td><td>Number of parsing coefficients </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">coeffs</td><td>Array of coefficients: from biggest exponent (zero index) to lowest exponent (n_coeffs-1 index) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">strings</td><td>n_coeffs strings to parse</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Non zero value on parsing error </dd></dl>
+
+</div>
+</div>
+<a id="a593715e1f1551317c03daf9016a0d55a" name="a593715e1f1551317c03daf9016a0d55a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a593715e1f1551317c03daf9016a0d55a">&#9670;&nbsp;</a></span>print_solution()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -155,13 +234,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x2</em>, </td>
+          <td class="paramname"><em>roots</em>[], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -226,14 +299,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9056807006f06bbbcde400af41f26947" name="a9056807006f06bbbcde400af41f26947"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9056807006f06bbbcde400af41f26947">&#9670;&nbsp;</a></span>solve_quad_eq()</h2>
+<a id="a71168b1b3d7c3913a6d7a93cda14c04c" name="a71168b1b3d7c3913a6d7a93cda14c04c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71168b1b3d7c3913a6d7a93cda14c04c">&#9670;&nbsp;</a></span>solve_quad_eq()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> solve_quad_eq </td>
+          <td class="memname"><a class="el" href="equation__solver_8h.html#a1359bce33fdf5369c25fb7314fe88c5f">num_roots</a> solve_quad_eq </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
           <td class="paramname"><em>a</em>, </td>
