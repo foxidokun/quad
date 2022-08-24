@@ -5,31 +5,31 @@
 #include <cassert>
 #include "equation_solver.h"
 
-static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream);
-static void flush_input(FILE *stream);
+static int  read_double (double *x, const char *prompt, FILE *in_stream, FILE *out_stream);
+static void flush_input (FILE *stream);
 
-#ifdef NDEBUG
+#if defined(TEST) || defined(NDEBUG)
 
     #define CHECK_RANGE(cond) {if (!(cond)) return ERANGE_SOLVE; }
 
 #else
     
-    #define CHECK_RANGE(cond)                                                       \
-    {                                                                               \
-        if (!(cond))                                                                \
-        {                                                                           \
-            fprintf(stderr, "\n-- Warning: Overflow in internal calculation -- \n");\
-            fprintf(stderr, "Condition: %s\n", #cond);                              \
-            fprintf(stderr, "Line: %d, File: %s, Func: %s\n\n",                     \
-                    __LINE__, __FILE__, __PRETTY_FUNCTION__);                       \
-            return ERANGE_SOLVE;                                                    \
-        }                                                                           \
-    }                                                                               \
+    #define CHECK_RANGE(cond)                                                        \
+    {                                                                                \
+        if (!(cond))                                                                 \
+        {                                                                            \
+            fprintf (stderr, "\n-- Warning: Overflow in internal calculation -- \n");\
+            fprintf (stderr, "Condition: %s\n", #cond);                              \
+            fprintf (stderr, "Line: %d, File: %s, Func: %s\n\n",                     \
+                                __LINE__, __FILE__, __PRETTY_FUNCTION__);            \
+            return ERANGE_SOLVE;                                                     \
+        }                                                                            \
+    }                                                                                \
 
 #endif
 
 
-num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
+num_roots solve_quad_eq (double a, double b, double c, double *x1, double *x2)
 {
     assert (isfinite(a) && "parameter must be finite");
     assert (isfinite(b) && "parameter must be finite");
@@ -42,7 +42,7 @@ num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
 
     if (is_zero(a))
     {
-        return solve_lin_eq(b, c, x1);
+        return solve_lin_eq (b, c, x1);
     }
     else
     {
@@ -63,10 +63,12 @@ num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
         }
         else // disc > 0
         {
+            assert (disc > 0 && "Unexpected disc value in else branch");
+
             if (is_zero(b))
             {
-                *x1 = -sqrt(-c / a);
-                *x2 = +sqrt(-c / a);
+                *x1 = -sqrt (-c / a);
+                *x2 = +sqrt (-c / a);
             }
             else if (is_zero(c))
             {
@@ -86,7 +88,7 @@ num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2)
     }
 }
 
-enum num_roots solve_lin_eq(double k, double b, double *x)
+enum num_roots solve_lin_eq (double k, double b, double *x)
 {
     assert (isfinite(k) && "parameter must be finite");
     assert (isfinite(b) && "parameter must be finite");
@@ -107,7 +109,7 @@ enum num_roots solve_lin_eq(double k, double b, double *x)
     }
 }
 
-void print_solution(enum num_roots n_roots, double roots[], FILE *stream)
+void print_solution (enum num_roots n_roots, double roots[], FILE *stream)
 {
     assert (stream != NULL && "pointer can't be null");
     assert (roots  != NULL && "pointer can't be null");
@@ -121,23 +123,23 @@ void print_solution(enum num_roots n_roots, double roots[], FILE *stream)
 
     switch (n_roots) {
         case TWO_ROOTS:
-            fprintf(stream, "2 solutions: %.3e и %.3e\n", roots[0], roots[1]);
+            fprintf (stream, "2 solutions: %.3e и %.3e\n", roots[0], roots[1]);
             break;
 
         case ONE_ROOT:
-            fprintf(stream, "1 solution: %.3e\n", roots[0]);
+            fprintf (stream, "1 solution: %.3e\n", roots[0]);
             break;
 
         case ZERO_ROOTS:
-            fprintf(stream, "No solutions\n");
+            fprintf (stream, "No solutions\n");
             break;
 
         case INF_ROOTS:
-            fprintf(stream, "Infinitive number of roots\n");
+            fprintf (stream, "Infinitive number of roots\n");
             break;
 
         case ERANGE_SOLVE:
-            fprintf(stream, "Failed to solve equation: Coefficients out of range\n");
+            fprintf (stream, "Failed to solve equation: Coefficients out of range\n");
             break;
 
         default:
@@ -147,7 +149,7 @@ void print_solution(enum num_roots n_roots, double roots[], FILE *stream)
 }
 
 ///@brief Flush input stream to '\\n' symbol
-static void flush_input(FILE *stream)
+static void flush_input (FILE *stream)
 {
     assert (stream != NULL && "pointer can't be null");
     while (getc(stream) != '\n') {}
@@ -158,7 +160,7 @@ static void flush_input(FILE *stream)
  *
  * In case of a read error, returns a non-zero value corresponding to the errno value of the error
  */
-static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out_stream)
+static int read_double (double *x, const char *prompt, FILE *in_stream, FILE *out_stream)
 {
     assert (x            != NULL && "pointer can't be null");
     assert (prompt       != NULL && "pointer can't be null");
@@ -170,15 +172,15 @@ static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out
 
     while (true)
     {
-        fprintf(out_stream, "%s", prompt);
-        scanf_res = fscanf(in_stream, "%lf", x);
+        fprintf (out_stream, "%s", prompt);
+        scanf_res = fscanf (in_stream, "%lf", x);
 
         // For too large numbers or for non-numeric input, ask again
         if (errno == ERANGE || (errno == 0 && scanf_res == 0))
         {
             flush_input(in_stream); //Flush bad input
             errno = 0;
-            fprintf(out_stream, "Bad input, please enter not very big number\n");
+            fprintf (out_stream, "Bad input, please enter not very big number\n");
         }
         else break;
     }
@@ -193,7 +195,7 @@ static int read_double(double *x, const char *prompt, FILE *in_stream, FILE *out
     else                 return EIO;
 }
 
-int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream)
+int input_coeffs (int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream)
 {
     assert (in_stream  != NULL && "pointer can't be null");
     assert (out_stream != NULL && "pointer can't be null");
@@ -202,11 +204,11 @@ int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_strea
     int err = 0;
     char print_buf[32] = "";
 
-    fprintf(out_stream, "Enter equation (ax^n + ... + bx^2 + cx + d = 0) coefficients\n");
+    fprintf (out_stream, "Enter equation (ax^n + ... + bx^2 + cx + d = 0) coefficients\n");
 
     for (int i = 0; i < n_coeffs; ++i)
     {
-        sprintf(print_buf, "Coefficient at x^%d: ", n_coeffs - 1 - i);
+        sprintf (print_buf, "Coefficient at x^%d: ", n_coeffs - 1 - i);
         err = read_double (&coeffs[i], print_buf, in_stream, out_stream);
 
         if (err) return err;
@@ -215,7 +217,7 @@ int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_strea
     return 0;
 }
 
-int parse_coeffs(int n_coeffs, double coeffs[], const char **strings)
+int parse_coeffs (int n_coeffs, double coeffs[], char **strings)
 {
     assert (strings != NULL && "pointer can't be null");
     assert (coeffs  != NULL && "pointer can't be null");
@@ -224,10 +226,10 @@ int parse_coeffs(int n_coeffs, double coeffs[], const char **strings)
     {
         assert (strings[i] != NULL && "pointer can't be null");
 
-        const char *start = strings[i];
-        char **end = (char **) &strings[i];
+        char *start = strings[i];
+        char **end = &strings[i];
 
-        coeffs[i] = strtod(start, end);
+        coeffs[i] = strtod (start, end);
 
         //Nothing converted or bad input
         if (start == *end || !isfinite(coeffs[i]) || coeffs[i] == HUGE_VAL) 

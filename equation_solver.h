@@ -18,7 +18,7 @@ enum num_roots {
 /**
  * @brief Compare double to zero, taking into account floating point calculation error
  */
-static bool is_zero(double x)
+static bool is_zero (double x)
 {
     return fabs(x) < DBL_ERROR;
 }
@@ -30,7 +30,7 @@ static bool is_zero(double x)
  * @param [out] x Variable to store equation root
  * @return Number of equation roots
  */
-enum num_roots solve_lin_eq(double k, double b, double *x);
+enum num_roots solve_lin_eq (double k, double b, double *x);
 
 /**@brief Solve quadratic equation, write roots into given variables (x1&x2) and return number of solutions found or error
  *
@@ -53,10 +53,10 @@ enum num_roots solve_lin_eq(double k, double b, double *x);
  * @param [out] x2 Pointer to store equation root
  * @return Number of equation roots
  */
-enum num_roots solve_quad_eq(double a, double b, double c, double *x1, double *x2);
+enum num_roots solve_quad_eq (double a, double b, double c, double *x1, double *x2);
 
 ///@brief Print solution to stream
-void print_solution(enum num_roots n_roots, double roots[], FILE *stream);
+void print_solution (enum num_roots n_roots, double roots[], FILE *stream);
 
 /**
  * @brief Read coefficients from in_stream and write them to given variables using out_stream for asking question.
@@ -65,7 +65,7 @@ void print_solution(enum num_roots n_roots, double roots[], FILE *stream);
  *
  * In case of a read error, returns a non-zero value (errno value of the error)
  */
-int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream);
+int input_coeffs (int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream);
 
 /**
  * @brief     Parse given strings into coefficients
@@ -76,6 +76,6 @@ int input_coeffs(int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_strea
  *
  * @return     Non zero value on parsing error
  */
-int parse_coeffs(int n_coeffs, double coeffs[], const char **strings);
+int parse_coeffs (int n_coeffs, double coeffs[], char **strings);
 
 #endif //QUAD_EQUATION_SOLVER_H
