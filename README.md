@@ -21,10 +21,10 @@ Then run
 cd quad
 doxygen
 ```
+Then open docs/html/index.html in your browser
+
 ### How to run test
 ```
 cd quad
 make test
 ```
-
-Then open docs/html/index.html in your browser
