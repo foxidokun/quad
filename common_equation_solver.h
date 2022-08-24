@@ -9,7 +9,7 @@ const double DBL_ERROR = 1e-11;
 /**
  * @brief Compare double to zero, taking into account floating point calculation error
  */
-static bool is_zero (double x)
+static inline bool is_zero (double x)
 {
     return fabs(x) < DBL_ERROR;
 }

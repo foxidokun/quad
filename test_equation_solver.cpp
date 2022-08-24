@@ -272,7 +272,7 @@ int auto_test_solve_lin_eq (FILE *report_stream)
 
     for (int i = 0; i < num_test; ++i)
     {
-        k = rand_range (-100, 100);
+        k = rand_range (-100, +100);
         b = rand_range (-100, +100);
 
         switch(solve_lin_eq (k, b, &x)) {
@@ -460,7 +460,7 @@ void run_test(const char *tmp_file, const char *input_file, const char *lin_file
     {                                                                   \
         if (test)                                                       \
         {                                                               \
-            fprintf(report_stream, " ### TEST FAILED: %s\n\n", #test);    \
+            fprintf(report_stream, " ### TEST FAILED: %s\n\n", #test);  \
             failed++;                                                   \
         }                                                               \
         else                                                            \
