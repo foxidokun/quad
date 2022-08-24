@@ -10,6 +10,8 @@
 #include "test_equation_solver.h"
 #endif
 
+int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs);
+
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
@@ -41,6 +43,36 @@ int main(int argc, char *argv[])
 
     double coeffs[] = {NAN, NAN, NAN};
     double  roots[] = {NAN, NAN};
+
+    if (get_coeffs (argc, argv, 3, coeffs) != 0) return -1;
+
+    num_roots n_roots = solve_quad_eq (coeffs[0], coeffs[1], coeffs[2], &roots[0], &roots[1]);
+
+    if (n_roots == ERANGE_SOLVE)
+    {
+        printf ("Failed to solve equation: Coefficients out of range");
+        return -1;
+    }
+    else
+    {
+        print_solution (n_roots, roots, stdout);
+    }
+
+    return 0;
+}
+
+/**
+ * @brief      Get coefficients from CLI args or from interactive mode
+ *
+ * @param[in]  argc      The count of arguments
+ * @param[in]  argv      The arguments array
+ * @param[in]  n_coeffs  Number of coefficients
+ * @param[out] coeffs    Array of coefficients
+ *
+ * @return     Non zero value on error
+ */
+int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs)
+{
     int input_res   = 0;
 
     if ((argc == 2 && strcmp (argv[1],"-h") == 0) || (argc != 2 && argc != 4))
@@ -75,19 +107,6 @@ int main(int argc, char *argv[])
             printf ("Failed to parse coefficients, please use not very bin numbers\n");
             return -1;
         }
-    }
-
-
-    num_roots n_roots = solve_quad_eq (coeffs[0], coeffs[1], coeffs[2], &roots[0], &roots[1]);
-
-    if (n_roots == ERANGE_SOLVE)
-    {
-        printf ("Failed to solve equation: Coefficients out of range");
-        return -1;
-    }
-    else
-    {
-        print_solution (n_roots, roots, stdout);
     }
 
     return 0;
