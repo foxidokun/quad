@@ -10,7 +10,7 @@
 #include "test_equation_solver.h"
 #endif
 
-int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs);
+int parse_argv (int argc, char *argv[], int n_coeffs, double *coeffs);
 
 int main(int argc, char *argv[])
 {
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     double coeffs[] = {NAN, NAN, NAN};
     double  roots[] = {NAN, NAN};
 
-    if (get_coeffs (argc, argv, 3, coeffs) != 0) return -1;
+    if (parse_argv (argc, argv, 3, coeffs) != 0) return -1;
 
     num_roots n_roots = solve_quad_eq (coeffs[0], coeffs[1], coeffs[2], &roots[0], &roots[1]);
 
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
  *
  * @return     Non zero value on error
  */
-int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs)
+int parce_argv (int argc, char *argv[], int n_coeffs, double *coeffs)
 {
     int input_res = 0;
 
