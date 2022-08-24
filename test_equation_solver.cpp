@@ -166,8 +166,9 @@ int manual_test_solve_quad_eq (FILE *in_stream, FILE *report_stream)
 
 int manual_test_input_coeffs (FILE *in_stream, FILE *dev_null, FILE *report_stream)
 {
-    assert (in_stream != NULL && "pointer can't be NULL");
-    assert ( dev_null != NULL && "pointer can't be NULL");
+    assert (in_stream     != NULL && "pointer can't be NULL");
+    assert ( dev_null     != NULL && "pointer can't be NULL");
+    assert (report_stream != NULL && "pointer can't be NULL");
 
     const int num_coeffs = 3;
     double coeffs[num_coeffs] = {};

@@ -12,7 +12,7 @@ This program has 3 modes:
 1. *Interactive mode*
 
 ```bash
-$ ./bin/quad -i
+$ ./bin/quad -i # aka "make run"
 Enter equation (ax^n + ... + bx^2 + cx + d = 0) coefficients
 Coefficient at x^2: 1
 Coefficient at x^1: 0
@@ -49,3 +49,4 @@ make test
 ```
 
 `make test` will run tests and generate ./bin/quad_test binary, which can also be used for testing
+If you want to write report in file, not stdout, use `-r <filename>` option
