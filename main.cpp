@@ -22,8 +22,6 @@ int main (int argc, char *argv[])
     return test_main (argc, argv);
 #endif
 
-    printf("%d\n", __LINE__);
-
     double coeffs[NUM_COEFFS]     = {NAN, NAN, NAN};
     double  roots[NUM_COEFFS - 1] = {NAN, NAN};
 
