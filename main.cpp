@@ -12,6 +12,9 @@
 
 int parse_argv (int argc, char *argv[], int n_coeffs, double *coeffs);
 
+/// Number of coefficients in quadric equation
+static const int NUM_COEFFS = 3;
+
 int main(int argc, char *argv[])
 {
     srand((unsigned int) time(NULL));
@@ -41,10 +44,10 @@ int main(int argc, char *argv[])
 
 #endif
 
-    double coeffs[] = {NAN, NAN, NAN};
-    double  roots[] = {NAN, NAN};
+    double coeffs[NUM_COEFFS]     = {NAN, NAN, NAN};
+    double  roots[NUM_COEFFS - 1] = {NAN, NAN};
 
-    if (parse_argv (argc, argv, 3, coeffs) != 0) return -1;
+    if (parse_argv (argc, argv, NUM_COEFFS, coeffs) != 0) return -1;
 
     num_roots n_roots = solve_quad_eq (coeffs[0], coeffs[1], coeffs[2], &roots[0], &roots[1]);
 
@@ -84,7 +87,7 @@ int parse_argv (int argc, char *argv[], int n_coeffs, double *coeffs)
             "    * `quad a b c` for normal mode (solve ax^2 + bx + c = 0)\n"
             );
 
-        return 0;
+        return -1;
     }
     else if (argc == 2 && strcmp (argv[1], "-i") == 0)
     {

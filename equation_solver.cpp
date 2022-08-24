@@ -237,8 +237,6 @@ int parse_coeffs (int n_coeffs, double coeffs[], char **strings)
         {
             return -1;
         }
-
-
    }
 
    return 0;

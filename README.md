@@ -8,12 +8,31 @@ git clone --depth=1 https://git.forestfox.tk/mipt_tasks/quadratic_equation.git
 cd quad
 make
 ```
+This program has 3 modes:
+1. *Interactive mode*
 
-Then run
 ```bash
-./bin/quad -i #for interactive mode
-./bin/quad 1 0 -4 # solve 1*x^2 + 0*x - 4 =0
-./bin/quad #for help
+$ ./bin/quad -i
+Enter equation (ax^n + ... + bx^2 + cx + d = 0) coefficients
+Coefficient at x^2: 1
+Coefficient at x^1: 0
+Coefficient at x^0: -4
+2 solutions: -2.000e+00 и 2.000e+00
+```
+
+2. *Normal mode*
+```bash
+$ ./bin/quad 1 0 -4
+2 solutions: -2.000e+00 и 2.000e+00
+```
+
+3. *Help*
+```
+$ ./bin/quad -h
+Quadratic equation solver
+Usage:
+    * `quad -i` for interactive mode
+    * `quad a b c` for normal mode (solve ax^2 + bx + c = 0)
 ```
 
 ### How to generate documentration
@@ -28,3 +47,5 @@ Then open docs/html/index.html in your browser
 cd quad
 make test
 ```
+
+`make test` will run tests and generate ./bin/quad_test binary, which can also be used for testing
