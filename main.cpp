@@ -22,6 +22,8 @@ int main (int argc, char *argv[])
     return test_main (argc, argv);
 #endif
 
+    printf("%d\n", __LINE__);
+
     double coeffs[NUM_COEFFS]     = {NAN, NAN, NAN};
     double  roots[NUM_COEFFS - 1] = {NAN, NAN};
 
@@ -41,6 +43,8 @@ int main (int argc, char *argv[])
 
     return 0;
 }
+
+#ifdef TEST
 
 int test_main (int argc, char *argv[])
 {
@@ -82,6 +86,7 @@ int test_main (int argc, char *argv[])
 
     return 0;
 }
+#endif
 
 /**
  * @brief      Get coefficients from CLI args or from interactive mode

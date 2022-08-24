@@ -19,7 +19,7 @@ static const int inp_buffer_size = 128;
 /// If condition is not zero, return -1 (bypass error)
 #define UNWRAP(cond) {if (cond) return -1;}
 
-/// Print "test ok: {test_name}" to report_stream
+/// Print "Test OK: {test_name}" to report_stream
 #define REPORT_OK() { fprintf(report_stream, " ### Test OK: %s\n\n", __func__);}
 
 int test_solve_quad_eq (num_roots n_roots_ref, double a, double b, double c, double x1_ref, double x2_ref, FILE *report_stream)
