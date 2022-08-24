@@ -1,6 +1,6 @@
 ## Equation solver
 
-Solves quadric equation in real numbers
+Solves quadric equation in real numbers.
 
 ### How to build
 ```bash
@@ -26,7 +26,7 @@ $ ./bin/quad 1 0 -4
 2 solutions: -2.000e+00 и 2.000e+00
 ```
 
-3. *Help*
+3. *Help**
 ```
 $ ./bin/quad -h
 Quadratic equation solver
@@ -40,7 +40,7 @@ Usage:
 cd quad
 doxygen
 ```
-Then open docs/html/index.html in your browser
+Then open docs/html/index.html in your browser.
 
 ### How to run test
 ```
@@ -48,5 +48,4 @@ cd quad
 make test
 ```
 
-`make test` will run tests and generate ./bin/quad_test binary, which can also be used for testing
-If you want to write report to file instead of stdout, use `-r <filename>` option
+`make test` will run tests and generate ./bin/quad_test binary, which can also be used for testing. If you want to write report to file instead of stdout, use `-r <filename>` option.

@@ -11,11 +11,11 @@ static void flush_input (FILE *stream);
 
 #if defined(TEST) || defined(NDEBUG)
 
-    #define CHECK_RANGE(cond) {if (!(cond)) return ERANGE_SOLVE; }
+    #define _CHECK_RANGE(cond) {if (!(cond)) return ERANGE_SOLVE; }
 
 #else
     
-    #define CHECK_RANGE(cond)                                                        \
+    #define _CHECK_RANGE(cond)                                                        \
     {                                                                                \
         if (!(cond))                                                                 \
         {                                                                            \
@@ -47,9 +47,9 @@ num_roots solve_quad_eq (double a, double b, double c, double *x1, double *x2)
     }
     else
     {
-        CHECK_RANGE (!(fabs (b) > sqrt (DBL_MAX)));
-        CHECK_RANGE (!(!is_zero (c) && fabs (a) > (DBL_MAX / fabs(c) / 4)));
-        CHECK_RANGE (!(b*b > (DBL_MAX - 4*a*c)));
+        _CHECK_RANGE (!(fabs (b) > sqrt (DBL_MAX)));
+        _CHECK_RANGE (!(!is_zero (c) && fabs (a) > (DBL_MAX / fabs(c) / 4)));
+        _CHECK_RANGE (!(b*b > (DBL_MAX - 4*a*c)));
 
         double disc = b*b - 4*a*c;
 
@@ -103,7 +103,7 @@ enum num_roots solve_lin_eq (double k, double b, double *x)
     }
     else 
     {
-        CHECK_RANGE (fabs(b) < DBL_MAX*fabs(k));
+        _CHECK_RANGE (fabs(b) < DBL_MAX*fabs(k));
 
         *x = -b / k;
         return ONE_ROOT;
@@ -241,3 +241,5 @@ int parse_coeffs (int n_coeffs, double coeffs[], char **strings)
 
    return 0;
 }
+
+#undef _CHECK_RANGE

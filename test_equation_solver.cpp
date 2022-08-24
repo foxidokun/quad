@@ -17,10 +17,10 @@ static int    is_equal_set (double x1, double x2, double y1, double y2);
 static const int inp_buffer_size = 128;
 
 /// If condition is not zero, return -1 (bypass error)
-#define UNWRAP(cond) {if (cond) return -1;}
+#define _UNWRAP(cond) {if (cond) return -1;}
 
 /// Print "Test OK: {test_name}" to report_stream
-#define REPORT_OK() { fprintf(report_stream, " ### Test OK: %s\n\n", __func__);}
+#define _REPORT_OK() { fprintf(report_stream, " ### Test OK: %s\n\n", __func__);}
 
 int test_solve_quad_eq (num_roots n_roots_ref, double a, double b, double c, double x1_ref, double x2_ref, FILE *report_stream)
 {
@@ -133,10 +133,10 @@ int manual_test_solve_lin_eq (FILE *in_stream, FILE *report_stream)
 
         sscanf (buffer, "%lg %lg %d %lg", &k, &b, &n_roots, &x);
 
-        UNWRAP (test_solve_lin_eq ( (num_roots) n_roots, k, b, x, report_stream));
+        _UNWRAP (test_solve_lin_eq ( (num_roots) n_roots, k, b, x, report_stream));
     }
 
-    REPORT_OK();
+    _REPORT_OK();
     return 0;
 }
 
@@ -149,7 +149,7 @@ int manual_test_solve_quad_eq (FILE *in_stream, FILE *report_stream)
     int n_roots = 0;
     char buffer[inp_buffer_size] = "";
 
-    UNWRAP (test_solve_quad_eq (ERANGE_SOLVE, -DBL_MAX / 15.5, sqrt(DBL_MAX / 2), DBL_MAX / 15.5, 0, 0, report_stream));
+    _UNWRAP (test_solve_quad_eq (ERANGE_SOLVE, -DBL_MAX / 15.5, sqrt(DBL_MAX / 2), DBL_MAX / 15.5, 0, 0, report_stream));
 
     while (fgets (buffer, inp_buffer_size, in_stream) != NULL)
     {
@@ -157,10 +157,10 @@ int manual_test_solve_quad_eq (FILE *in_stream, FILE *report_stream)
 
         sscanf (buffer, "%lg %lg %lg %d %lg %lg", &a, &b, &c, &n_roots, &x1, &x2);
 
-        UNWRAP (test_solve_quad_eq ((num_roots) n_roots, a, b, c, x1, x2, report_stream));
+        _UNWRAP (test_solve_quad_eq ((num_roots) n_roots, a, b, c, x1, x2, report_stream));
     }
 
-    REPORT_OK();
+    _REPORT_OK();
     return 0;
 }
 
@@ -192,7 +192,7 @@ int manual_test_input_coeffs (FILE *in_stream, FILE *dev_null, FILE *report_stre
         }
     }
 
-    REPORT_OK();
+    _REPORT_OK();
     return 0;
 }
 
@@ -236,7 +236,7 @@ int manual_test_output_format (const char *tmp_file, FILE *ref_stream, FILE *rep
     }
 
     fclose (read_stream);
-    REPORT_OK();
+    _REPORT_OK();
     return 0;
 }
 
@@ -277,7 +277,7 @@ int auto_test_solve_lin_eq (FILE *report_stream)
 
         switch(solve_lin_eq (k, b, &x)) {
             case ONE_ROOT:
-                UNWRAP (check_solve_lin_eq (k, b, x, report_stream));
+                _UNWRAP (check_solve_lin_eq (k, b, x, report_stream));
                 break;
 
             case ZERO_ROOTS:
@@ -285,7 +285,7 @@ int auto_test_solve_lin_eq (FILE *report_stream)
 
             case INF_ROOTS:
                 x = rand_range (-100, +100);
-                UNWRAP (check_solve_lin_eq (k, b, x, report_stream));
+                _UNWRAP (check_solve_lin_eq (k, b, x, report_stream));
                 break;
 
             case ERANGE_SOLVE:
@@ -301,7 +301,7 @@ int auto_test_solve_lin_eq (FILE *report_stream)
         }
     }
 
-    REPORT_OK();
+    _REPORT_OK();
     return 0;
 }
 
@@ -312,7 +312,6 @@ int check_solve_quad_eq (double a, double b, double c, double x, FILE *report_st
     assert (isfinite(c) && "parameter must be finite");
     assert (isfinite(x) && "parameter must be finite");
     assert (report_stream != NULL && "pointer can't be NULL");
-
 
     if (!is_zero (a*x*x + b*x + c))
     {
@@ -346,17 +345,17 @@ int auto_test_solve_quad_eq (FILE *report_stream)
         switch (solve_quad_eq (a, b, c, &x1, &x2))
         {
             case TWO_ROOTS:
-                UNWRAP (check_solve_quad_eq (a, b, c, x2, report_stream));
+                _UNWRAP (check_solve_quad_eq (a, b, c, x2, report_stream));
                 [[fallthrough]];
                 // And then we check x1 along with the ONE_ROOT branch
 
             case ONE_ROOT:
-                UNWRAP (check_solve_quad_eq (a, b, c, x1, report_stream));
+                _UNWRAP (check_solve_quad_eq (a, b, c, x1, report_stream));
                 break;
        
             case INF_ROOTS:
                 x1 = rand_range (-100, +100);
-                UNWRAP (check_solve_quad_eq (a, b, c, x1, report_stream));
+                _UNWRAP (check_solve_quad_eq (a, b, c, x1, report_stream));
                 break;
        
             case ZERO_ROOTS:
@@ -371,7 +370,7 @@ int auto_test_solve_quad_eq (FILE *report_stream)
         }
     }
 
-    REPORT_OK();
+    _REPORT_OK();
     return 0;
 }
 
@@ -389,7 +388,7 @@ int auto_test_input_coeffs (const char *tmp_file, FILE *dev_null, FILE *report_s
     double inp_coeffs[num_coeffs] = {}; // Values from input_coeffs
     double ref_coeffs[num_coeffs] = {}; // Reference values
 
-    for (int i = 0; i < num_test; ++i)
+    for (int n = 0; n < num_test; ++n)
     {
         for (int j = 0; j < num_coeffs; ++j)
         {
@@ -430,7 +429,7 @@ int auto_test_input_coeffs (const char *tmp_file, FILE *dev_null, FILE *report_s
     fclose (read_s);
     fclose (write_s);
 
-    REPORT_OK();
+    _REPORT_OK();
     return 0;
 }
 
@@ -517,3 +516,6 @@ static int is_equal_set (double x1, double x2, double y1, double y2)
     return  (is_equal (x1, y1) && is_equal (x2, y2)) ||
             (is_equal (x1, y2) && is_equal (x2, y1));
 }
+
+#undef _UNWRAP
+#undef _REPORT_OK
