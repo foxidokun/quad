@@ -14,7 +14,7 @@ int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs);
 
 int main(int argc, char *argv[])
 {
-    srand(time(NULL));
+    srand((unsigned int) time(NULL));
 
 #ifdef TEST
 
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
  */
 int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs)
 {
-    int input_res   = 0;
+    int input_res = 0;
 
     if ((argc == 2 && strcmp (argv[1],"-h") == 0) || (argc != 2 && argc != n_coeffs + 1))
     {

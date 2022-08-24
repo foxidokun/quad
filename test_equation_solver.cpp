@@ -13,6 +13,7 @@ static double rand_range   (double min, double max);
 static int    is_equal     (double x, double y);
 static int    is_equal_set (double x1, double x2, double y1, double y2);
 
+///Max line length in test
 static const int buffer_size = 128;
 
 void test_solve_quad_eq (num_roots n_roots_ref, double a, double b, double c, double x1_ref, double x2_ref)

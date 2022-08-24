@@ -34,4 +34,4 @@ $(BINDIR):
 	mkdir $(BINDIR)
 
 $(ODIR)/%.o: %.cpp $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	g++ -c -o $@ $< $(CFLAGS)
