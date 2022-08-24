@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cerrno>
 #include <cassert>
+#include "common_equation_solver.h"
 #include "equation_solver.h"
 
 static int  read_double (double *x, const char *prompt, FILE *in_stream, FILE *out_stream);
@@ -114,7 +115,7 @@ void print_solution (enum num_roots n_roots, double roots[], FILE *stream)
     assert (stream != NULL && "pointer can't be null");
     assert (roots  != NULL && "pointer can't be null");
 
-    for (int i = n_roots-1; i >= 0; --i)
+    for (int i = n_roots - 1; i >= 0; --i)
     {
         assert (isfinite(roots[i]) && "parameter must be finite");
 
@@ -232,7 +233,7 @@ int parse_coeffs (int n_coeffs, double coeffs[], char **strings)
         coeffs[i] = strtod (start, end);
 
         //Nothing converted or bad input
-        if (start == *end || !isfinite(coeffs[i]) || coeffs[i] == HUGE_VAL) 
+        if (start == *end || !isfinite(coeffs[i])) 
         {
             return -1;
         }

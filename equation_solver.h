@@ -1,9 +1,5 @@
 #ifndef QUAD_EQUATION_SOLVER_H
 #define QUAD_EQUATION_SOLVER_H
-#include<math.h>
-
-///@brief Floating point calculations accuracy
-const double DBL_ERROR = 1e-11;
 
 ///@brief Number of equation roots
 enum num_roots {
@@ -14,14 +10,6 @@ enum num_roots {
     /// Coefficient out of range
     ERANGE_SOLVE = -2
 };
-
-/**
- * @brief Compare double to zero, taking into account floating point calculation error
- */
-static bool is_zero (double x)
-{
-    return fabs(x) < DBL_ERROR;
-}
 
 /**@brief Solve linear equation, write root into given variable (x) and return number of solutions found
  *

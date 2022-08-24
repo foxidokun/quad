@@ -6,12 +6,14 @@
 #include <errno.h>
 #include <strings.h>
 #include "equation_solver.h"
+#include "common_equation_solver.h"
 #include "test_equation_solver.h"
 
 static double rand_range   (double min, double max);
 static int    is_equal     (double x, double y);
 static int    is_equal_set (double x1, double x2, double y1, double y2);
 
+static const int buffer_size = 128;
 
 void test_solve_quad_eq (num_roots n_roots_ref, double a, double b, double c, double x1_ref, double x2_ref)
 {
@@ -103,7 +105,6 @@ void manual_test_solve_lin_eq (FILE *in_stream)
 
     double k = NAN, b = NAN, x = NAN;
     int n_roots = 0;
-    const int buffer_size = 1024;
     char buffer[buffer_size] = "";
 
     while (fgets (buffer, buffer_size, in_stream) != NULL)
@@ -122,7 +123,6 @@ void manual_test_solve_quad_eq (FILE *in_stream)
 
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
     int n_roots = 0;
-    const int buffer_size = 1024;
     char buffer[buffer_size] = "";
 
     test_solve_quad_eq (ERANGE_SOLVE, -DBL_MAX / 15.5, sqrt(DBL_MAX / 2), DBL_MAX / 15.5, 0, 0);

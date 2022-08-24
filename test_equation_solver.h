@@ -4,13 +4,14 @@
 /**
  * @brief Run all tests
  * @param tmp_file          Temporary file (rw)
- * @param input_file        File with sample input (w)
+ * @param input_file        File with sample input (r)
  * @param lin_file          File with tests for solve_lin_eq
  * @param quad_file         File with test for solve_quad_eq
- * @param output_ref_file   File with sample output (r)
+ * @param output_ref_file   File with sample output (w)
  * @param dev_null          /dev/null or analog
  */
-void run_test (const char *tmp_file, const char *lin_file, const char *quad_file, const char *input_file, const char *output_ref_file, const char *dev_null);
+void run_test (const char *tmp_file, const char *lin_file, const char *quad_file, 
+               const char *input_file, const char *output_ref_file, const char *dev_null);
 
 /**
  * @brief      Test solve_lin_eq
