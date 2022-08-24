@@ -49,4 +49,4 @@ make test
 ```
 
 `make test` will run tests and generate ./bin/quad_test binary, which can also be used for testing
-If you want to write report in file, not stdout, use `-r <filename>` option
+If you want to write report to file instead of stdout, use `-r <filename>` option
