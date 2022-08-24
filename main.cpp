@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
  *
  * @return     Non zero value on error
  */
-int parce_argv (int argc, char *argv[], int n_coeffs, double *coeffs)
+int parse_argv (int argc, char *argv[], int n_coeffs, double *coeffs)
 {
     int input_res = 0;
 
