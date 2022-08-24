@@ -38,7 +38,7 @@ int manual_test_solve_lin_eq  (FILE *in_stream, FILE *report_stream);
  */
 int manual_test_solve_quad_eq (FILE *in_stream, FILE *report_stream);
 
-///@param input_file File with sample input
+///@param in_stream Stream with sample input
 ///@param dev_null /dev/null stream
 ///@param  report_stream  The stream to write report to
 ///
@@ -47,7 +47,7 @@ int manual_test_solve_quad_eq (FILE *in_stream, FILE *report_stream);
 int manual_test_input_coeffs (FILE *in_stream, FILE *dev_null, FILE *report_stream);
 
 /** @param tmp_file Temporary file
- * @param output_ref_file File with sample output
+ * @param  ref_stream Stream with sample output
  * @param  report_stream  The stream to write report to
  * 
  * @return Non-zero value if test failed
