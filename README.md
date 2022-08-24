@@ -4,7 +4,7 @@ Solves quadric equation in real numbers
 
 ### How to build
 ```bash
-git clone --depth=1 https://git.forestfox.tk/mipt_tasks/quad.git
+git clone --depth=1 https://git.forestfox.tk/mipt_tasks/quadratic_equation.git
 cd quad
 make
 ```
