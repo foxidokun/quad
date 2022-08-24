@@ -11,37 +11,15 @@
 #endif
 
 int parse_argv (int argc, char *argv[], int n_coeffs, double *coeffs);
+int test_main  (int argc, char *argv[]);
 
 /// Number of coefficients in quadric equation
 static const int NUM_COEFFS = 3;
 
-int main(int argc, char *argv[])
+int main (int argc, char *argv[])
 {
-    srand((unsigned int) time(NULL));
-
 #ifdef TEST
-
-    if      (argc == 6) run_test(  argv[1],     argv[2],   argv[3],    argv[4],      argv[5], "/dev/null");
-    else if (argc == 7) run_test(  argv[1],     argv[2],   argv[3],    argv[4],      argv[5],     argv[6]);
-    else if (argc == 1) run_test("tmp.txt", "input.txt", "lin.txt", "quad.txt", "output.txt", "/dev/null");
-    else 
-    {
-        printf
-            (
-            "Testing quadratic solver\n"
-            "Usage: quad [tmp_file linear_test_file quadratic_test_file input_test_file output_test_file [dev_null_file]]\n"
-            "Defaults: \n"
-            "   tmp_file            =    tmp.txt\n"
-            "   linear_test_file    =    lin.txt\n"
-            "     quad_test_file    =   quad.txt\n"
-            "    input_test_file    =  input.txt\n"
-            "   output_test_file    = output.txt\n"
-            "      dev_null_file    =  /dev/null\n"
-            );
-    }
-
-    return 0;
-
+    return test_main (argc, argv);
 #endif
 
     double coeffs[NUM_COEFFS]     = {NAN, NAN, NAN};
@@ -59,6 +37,47 @@ int main(int argc, char *argv[])
     else
     {
         print_solution (n_roots, roots, stdout);
+    }
+
+    return 0;
+}
+
+int test_main (int argc, char *argv[])
+{
+    assert (argv != NULL && "pointer can't be NULL");
+
+    int offset = 0;
+    char *report_file = NULL;
+
+    srand((unsigned int) time(NULL));
+
+    if (argc >= 3 && strcmp (argv[1], "-r") == 0)
+    {
+        report_file = argv[2];
+        offset = 2;
+    }
+
+    if      (argc == offset + 6) run_test(  argv[offset+1],     argv[offset+2],   argv[offset+3],
+                                            argv[offset+4],     argv[offset+5],   "/dev/null"   , report_file);
+
+    else if (argc == offset + 7) run_test(  argv[offset+1],     argv[offset+2],   argv[offset+3],
+                                            argv[offset+4],     argv[offset+5],   argv[offset+6], report_file);
+    else if (argc == offset + 1) run_test("tmp.txt", "input.txt", "lin.txt", "quad.txt", "output.txt", "/dev/null", report_file);
+    else 
+    {
+        printf
+            (
+            "Testing quadratic solver\n"
+            "Usage: quad [-r report_file] [tmp_file linear_test_file quadratic_test_file input_test_file output_test_file [dev_null_file]]\n"
+            "Defaults: \n"
+            "        report_file    =     stdout\n"
+            "           tmp_file    =    tmp.txt\n"
+            "   linear_test_file    =    lin.txt\n"
+            "     quad_test_file    =   quad.txt\n"
+            "    input_test_file    =  input.txt\n"
+            "   output_test_file    = output.txt\n"
+            "      dev_null_file    =  /dev/null\n"
+            );
     }
 
     return 0;
