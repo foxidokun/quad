@@ -15,6 +15,12 @@ static int    is_equal_set (double x1, double x2, double y1, double y2);
 
 void test_solve_quad_eq (num_roots n_roots_ref, double a, double b, double c, double x1_ref, double x2_ref)
 {
+    assert (isfinite(a)      && "parameter must be finite");
+    assert (isfinite(b)      && "parameter must be finite");
+    assert (isfinite(c)      && "parameter must be finite");
+    assert (isfinite(x1_ref) && "parameter must be finite");
+    assert (isfinite(x2_ref) && "parameter must be finite");
+
     double x1_out = NAN, x2_out = NAN;
 
     num_roots n_roots = solve_quad_eq (a, b, c, &x1_out, &x2_out);
@@ -63,6 +69,10 @@ void test_solve_quad_eq (num_roots n_roots_ref, double a, double b, double c, do
 
 void test_solve_lin_eq (num_roots n_roots_ref, double k, double b, double x_ref)
 {
+    assert (isfinite(k)     && "parameter must be finite");
+    assert (isfinite(b)     && "parameter must be finite");
+    assert (isfinite(x_ref) && "parameter must be finite");
+
     double x_out = NAN;
 
     num_roots n_roots = solve_lin_eq (k, b, &x_out);
@@ -89,6 +99,8 @@ void test_solve_lin_eq (num_roots n_roots_ref, double k, double b, double x_ref)
 
 void manual_test_solve_lin_eq (FILE *in_stream)
 {
+    assert (in_stream != NULL && "pointer can't be NULL");
+
     double k = NAN, b = NAN, x = NAN;
     int n_roots = 0;
     const int buffer_size = 1024;
@@ -106,6 +118,8 @@ void manual_test_solve_lin_eq (FILE *in_stream)
 
 void manual_test_solve_quad_eq (FILE *in_stream)
 {
+    assert (in_stream != NULL && "pointer can't be NULL");
+
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
     int n_roots = 0;
     const int buffer_size = 1024;
@@ -126,6 +140,9 @@ void manual_test_solve_quad_eq (FILE *in_stream)
 
 void manual_test_input_coeffs (FILE *in_stream, FILE *dev_null)
 {
+    assert (in_stream != NULL && "pointer can't be NULL");
+    assert ( dev_null != NULL && "pointer can't be NULL");
+
     const int num_coeffs = 3;
     double coeffs[num_coeffs] = {};
 
@@ -151,6 +168,9 @@ void manual_test_input_coeffs (FILE *in_stream, FILE *dev_null)
 
 void manual_test_output_format (const char *tmp_file, FILE *ref_stream)
 {
+    assert (tmp_file != NULL   && "pointer can't be NULL");
+    assert (ref_stream != NULL && "pointer can't be NULL");
+
     FILE *write_stream = fopen (tmp_file, "w");
     double ref_roots[] = {228, 282};
 
@@ -188,6 +208,10 @@ void manual_test_output_format (const char *tmp_file, FILE *ref_stream)
 
 void check_solve_lin_eq (double k, double b, double x)
 {
+    assert (isfinite(k) && "parameter must be finite");
+    assert (isfinite(b) && "parameter must be finite");
+    assert (isfinite(x) && "parameter must be finite");
+
     if (!is_zero (k*x + b))
     {
         fprintf (stderr, "## Test Error: Wrong answer##\n");
@@ -239,6 +263,12 @@ void auto_test_solve_lin_eq ()
 
 void check_solve_quad_eq (double a, double b, double c, double x)
 {
+    assert (isfinite(a) && "parameter must be finite");
+    assert (isfinite(b) && "parameter must be finite");
+    assert (isfinite(c) && "parameter must be finite");
+    assert (isfinite(x) && "parameter must be finite");
+
+
     if (!is_zero (a*x*x + b*x + c))
     {
         fprintf (stderr, "## Test Error: Wrong answer##\n");
@@ -293,6 +323,9 @@ void auto_test_solve_quad_eq ()
 
 void auto_test_input_coeffs (const char *tmp_file, FILE *dev_null)
 {
+    assert (tmp_file != NULL && "pointer can't be null");
+    assert (dev_null != NULL && "pointer can't be null");
+
     FILE *read_s  = fopen (tmp_file, "r");
     FILE *write_s = fopen (tmp_file, "w");
 
@@ -339,8 +372,15 @@ void auto_test_input_coeffs (const char *tmp_file, FILE *dev_null)
     fclose (write_s);
 }
 
-void run_test(const char *tmp_file, const char *input_file, const char *lin_file, const char *quad_file,  const char *output_ref_file, const char *dev_null)
+void run_test(const char *tmp_file,   const char *input_file,      const char *lin_file,
+              const char *quad_file,  const char *output_ref_file, const char *dev_null)
 {
+    assert (tmp_file        != NULL && "pointer can't be null");
+    assert (input_file      != NULL && "pointer can't be null");
+    assert (quad_file       != NULL && "pointer can't be null");
+    assert (output_ref_file != NULL && "pointer can't be null");
+    assert (dev_null        != NULL && "pointer can't be null");
+
     FILE *in_stream       = fopen (input_file,      "r");
     FILE *quad_stream     = fopen (quad_file,       "r");
     FILE *lin_stream      = fopen (lin_file,        "r");

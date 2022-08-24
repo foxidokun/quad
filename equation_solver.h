@@ -63,7 +63,7 @@ void print_solution (enum num_roots n_roots, double roots[], FILE *stream);
  * 
  * @note Order in coeffs: from biggest exponent (zero index) to lowest exponent (n_coeffs-1 index)
  *
- * In case of a read error, returns a non-zero value (errno value of the error)
+ * @return In case of a read error, returns a non-zero value (errno value of the error)
  */
 int input_coeffs (int n_coeffs, double coeffs[], FILE *in_stream, FILE *out_stream);
 

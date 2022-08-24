@@ -75,7 +75,7 @@ int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs)
 {
     int input_res   = 0;
 
-    if ((argc == 2 && strcmp (argv[1],"-h") == 0) || (argc != 2 && argc != 4))
+    if ((argc == 2 && strcmp (argv[1],"-h") == 0) || (argc != 2 && argc != n_coeffs+1))
     {
         printf (
             "Quadratic equation solver\n"                                       
@@ -88,7 +88,7 @@ int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs)
     }
     else if (argc == 2 && strcmp (argv[1], "-i") == 0)
     {
-        input_res = input_coeffs (3, coeffs, stdin, stdout);
+        input_res = input_coeffs (n_coeffs, coeffs, stdin, stdout);
     
         if (input_res != 0)
         {
@@ -98,9 +98,9 @@ int get_coeffs (int argc, char *argv[], int n_coeffs, double *coeffs)
     }
     else // argc == 4
     {
-        assert (argc == 4 && "Error in logic: unexpected argc value");
+        assert (argc == n_coeffs+1 && "Error in logic: unexpected argc value");
 
-        input_res = parse_coeffs (3, coeffs, &argv[1]);
+        input_res = parse_coeffs (n_coeffs, coeffs, &argv[1]);
 
         if (input_res != 0)
         {
