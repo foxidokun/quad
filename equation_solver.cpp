@@ -11,7 +11,7 @@ static void flush_input (FILE *stream);
 
 #if defined(TEST) || defined(NDEBUG)
 
-    #define _CHECK_RANGE(cond) {if (!(cond)) return ERANGE_SOLVE; }
+    #define _CHECK_RANGE(cond) { if (!(cond)) return ERANGE_SOLVE; }
 
 #else
     

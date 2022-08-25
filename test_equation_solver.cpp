@@ -17,7 +17,7 @@ static int    is_equal_set (double x1, double x2, double y1, double y2);
 static const int inp_buffer_size = 128;
 
 /// If condition is not zero, return -1 (bypass error)
-#define _UNWRAP(cond) {if (cond) return -1;}
+#define _UNWRAP(cond) { if (cond) return -1; }
 
 /// Print "Test OK: {test_name}" to report_stream
 #define _REPORT_OK() { fprintf(report_stream, " ### Test OK: %s\n\n", __func__);}
@@ -459,7 +459,7 @@ void run_test(const char *tmp_file, const char *input_file, const char *lin_file
     {                                                                   \
         if (test)                                                       \
         {                                                               \
-            fprintf(report_stream, " ### TEST FAILED: %s\n\n", #test);  \
+            fprintf (report_stream, " ### TEST FAILED: %s\n\n", #test);  \
             failed++;                                                   \
         }                                                               \
         else                                                            \
@@ -468,12 +468,12 @@ void run_test(const char *tmp_file, const char *input_file, const char *lin_file
         }                                                               \
     }                   
 
-    fprintf(report_stream, "=== === Tests running... === ===\n");
+    fprintf (report_stream, "=== === Tests running... === ===\n");
 
     _LOG_TEST (manual_test_solve_lin_eq  (lin_stream,  report_stream));
     _LOG_TEST (manual_test_solve_quad_eq (quad_stream, report_stream));
 
-    fseek(in_stream, 0, SEEK_SET);
+    fseek (in_stream, 0, SEEK_SET);
 
     _LOG_TEST (manual_test_input_coeffs  (in_stream, dev_null_stream, report_stream));
     _LOG_TEST (manual_test_output_format (tmp_file, ref_stream, report_stream));
@@ -482,8 +482,8 @@ void run_test(const char *tmp_file, const char *input_file, const char *lin_file
     _LOG_TEST (auto_test_solve_quad_eq (report_stream));
     _LOG_TEST (auto_test_input_coeffs  (tmp_file, dev_null_stream, report_stream));
 
-    fprintf(report_stream, "\n==========================================\n");
-    fprintf(report_stream, "Tests: All: %u Failed: %u Passed: %u Success ratio: %3.1f%%\n",
+    fprintf (report_stream, "\n==========================================\n");
+    fprintf (report_stream, "Tests: All: %u Failed: %u Passed: %u Success ratio: %3.1f%%\n",
             success+failed, failed, success, success * 100.0 / (failed + success));
 
     #undef _LOG_TEST
